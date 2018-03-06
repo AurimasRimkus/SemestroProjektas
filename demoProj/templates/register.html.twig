@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %}
+<link href="{{ asset('assets/css/index.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+<div id = "menu">
+<h1>Car34 - Register</h1> 
+<form action = "register.php" method = "post">
+Username
+<input type = "text" name = "user"><br /><br />
+E-mail
+<input type = "email" name = "email"><br /><br />
+Password
+<input type = "password" name = "pass"><br /><br />
+Repeat password
+<input type = "password" name = "repeatPass"><br /><br />
+I am a: 
+<input type="radio" name="role" value="client">Client
+<input type="radio" name="role" value="owner">Garage owner<br /><br />
+
+I accept the <a href = "{{ path('tos') }}">Terms Of Service</a> <input type = "checkbox" name = "tos"> <br /> <br />
+
+
+<input type = "submit" value = "Register"><br /><br />
+<a href = "{{ path('login') }}">Already have an account? Login</a>
+</div>
+{% endblock %}

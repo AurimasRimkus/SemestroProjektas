@@ -6,18 +6,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class RegistrationController extends AbstractController
+class TermsOfServiceController extends AbstractController
 {
     public function index()
     {
         return new Response(
-            'Registracijos puslapis'
+            'TOS puslapis'
         );
     }
 
     public function show()
     {
-        return $this->render('register.html.twig', [
+        return $this->render('TOS.html.twig', [
 
         ]);
     }
