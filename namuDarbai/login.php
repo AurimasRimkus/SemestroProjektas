@@ -20,13 +20,21 @@ if($_POST['username'] === $existingStudent->username &&
     $existingStudent->checkPassword($_POST['pass'])) {
     $_SESSION['username'] = $_POST['username'];
     header("Location: index.php");
-}else{?>
-    Bad credentials (TODO: check if there is no such username,
-    or if the password was wrong)
+}elseif(!($_POST['username'] === $existingStudent->username)){
+    ?>
+    There is no such username!
     <br /><br />
     <form action="index.php">
         <button>Try again</button>
     </form>
 <?php
+}else{
+?>
+    Password is incorrect!
+    <br /><br />
+    <form action="index.php">
+        <button>Try again</button>
+    </form>
+    <?php
 }
 ?>
