@@ -3,7 +3,7 @@
     <?php
     session_start();
     if(isset($_SESSION['username'])) {
-        echo "<title>Prisijungta</title>";
+        echo "<title>Logged in</title>";
     }else {
         echo "<title>Login form</title>";
     }
@@ -12,7 +12,7 @@
 <body>
 <?php
 if(isset($_SESSION['username'])){
-    echo "Jus esate prisijunges, " . $_SESSION['username'];
+    echo "You are logged in, " . $_SESSION['username'];
     ?>
     <br /><br />
     <form action="logout.php">
