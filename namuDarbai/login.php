@@ -2,6 +2,7 @@
 include "Models/Student.php";
 
 use Models\Student;
+session_start();
 
 //Instead of using a database, we're creating a demo account.
 //In a real-life application a database would be used which would select
@@ -11,9 +12,16 @@ $existingStudent->username = 'Dievas';
 $existingStudent->setPassword('Aurimas');
 
 if($_POST['username'] === $existingStudent->username &&
-    $existingStudent->checkPassword($_POST['pass'])){
-    echo "Sveikas prisijunges, " . $existingStudent->username;
-}else{
+    $existingStudent->checkPassword($_POST['pass'])) {
+    $_SESSION['username'] = $_POST['username'];
+    header("Location: index.php");
+}else{?>
     echo "Bad credentials (TODO: check if there is no such username,
-     or if the password was wrong <br /> ";
+     or if the password was wrong"; <br />
+    <br>
+<form action="index.php">
+    <button>Try again</button>
+</form>
+<?php
 }
+?>
