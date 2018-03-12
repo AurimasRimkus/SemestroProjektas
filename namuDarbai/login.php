@@ -3,7 +3,6 @@ include "Models/Student.php";
 
 use Models\Student;
 
-
 $password = $_POST['pass'];
 
 $newStudent = new Student();
