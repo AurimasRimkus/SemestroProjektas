@@ -14,7 +14,7 @@
 if(isset($_SESSION['username'])){
     echo "Jus esate prisijunges, " . $_SESSION['username'];
     ?>
-    <br><br>
+    <br /><br />
     <form action="logout.php">
         <button>Logout</button>
     </form>

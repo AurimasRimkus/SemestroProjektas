@@ -16,12 +16,12 @@ if($_POST['username'] === $existingStudent->username &&
     $_SESSION['username'] = $_POST['username'];
     header("Location: index.php");
 }else{?>
-    echo "Bad credentials (TODO: check if there is no such username,
-     or if the password was wrong"; <br />
-    <br>
-<form action="index.php">
-    <button>Try again</button>
-</form>
+    Bad credentials (TODO: check if there is no such username,
+    or if the password was wrong)
+    <br /><br />
+    <form action="index.php">
+        <button>Try again</button>
+    </form>
 <?php
 }
 ?>
