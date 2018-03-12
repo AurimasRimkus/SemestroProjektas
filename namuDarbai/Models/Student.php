@@ -11,7 +11,14 @@ class Student
     /**
      * @var string
      */
-    public $password;
+    private $hashedPassword;
 
+    public function setPassword($newPassword){
+        $this->hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
+    }
+
+    public function checkPassword($password){
+        return password_verify($password, $this->hashedPassword);
+    }
 
 }
