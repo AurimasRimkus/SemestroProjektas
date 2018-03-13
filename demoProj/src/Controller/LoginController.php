@@ -11,7 +11,7 @@ class LoginController extends AbstractController
     public function index()
     {
         return new Response(
-            'Prisijungimo puslapis'
+            'Login page'
         );
     }
 

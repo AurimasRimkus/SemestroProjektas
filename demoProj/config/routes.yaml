@@ -21,3 +21,7 @@ faq:
 remindPassword:
     path: /remindPassword
     controller: App\Controller\RemindPasswordController::show
+
+changePassword:
+    path: /changePassword
+    controller: App\Controller\ChangePasswordController::show

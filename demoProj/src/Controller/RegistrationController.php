@@ -11,7 +11,7 @@ class RegistrationController extends AbstractController
     public function index()
     {
         return new Response(
-            'Registracijos puslapis'
+            'Registration page'
         );
     }
 

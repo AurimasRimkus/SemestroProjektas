@@ -6,18 +6,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
 
-class FrequentlyAskedQuestionsController extends AbstractController
+class ChangePasswordController extends AbstractController
 {
     public function index()
     {
         return new Response(
-            'FAQ page'
+            'Change password'
         );
     }
 
     public function show()
     {
-        return $this->render('FAQ.html.twig', [
+        return $this->render('changePassword.html.twig', [
 
         ]);
     }

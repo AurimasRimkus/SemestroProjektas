@@ -11,7 +11,7 @@ class TermsOfServiceController extends AbstractController
     public function index()
     {
         return new Response(
-            'TOS puslapis'
+            'TOS page'
         );
     }
 
