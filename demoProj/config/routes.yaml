@@ -2,26 +2,3 @@ index:
     path: /
     defaults: { _controller: 'App\Controller\DefaultController::show' }
 
-register:
-    path: /register
-    controller: App\Controller\RegistrationController::show
-
-login:
-    path: /login
-    controller: App\Controller\LoginController::show
-
-tos:
-    path: /tos
-    controller: App\Controller\TermsOfServiceController::show
-
-faq:
-    path: /faq
-    controller: App\Controller\FrequentlyAskedQuestionsController::show
-
-remindPassword:
-    path: /remindPassword
-    controller: App\Controller\RemindPasswordController::show
-
-changePassword:
-    path: /changePassword
-    controller: App\Controller\ChangePasswordController::show
