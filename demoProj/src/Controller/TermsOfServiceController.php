@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 
 class TermsOfServiceController extends AbstractController
@@ -15,6 +16,9 @@ class TermsOfServiceController extends AbstractController
         );
     }
 
+    /**
+     * @Route("/tos", name="tos")
+     */
     public function show()
     {
         return $this->render('TOS.html.twig', [

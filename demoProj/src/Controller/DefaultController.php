@@ -11,7 +11,7 @@ class DefaultController extends AbstractController
     public function index()
     {
         return new Response(
-            'Pagrindinis puslapis'
+            'Main page'
         );
     }
 

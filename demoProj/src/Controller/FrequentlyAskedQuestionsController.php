@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 
 class FrequentlyAskedQuestionsController extends AbstractController
@@ -15,6 +16,9 @@ class FrequentlyAskedQuestionsController extends AbstractController
         );
     }
 
+    /**
+     * @Route("/faq", name="faq")
+     */
     public function show()
     {
         return $this->render('FAQ.html.twig', [
