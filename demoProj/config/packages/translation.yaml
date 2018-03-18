@@ -1,7 +1,8 @@
 framework:
-    default_locale: '%locale%'
-    translator:
-        paths:
-            - '%kernel.project_dir%/translations'
-        fallbacks:
-            - '%locale%'
+    default_locale: 'en'
+    translator: false
+
+       # paths:
+       #     - '%kernel.project_dir%/translations'
+       # fallbacks:
+        #    - 'en'
