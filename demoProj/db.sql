@@ -31,8 +31,10 @@ CREATE TABLE `users` (
   `role` int(11) NOT NULL,
   `registrationDate` datetime NOT NULL,
   `lastLoginTime` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,8 +43,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'mantinjio','niekas@gmail.com','jopapa',NULL,0,'2016-11-05 13:52:02','2017-12-02 12:11:05');
-
+INSERT INTO `users` VALUES (2,'mantinjio','mantas@ktu.lt','nera','negalima',0,'2011-05-03 00:00:00','2011-08-14 00:00:00'),(3,'negalima','jopapa@gmail.com','$2y$13$N6kueokZSl4NyH/oPMFkz.rQqIo0bwlstRefJar/5..A.e2OBOrNC',NULL,2,'2018-03-18 03:31:06','2018-03-18 03:31:06'),(4,'fasdfasdf','fasdfasdf@fsdfsdf.asdasd','$2y$13$Nj232tdEgLSQ61WIkesuX.0BvKhzvGUSowNVDAtD4zMWzPxpdxA6W',NULL,1,'2018-03-18 04:24:52','2018-03-18 04:24:52'),(5,'mantukas','jopapa@gmail.c','$2y$13$j4EPoIsJ5usTzvBaV2BLu.phGqXqG8Yu3b1GEwRKW3jwRfyCB0/dW',NULL,2,'2018-03-18 04:54:48','2018-03-18 04:54:48');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-13 23:40:10
+-- Dump completed on 2018-03-18  5:11:16

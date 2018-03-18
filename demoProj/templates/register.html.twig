@@ -1,27 +1,28 @@
 {% extends "base.html.twig" %}
+{% block title %}
+    Car34 - Registration
+{% endblock %}
 {% block stylesheets %}
-<link href="{{ asset('assets/css/index.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/index.css') }}" rel="stylesheet">
 {% endblock %}
 {% block body %}
-<div id = "menu">
-<h1>Car34 - Register</h1> 
-<form action = "register.php" method = "post">
-Username
-<input type = "text" name = "user"><br /><br />
-E-mail
-<input type = "email" name = "email"><br /><br />
-Password
-<input type = "password" name = "pass"><br /><br />
-Repeat password
-<input type = "password" name = "repeatPass"><br /><br />
-I am a: 
-<input type="radio" name="role" value="client">Client
-<input type="radio" name="role" value="owner">Garage owner<br /><br />
+    <div id = "menu">
+        <h1>Car34 - Register</h1>
+            {{ form_start(form) }}
+                {{ form_errors(form.username) }}
+                {{ form_errors(form.email) }}
+                {{ form_errors(form.password.first) }}
 
-I accept the <a href = "{{ path('tos') }}">Terms Of Service</a> <input type = "checkbox" name = "tos"> <br /> <br />
+                Username: {{ form_widget(form.username) }}<br /><br />
+                Email: {{ form_widget(form.email) }}<br /><br />
+                Password: {{ form_widget(form.password.first) }}<br /><br />
+                Repeat password: {{ form_widget(form.password.second) }}<br /><br />
 
+                {{ form_row(form.role) }}<br />
+                I accept the <a href = "{{ path('tos') }}" target="_blank">Terms Of Service</a> {{ form_widget(form.isAgreedWithTOSChecked) }}<br /><br />
+                {{ form_row(form.submit) }}
+            {{ form_end(form) }}<br />
 
-<input type = "submit" value = "Register"><br /><br />
-<a href = "{{ path('login') }}">Already have an account? Login</a>
-</div>
+        <a href = "{{ path('login') }}">Already have an account? Login</a>
+    </div>
 {% endblock %}

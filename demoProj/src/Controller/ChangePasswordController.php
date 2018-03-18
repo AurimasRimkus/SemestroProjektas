@@ -17,8 +17,8 @@ class ChangePasswordController extends AbstractController
     }
 
     /**
-    * @Route("/changePassword", name="changePassword")
-    */
+     * @Route("/changePassword", name="changePassword")
+     */
     public function show()
     {
         return $this->render('changePassword.html.twig', [
