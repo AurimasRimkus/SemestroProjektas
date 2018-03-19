@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -21,10 +22,15 @@ class RegistrationController extends AbstractController
      * @Route("/register", name="register")
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
-     * @return Response
+     * @param AuthorizationCheckerInterface $authChecker
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
-    public function register(Request $request, UserPasswordEncoderInterface $encoder)
+    public function register(Request $request, UserPasswordEncoderInterface $encoder, AuthorizationCheckerInterface $authChecker)
     {
+        if ($authChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return $this->redirectToRoute('main');
+        }
+
         $user = new User();
 
         $form = $this->createForm(UserType::class, $user);
@@ -48,8 +54,8 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('login');
         }
 
-        return $this->render('register.html.twig', array(
-           'form'=>$form->createView()
+        return $this->render('register/register.html.twig', array(
+           'form'=>$form->createView(),
         ));
     }
 }

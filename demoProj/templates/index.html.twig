@@ -3,12 +3,13 @@
 <link href="{{ asset('assets/css/index.css') }}" rel="stylesheet">
 {% endblock %}
 {% block body %}
-<div id = "menu">
-<h1>Car34</h1> 
-Welcome to Car34 car repairing service! You can plan an appointment, see your cars' status, and many other things here!<br />
-<a href="{{ path('register') }}">{{ 'Create a new account' }}</a> || <a href="{{ path('login') }}">{{ 'Login' }}</a> <br /><br />
+    <div id = "menu">
+        <h1>Car34</h1>
+        Welcome to Car34 car repairing service! You can plan an appointment, see your cars' status, and many other things here!<br />
+        {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+            <a href="{{ path('register') }}">{{ 'Create a new account' }}</a> || <a href="{{ path('login') }}">{{ 'Login' }}</a> <br /><br />
+        {% endif %}
+        <a href="{{ path('faq') }}">{{ 'Frequently Asked Questions' }}</a>
 
-<a href="{{ path('faq') }}">{{ 'Frequently Asked Questions' }}</a>
-
-</div>
+    </div>
 {% endblock %}

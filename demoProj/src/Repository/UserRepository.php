@@ -2,34 +2,14 @@
 
 namespace App\Repository;
 
-use App\Entity\User;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\ORM\EntityRepository;
 
 /**
- * @method User|null find($id, $lockMode = null, $lockVersion = null)
- * @method User|null findOneBy(array $criteria, array $orderBy = null)
- * @method User[]    findAll()
- * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * Class UserRepository
+ * @package App\Repository
  */
-class UserRepository extends ServiceEntityRepository
+class UserRepository extends EntityRepository
 {
-    public function __construct(RegistryInterface $registry)
-    {
-        parent::__construct($registry, User::class);
 
-    }
-
-    /*
-    public function findBySomething($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->where('p.something = :value')->setParameter('value', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 }
