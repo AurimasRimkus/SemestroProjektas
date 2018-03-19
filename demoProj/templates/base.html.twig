@@ -9,7 +9,12 @@
     </head>
     <body>
         {% block body %}{% endblock %}
-	    {% block footer %}{% endblock %}
+	    {% block footer %}
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                Hello, <b>{{ app.user.username }}</b>. Your email: <b>{{ app.user.email }}</b>
+                <a href="{{ logout_path() }}">(Log out)</a>
+            {% endif %}
+        {% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
 </html>
