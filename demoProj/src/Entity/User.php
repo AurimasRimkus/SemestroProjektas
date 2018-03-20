@@ -16,6 +16,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class User implements UserInterface
 {
+
     /**
      * @var int
      *
@@ -44,6 +45,10 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255, nullable=false)
+     * @Assert\Length(
+     *     min=6,
+     *     minMessage = "Password must be at least {{ limit }} characters long"
+     * )
      */
     private $password;
 
