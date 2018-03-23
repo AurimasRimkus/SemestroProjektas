@@ -53,6 +53,16 @@ class User implements UserInterface
     private $password;
 
     /**
+     * @var string
+     *
+     * @Assert\Length(
+     *     min=6,
+     *     minMessage = "New password must be at least {{ limit }} characters long"
+     * )
+     */
+    private $newPassword;
+
+    /**
      * @var string|null
      *
      * @ORM\Column(name="passwordResetToken", type="string", length=255, nullable=true)
@@ -142,6 +152,22 @@ class User implements UserInterface
     public function setPassword(string $password)
     {
         $this->password = $password;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNewPassword()
+    {
+        return $this->newPassword;
+    }
+
+    /**
+     * @param string $newPassword
+     */
+    public function setNewPassword(string $newPassword)
+    {
+        $this->newPassword = $newPassword;
     }
 
     /**

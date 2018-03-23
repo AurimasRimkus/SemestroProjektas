@@ -28,7 +28,7 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordEncoderInterface $encoder, AuthorizationCheckerInterface $authChecker)
     {
         if ($authChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
-            return $this->redirectToRoute('main');
+            return $this->redirectToRoute('index');
         }
 
         $user = new User();
