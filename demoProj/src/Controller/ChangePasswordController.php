@@ -19,27 +19,27 @@ class ChangePasswordController extends Controller
     /**
      * @Route("/changePassword", name="changePassword")
      */
-    public function changePassword(Request $request, AuthenticationUtils $authenticationUtils, UserPasswordEncoderInterface $encoder, AuthorizationCheckerInterface $authChecker)
+    public function changePassword(Request $request, UserPasswordEncoderInterface $encoder, AuthorizationCheckerInterface $authChecker)
     {
-        // if user is not authenticated, redirect to index
         if (!$authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return $this->redirectToRoute('index');
         }
-        $naujasPassword = new User();
+
+        $newPassword = new User();
         $user = $this->getUser();
         $error = "";
 
-        $form = $this->createForm(ChangePasswordType::class, $naujasPassword);
+        $form = $this->createForm(ChangePasswordType::class, $newPassword);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid())
         {
             $em = $this->getDoctrine()->getManager();
-            if($encoder->isPasswordValid($user, $naujasPassword->getPassword()))
+            if($encoder->isPasswordValid($user, $newPassword->getPassword()))
             {
                 //The old password which user used is correct.
                 //So we can change the password in user object
-                $user->setPassword($encoder->encodePassword($user, $naujasPassword->getNewPassword()));
+                $user->setPassword($encoder->encodePassword($user, $newPassword->getNewPassword()));
 
                 $em->persist($user);
                 $em->flush();
