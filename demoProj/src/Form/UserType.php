@@ -35,7 +35,8 @@ class UserType extends AbstractType
                 'multiple'=>false,
                 'expanded'=>true))
             ->add('isAgreedWithTOSChecked', CheckboxType::class, array(
-                'mapped' => false
+                'mapped' => false,
+                'label' => 'I agree with ToS'
             ))
             ->add('submit', SubmitType::class, array(
                 'label'=>'Register'

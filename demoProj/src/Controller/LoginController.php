@@ -21,7 +21,7 @@ class LoginController extends Controller
     public function login(Request $request, AuthenticationUtils $authenticationUtils, AuthorizationCheckerInterface $authChecker)
     {
         if ($authChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
-            return $this->redirectToRoute('main');
+            return $this->redirectToRoute('index');
         }
 
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -30,6 +30,7 @@ class LoginController extends Controller
         {
             $error = "Wrong username or password";
         }
+
 
         $lastUsername = $authenticationUtils->getLastUsername();
 
