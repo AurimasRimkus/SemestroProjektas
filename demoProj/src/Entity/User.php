@@ -181,7 +181,7 @@ class User implements UserInterface
     /**
      * @param null|string $passwordResetToken
      */
-    public function setPasswordResetToken(string $passwordResetToken)
+    public function setPasswordResetToken($passwordResetToken)
     {
         $this->passwordResetToken = $passwordResetToken;
     }
