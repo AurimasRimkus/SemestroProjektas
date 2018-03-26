@@ -11,7 +11,7 @@
         {% block body %}{% endblock %}
 	    {% block footer %}
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                Hello, <b>{{ app.user.username }}</b>. Your email: <b>{{ app.user.email }}</b> Role: {{ app.user.role }} <br />
+                Hello, <b>{{ app.user.username }}</b>. Your email: <b>{{ app.user.email }}</b> <br />
                 <a href="{{ logout_path() }}">(Log out)</a>
             {% endif %}
         {% endblock %}
