@@ -14,6 +14,10 @@
         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
             <h1>Car34 - User menu</h1>
             <a href="{{ path('changePassword') }}">{{ 'Change password' }}</a>
+            {% if app.user.role == 2 %}
+                <h1>Mechanic menu</h1>
+                <a href="{{ path('editServiceTypes') }}">{{ 'Edit service types' }}</a>
+            {% endif %}
         {% endif %}
 
     </div>

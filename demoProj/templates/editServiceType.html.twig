@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %}
+    <link href="{{ asset('assets/css/index.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+    <div id = "menu">
+        {% if app.user.role == 2 %}
+            <h1>Edit service type</h1>
+            {{ form(form, {'method': 'POST'}) }}
+            <br />
+            <a href="{{ path('editServiceTypes') }}">{{ 'Back to all services' }}</a>
+        {% else %}
+            <h1>You don't have permission to do that.</h1>
+            <a href="{{ path('index') }}">{{ 'Back to menu page' }}</a>
+        {% endif %}
+
+    </div>
+{% endblock %}
