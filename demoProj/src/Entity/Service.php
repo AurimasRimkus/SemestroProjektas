@@ -6,18 +6,20 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ServiceRepository")
+ * @ORM\Table(name="services")
  */
 class Service
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", name="id", type="integer", nullable=false)
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
+     * @ORM\Column(type="string", length=255, nullable=false, unique=true)
      */
     private $name;
 
