@@ -6,10 +6,27 @@
 <div id = "menu">
     {% if app.user.role == 2 %}
         <h1>Client list</h1>
-        <a href="{{ path('index') }}">{{ 'Back to main ' }}</a><br />
+        <a href="{{ path('index') }}">{{ 'Back to main menu' }}</a><br />
+        <table align="center">
+            <tr>
+                <th>User ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Is Active</th>
+                <th>Delete</th>
+            </tr>
         {% for user in users %}
-            {{ user.id }} | {{ user.username }} | {{ user.email}} | {{ user.role }} <br>
-        {% endfor %}
+            <tr>
+            <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email}}</td>
+                <td>{{ user.role }}</td>
+                <td></td>
+                <td></td>
+            </tr>
+                {% endfor %}
+        </table>
     {% else %}
         <h1>You don't have permission to do that.</h1>
         <a href="{{ path('index') }}">{{ 'Back to menu page' }}</a>
