@@ -1,8 +1,7 @@
 #menu{
+	background-color:#F67280;
 	width:70%;
 	height:80%;
-	border:1px solid black;
-	border-radius:10px;
 	position: absolute;
 	top: 50%;
 	left: 50%;
