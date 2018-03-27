@@ -5,9 +5,9 @@
 {% block body %}
     <div id = "menu">
         {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-            <h1>Car34</h1>
-            Welcome to Car34 car repairing service! You can plan an appointment, see your cars' status, and many other things here!<br />
-            <a href="{{ path('register') }}">{{ 'Create a new account' }}</a> || <a href="{{ path('login') }}">{{ 'Login' }}</a> <br /><br />
+            <div id = "name">Car34</div><br /><br /><br />
+            <div id = "welcomeText">Welcome to Car34 car repairing service! You can plan an appointment,<br /> see your cars' status, and many other things here!</div><br />
+            <a href="{{ path('register') }}"><div class = "button">REGISTER</div></a><a href="{{ path('login') }}"><div class = "button">LOGIN</div></a><br />
             <a href="{{ path('faq') }}">{{ 'Frequently Asked Questions' }}</a>
         {% endif %}
 
