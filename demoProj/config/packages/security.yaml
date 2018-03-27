@@ -1,0 +1,27 @@
+security:
+    providers:
+        db_provider:
+            entity:
+                class: App\Entity\User
+                property: username
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: ~
+            form_login:
+                login_path: login
+                check_path: login
+                #always_use_default_target_path: true
+                #default_target_path: /main
+
+            logout:
+                path: /logout
+                target: /
+
+    access_control:
+        - { path: ^/main, roles: IS_AUTHENTICATED_FULLY }
+    encoders:
+        App\Entity\User: bcrypt

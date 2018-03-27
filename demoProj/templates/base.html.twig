@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	{% block head %}
+        	<meta charset="UTF-8">
+    	    	<title>{% block title %}Car34 - Repair service{% endblock %}</title>
+		<link rel="icon" type="image/x-icon" href="{{ asset('assets/favicon.ico') }}" />
+   	     	{% block stylesheets %}{% endblock %}
+	{% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+	    {% block footer %}
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                Hello, <b>{{ app.user.username }}</b>. Your email: <b>{{ app.user.email }}</b> <br />
+                <a href="{{ logout_path() }}">(Log out)</a>
+            {% endif %}
+        {% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

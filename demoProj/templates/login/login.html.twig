@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Car34 - Login
+{% endblock %}
+{% block stylesheets %}
+    <link href="{{ asset('assets/css/index.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+<div id = "menu">
+    <h1>Car34 - Login</h1>
+    {% if error %}
+        <div>{{ error }}</div><br />
+    {% endif %}
+
+    <form action="{{ path('login') }}" method="post">
+        Username:
+        <input type="text" id="username" name="_username" value="{{ last_username }}" />
+        <br /><br />
+        Password:
+        <input type="password" id="password" name="_password" />
+        <br /><br />
+        <button type="submit">Login</button><br /><br />
+        <a href = "{{ path('register') }}">Don't have an account? Register</a><br />
+        <a href = "{{ path('remindPassword') }}">Forgot your password? Let us remind it</a>
+    </form>
+</div>
+{% endblock %}

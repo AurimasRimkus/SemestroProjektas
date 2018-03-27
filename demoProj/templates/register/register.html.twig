@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+{% block title %}
+    Car34 - Registration
+{% endblock %}
+{% block stylesheets %}
+    <link href="{{ asset('assets/css/index.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+    <div id = "menu">
+        <h1>Car34 - Register</h1>
+        {{ form(form, {'method': 'POST'}) }}
+        <a href = "{{ path('login') }}">Already have an account? Login</a>
+    </div>
+{% endblock %}

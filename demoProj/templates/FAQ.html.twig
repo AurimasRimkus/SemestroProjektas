@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %}
+<link href="{{ asset('assets/css/index.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+<div id = "menu">
+    <h1>Frequently asked questions</h1>
+    Q1: How do I use this?<br />
+    A1: Use common sense, it's not that hard. Yes, I know that sounds passive aggressive. But that's life. <br /> <br />
+    Q2: What does this website do?<br />
+    A2: It lets our clients register their cars for appointments at our garage, check status of their cars, and so on.<br /><br />
+    Q3: How to login?<br />
+    A3: First of all, you have to register. Then use the Login form <a href="{{ path('login') }}">{{ 'here' }}</a> to input your credentials and log in to the system. <br /> <br />
+    Q4: How to register? <br />
+    A4: Go <a href="{{ path('register') }}">{{ 'here' }}</a>, complete the form, and a new account will be created for you. After that, you can go on and <a href="{{ path('login') }}">{{ 'log in to our website' }}</a>.<br /> <br />
+    Q5: How to use the system? <br />
+    A5: Right now, the system is useless, so you can't really use it, sorry. Come back later.<br /><br />
+
+    <a href="{{ path('index') }}">{{ 'Back to menu page' }}</a>
+
+</div>
+{% endblock %}

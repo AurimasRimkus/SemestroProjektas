@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %}
+<link href="{{ asset('assets/css/index.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+<div id = "menu">
+    {% if app.user.role == 2 %}
+        <h1>Edit service types</h1>
+        <a href="{{ path('addServiceType') }}">{{ 'Add a new service type' }}</a> || <a href="{{ path('index') }}">{{ 'Back to main ' }}</a><br />
+        {% for service in services %}
+            {{ service.id }} | {{ service.name }} | {{ service.cost }} | {{ service.duration }} || <a href="{{ 'changeServiceType/' ~ service.id }}">{{ 'edit' }}</a>
+                | {% if service.isActive == true %} <a href="{{ 'changeIsActiveServiceType/' ~ service.id }}">{{ 'deactivate' }}</a>
+                {% else %} <a href="{{ 'changeIsActiveServiceType/' ~ service.id }}">{{ 'activate' }}</a> {% endif %} | <a href="{{ 'deleteServiceType/' ~ service.id }}">{{ 'X' }}</a> <br />
+        {% endfor %}
+    {% else %}
+        <h1>You don't have permission to do that.</h1>
+        <a href="{{ path('index') }}">{{ 'Back to menu page' }}</a>
+    {% endif %}
+
+
+
+</div>
+{% endblock %}
