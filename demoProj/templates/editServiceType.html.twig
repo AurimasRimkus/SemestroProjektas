@@ -5,7 +5,7 @@
 {% block body %}
     <div id = "menu">
         {% if app.user.role == 2 %}
-            <h1>Edit service type</h1>
+            <h1>{{ action }} service type</h1>
             {{ form(form, {'method': 'POST'}) }}
             <br />
             <a href="{{ path('editServiceTypes') }}">{{ 'Back to all services' }}</a>
