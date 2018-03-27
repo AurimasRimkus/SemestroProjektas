@@ -22,4 +22,27 @@ class ClientListReview extends AbstractController
             'users' => $users,
         ]);
     }
+
+    /**
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function changeIsActive($id)
+    {
+        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+        $user->setIsActive(!$user->getIsActive());
+        $this->getDoctrine()->getManager()->flush();
+        return $this->redirectToRoute('clientListReview');
+    }
+
+    /**
+     * @Route("/deleteUser/{id}", name="deleteUser")
+     */
+    public function deleteServiceType($id)
+    {
+        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+        $user->setIsDeleted(!$user->getIsDeleted());
+        $this->getDoctrine()->getManager()->flush();
+        return $this->redirectToRoute('clientListReview');
+    }
 }

@@ -93,6 +93,17 @@ class User implements UserInterface
     /**
      * @return int
      */
+    private $isActive = false;
+
+    /**
+     * @return bool
+     */
+    private $isDeleted = false;
+
+    /**
+     * @return bool
+     */
+
     public function getId()
     {
         return $this->id;
@@ -232,6 +243,38 @@ class User implements UserInterface
     public function setLastLoginTime(\DateTime $lastLoginTime)
     {
         $this->lastLoginTime = $lastLoginTime;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * @param mixed $isActive
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getisDeleted()
+    {
+        return $this->isDeleted;
+    }
+
+    /**
+     * @param mixed $isDeleted
+     */
+    public function setIsDeleted($isDeleted)
+    {
+        $this->isDeleted = $isDeleted;
     }
 
     public function getSalt()
