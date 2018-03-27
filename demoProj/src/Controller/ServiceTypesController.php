@@ -42,6 +42,7 @@ class ServiceTypesController extends AbstractController
 
         return $this->render('editServiceType.html.twig', array(
             'form' => $form->createView(),
+            'action' => "Edit",
         ));
     }
 
@@ -66,6 +67,7 @@ class ServiceTypesController extends AbstractController
 
         return $this->render('editServiceType.html.twig', array(
             'form'=>$form->createView(),
+            'action' => "Add",
         ));
     }
 
