@@ -12,8 +12,10 @@
         {% block body %}{% endblock %}
 	    {% block footer %}
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                Hello, <b>{{ app.user.username }}</b>. Your email: <b>{{ app.user.email }}</b> <br />
-                <a href="{{ logout_path() }}">(Log out)</a>
+                <div id="base">
+                Hello, <b>{{ app.user.username }}</b>. Your email: <b>{{ app.user.email }}</b>
+                <div id="logOut"><a href="{{ logout_path() }}">Log out</a></div>
+    </div>
             {% endif %}
         {% endblock %}
         {% block javascripts %}{% endblock %}
