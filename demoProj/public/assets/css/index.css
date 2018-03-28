@@ -1,15 +1,52 @@
 #menu{
 	background-color:#84BE6A;
 	width:70%;
-	height:80%;
+	height:78%;
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	text-align:center;
+	color: #F9F9F9;
 }
 
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
+}
+#logOut{
+	text-align: right;
+}
+#base{
+	background-color: #3f4e5e;
+	color: #F9F9F9;
+	border:0px solid black;
+	border-radius:10px;
+	border-spacing:10px;
+	text-indent: 10px;
+	line-height: 1.6;
+	padding-right: 10px;
+	padding-bottom: 5px;
+}
+a:visited{
+	color: #99cdd8;
+}
+body{
+	background-image: url('../images/background.jpg');
+}
+#table{
+	border:1px solid black;
+}
+#textField{
+	background-color: #777777;
+	width:70%;
+	height:78%;
+	border:1px solid black;
+	border-radius:10px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align:center;
+	color: #F9F9F9;
 }

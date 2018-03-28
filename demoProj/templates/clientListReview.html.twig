@@ -7,7 +7,7 @@
     {% if app.user.role == 2 %}
         <h1>Client list</h1>
         <a href="{{ path('index') }}">{{ 'Back to main menu' }}</a><br />
-        <table align="center">
+        <table align="center" bgcolor= "gray">
             <tr>
                 <th>User ID</th>
                 <th>Username</th>
@@ -30,7 +30,7 @@
                     </td>
                     <td>
                         {% if user.isDeleted == true %} deleted
-                        {% else %} <a href="{{ 'deleteUser/' ~ user.id }}">{{ 'delete' }}</a>
+                        {% else %} <a href="{{ 'deleteUser/' ~ user.id }}"><img src = "{{ asset('assets/images/x.png') }}" alt="Delete service type" height="20" width="20"></a>
                         {% endif %}
                     </td>
                 </tr>
