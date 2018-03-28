@@ -91,12 +91,12 @@ class User implements UserInterface
     private $lastLoginTime;
 
     /**
-     * @return int
+     * @ORM\Column(type="boolean")
      */
-    private $isActive = false;
+    private $isActive = true;
 
     /**
-     * @return bool
+     * @ORM\Column(type="boolean")
      */
     private $isDeleted = false;
 
@@ -248,7 +248,7 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getIsActive()
+    public function getIsActive(): ?bool
     {
         return $this->isActive;
     }
@@ -256,7 +256,7 @@ class User implements UserInterface
     /**
      * @param mixed $isActive
      */
-    public function setIsActive($isActive)
+    public function setIsActive(bool $isActive)
     {
         $this->isActive = $isActive;
     }
@@ -264,7 +264,7 @@ class User implements UserInterface
     /**
      * @return mixed
      */
-    public function getisDeleted()
+    public function getIsDeleted(): ?bool
     {
         return $this->isDeleted;
     }
@@ -272,7 +272,7 @@ class User implements UserInterface
     /**
      * @param mixed $isDeleted
      */
-    public function setIsDeleted($isDeleted)
+    public function setIsDeleted(bool $isDeleted)
     {
         $this->isDeleted = $isDeleted;
     }

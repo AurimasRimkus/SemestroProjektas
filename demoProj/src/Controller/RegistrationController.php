@@ -48,6 +48,12 @@ class RegistrationController extends AbstractController
             $user->setRegistrationDate($time);
             $user->setLastLoginTime($time);
 
+            $true = true;
+            $false = false;
+
+            $user->setIsActive($true);
+            $user->setIsDeleted($false);
+
             $em->persist($user);
             $em->flush();
 

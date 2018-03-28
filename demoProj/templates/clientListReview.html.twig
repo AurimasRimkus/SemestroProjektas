@@ -17,15 +17,25 @@
                 <th>Delete</th>
             </tr>
         {% for user in users %}
-            <tr>
-            <td>{{ user.id }}</td>
-                <td>{{ user.username }}</td>
-                <td>{{ user.email}}</td>
-                <td>{{ user.role }}</td>
-                <td></td>
-                <td></td>
-            </tr>
-                {% endfor %}
+            {% if user.isDeleted == false %}
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email}}</td>
+                    <td>{{ user.role }}</td>
+                    <td>
+                        {% if user.isActive == true %} <a href="{{ 'changeIsActive' ~ user.id }}">{{ 'deactivate' }}</a>
+                        {% else %} <a href="{{ 'changeIsActive' ~ user.id }}">{{ 'activate' }}</a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if user.isDeleted == true %} deleted
+                        {% else %} <a href="{{ 'deleteUser/' ~ user.id }}">{{ 'delete' }}</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
+            {% endfor %}
         </table>
     {% else %}
         <h1>You don't have permission to do that.</h1>

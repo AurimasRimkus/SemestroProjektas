@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-class ClientListReview extends AbstractController
+class ClientListReviewController extends AbstractController
 {
     /**
      * @Route("/clientListReview", name="clientListReview")
@@ -23,9 +23,9 @@ class ClientListReview extends AbstractController
         ]);
     }
 
+
     /**
-     * @param $id
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route("/changeIsActive{id}", name="changeIsActiveUserType")
      */
     public function changeIsActive($id)
     {
@@ -33,15 +33,16 @@ class ClientListReview extends AbstractController
         $user->setIsActive(!$user->getIsActive());
         $this->getDoctrine()->getManager()->flush();
         return $this->redirectToRoute('clientListReview');
+
     }
 
     /**
      * @Route("/deleteUser/{id}", name="deleteUser")
      */
-    public function deleteServiceType($id)
+    public function deleteUser($id)
     {
         $user = $this->getDoctrine()->getRepository(User::class)->find($id);
-        $user->setIsDeleted(!$user->getIsDeleted());
+        $user->setIsDeleted(false);
         $this->getDoctrine()->getManager()->flush();
         return $this->redirectToRoute('clientListReview');
     }
