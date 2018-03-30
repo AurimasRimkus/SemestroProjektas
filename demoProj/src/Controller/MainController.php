@@ -12,6 +12,9 @@ class MainController extends Controller
      */
     public function index()
     {
+    	$em = $this->getDoctrine()->getManager();
+        $this->getUser()->setLastLoginTime(new DateTime());
+        $em->flush();
         return $this->render('main/main.html.twig', [
         ]);
     }
