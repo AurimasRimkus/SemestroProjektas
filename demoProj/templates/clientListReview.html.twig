@@ -13,6 +13,7 @@
                 <th>Username</th>
                 <th>Email</th>
                 <th>Role</th>
+                <th>Last login</th>
                 <th>Is Active</th>
                 <th>Delete</th>
             </tr>
@@ -23,9 +24,10 @@
                     <td>{{ user.username }}</td>
                     <td>{{ user.email}}</td>
                     <td>{{ user.role }}</td>
+                    <td>{{ user.lastLoginTime|date("Y/m/d H:i:s") }}</td>
                     <td>
-                        {% if user.isActive == true %} <a href="{{ 'changeIsActive' ~ user.id }}">{{ 'deactivate' }}</a>
-                        {% else %} <a href="{{ 'changeIsActive' ~ user.id }}">{{ 'activate' }}</a>
+                        {% if user.isActive == true %} <a href="{{ 'changeIsActive/' ~ user.id }}">{{ 'deactivate' }}</a>
+                        {% else %} <a href="{{ 'changeIsActive/' ~ user.id }}">{{ 'activate' }}</a>
                         {% endif %}
                     </td>
                     <td>

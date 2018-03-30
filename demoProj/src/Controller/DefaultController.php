@@ -17,6 +17,11 @@ class DefaultController extends AbstractController
 
     public function show()
     {
+        if($this->getUser() != null){
+            $em = $this->getDoctrine()->getManager();
+            $this->getUser()->setLastLoginTime(new \DateTime());
+            $em->flush();
+        }
         return $this->render('index.html.twig', [
 
         ]);
