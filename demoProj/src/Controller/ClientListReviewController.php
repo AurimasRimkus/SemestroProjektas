@@ -25,7 +25,7 @@ class ClientListReviewController extends AbstractController
 
 
     /**
-     * @Route("/changeIsActive{id}", name="changeIsActiveUserType")
+     * @Route("/changeIsActive/{id}", name="changeIsActiveUserType")
      */
     public function changeIsActive($id)
     {
@@ -33,7 +33,6 @@ class ClientListReviewController extends AbstractController
         $user->setIsActive(!$user->getIsActive());
         $this->getDoctrine()->getManager()->flush();
         return $this->redirectToRoute('clientListReview');
-
     }
 
     /**
@@ -42,7 +41,7 @@ class ClientListReviewController extends AbstractController
     public function deleteUser($id)
     {
         $user = $this->getDoctrine()->getRepository(User::class)->find($id);
-        $user->setIsDeleted(false);
+        $user->setIsDeleted(true);
         $this->getDoctrine()->getManager()->flush();
         return $this->redirectToRoute('clientListReview');
     }

@@ -93,12 +93,19 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isActive = true;
+    private $isActive;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isDeleted = false;
+    private $isDeleted;
+
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="registrationToken", type="string", length=255, nullable=true)
+     */
+    private $registrationToken;
 
     /**
      * @return bool
@@ -276,6 +283,23 @@ class User implements UserInterface
     {
         $this->isDeleted = $isDeleted;
     }
+
+    /**
+     * @return null|string
+     */
+    public function getRegistrationToken()
+    {
+        return $this->registrationToken;
+    }
+
+    /**
+     * @param null|string $passwordResetToken
+     */
+    public function setRegistrationToken($registrationToken)
+    {
+        $this->registrationToken = $registrationToken;
+    }
+
 
     public function getSalt()
     {
