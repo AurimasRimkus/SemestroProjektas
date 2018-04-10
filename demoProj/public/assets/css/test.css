@@ -3,32 +3,25 @@ html{
 	color:white;
 }
 
-.buttons{
-	width:200px;
-	height:50px;
-	margin:0 auto;
-}
-
 .button{
 	display:inline-block;
 	height:50px;
 	line-height: 50px;
-	width:150px;
+	width:auto;
+	padding:10px;
 	-webkit-transition: background-color 0.5s; /* Safari */
     transition: background-color 0.5s;
     font-weight: bold;
     font-size:20px;
     vertical-align: middle;
     color: DarkSlateGrey;
-}
-
-.button	{
-	margin-right: 10px;
 	background-color:white;
+	border-radius: 10px;
 }
 
 .button:hover{
-	background-color:LightSkyBlue;
+	color:#FFFFFF;
+	background-color:#0D3C55;
 	-webkit-transition: background-color 0.5s; /* Safari */
     transition: background-color 0.5s;
 }

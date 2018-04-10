@@ -6,7 +6,9 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 	text-align:center;
-	color: #F9F9F9;
+	color: #373C3E;
+	background-color: rgba(181, 197, 136, 0.85);
+	font-weight: bold;
 }
 
 table, th, td {
@@ -17,8 +19,8 @@ table, th, td {
 	text-align: right;
 }
 #base{
-	background-color: #3f4e5e;
-	color: #F9F9F9;
+	background-color: rgba(181, 197, 136, 0.85);
+	color: #373C3E;
 	border:0px solid black;
 	border-radius:10px;
 	border-spacing:10px;
@@ -27,9 +29,11 @@ table, th, td {
 	padding-right: 10px;
 	padding-bottom: 5px;
 }
-a:visited{
-	color: #99cdd8;
+
+a:visited, a{
+	color: rgb(13, 60, 85);
 }
+
 body{
 	background-image: url('../images/background.jpg');
 }
