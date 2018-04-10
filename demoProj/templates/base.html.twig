@@ -15,7 +15,7 @@
 	    {% block footer %}
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <div id="base">
-                Hello, <b>{{ app.user.username }}</b>. Your email: <b>{{ app.user.email }}</b>
+                Hello, <b>{{ app.user.username }}</b>. Your email: <b>{{ app.user.email }}</b>. Last login time:  <b>{{ app.user.lastLoginTime|date("Y/m/d H:i:s") }}</b>
                 <div id="logOut"><a href="{{ logout_path() }}">Log out</a></div>
     </div>
             {% endif %}
