@@ -4,7 +4,7 @@
 {% endblock %}
 {% block body %}
 <div id = "menu">
-    {% if app.user.role == 2 %}
+    {% if app.user.role == 3 %}
         <h1>Client list</h1>
         <a href="{{ path('index') }}">{{ 'Back to main menu' }}</a><br />
         <table align="center" bgcolor= "gray">
@@ -15,6 +15,7 @@
                 <th>Role</th>
                 <th>Last login</th>
                 <th>Is Active</th>
+                <th>Set role</th>
                 <th>Delete</th>
             </tr>
         {% for user in users %}
@@ -29,6 +30,11 @@
                         {% if user.isActive == true %} <a href="{{ 'changeIsActive/' ~ user.id }}">{{ 'deactivate' }}</a>
                         {% else %} <a href="{{ 'changeIsActive/' ~ user.id }}">{{ 'activate' }}</a>
                         {% endif %}
+                    </td>
+                    <td>
+                        {% if user.role != 1 %} <a href="{{ 'changeRole/' ~ user.id ~ '/1' }}">{{'1'}}</a>  {% endif %}
+                        {% if user.role != 2 %} <a href="{{ 'changeRole/' ~ user.id ~ '/2' }}">{{'2'}}</a>  {% endif %}
+                        {% if user.role != 3 %} <a href="{{ 'changeRole/' ~ user.id ~ '/3' }}">{{'3'}}</a>  {% endif %}
                     </td>
                     <td>
                         {% if user.isDeleted == true %} deleted

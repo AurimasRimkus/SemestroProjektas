@@ -69,6 +69,7 @@ class User implements UserInterface
      */
     private $passwordResetToken;
 
+    // Role 1 = user; 2 = mechanic; 3 = admin
     /**
      * @var int
      *

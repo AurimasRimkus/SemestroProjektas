@@ -51,6 +51,8 @@ class RegistrationController extends AbstractController
             $user->setIsActive(false);
             $user->setIsDeleted(false);
 
+            $user->setRole(1);
+
             $registrationToken = base64_encode(random_bytes(20));
             $registrationToken = str_replace("/","",$registrationToken); // because / will make errors with routes
             $user->setRegistrationToken($registrationToken);

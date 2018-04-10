@@ -4,7 +4,7 @@
 {% endblock %}
 {% block body %}
 <div id = "menu">
-    {% if app.user.role == 2 %}
+    {% if app.user.role == 3 or app.user.role == 2 %}
         <h1>Edit service types</h1>
         <a href="{{ path('index') }}">{{ 'Back to main menu' }}</a><br />
         <table align="center" bgcolor="gray">

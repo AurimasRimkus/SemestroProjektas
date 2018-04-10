@@ -27,13 +27,6 @@ class UserType extends AbstractType
                 'second_options' => array('label' => 'Repeat Password'),
                 'invalid_message' => 'The password fields must match.',
             ))
-            ->add('role',ChoiceType::class, array(
-                'choices' => array(
-                    'Client' => '1',
-                    'Mechanic' => '2'),
-                'label' => 'I want to register as a',
-                'multiple'=>false,
-                'expanded'=>true))
             ->add('isAgreedWithTOSChecked', CheckboxType::class, array(
                 'mapped' => false,
                 'label' => 'I agree with ToS'
