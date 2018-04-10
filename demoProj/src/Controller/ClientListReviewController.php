@@ -45,4 +45,16 @@ class ClientListReviewController extends AbstractController
         $this->getDoctrine()->getManager()->flush();
         return $this->redirectToRoute('clientListReview');
     }
+    /**
+     * @Route("/changeRole/{id}/{role}", name="changeRole")
+     */
+    public function setRole($id, $role){
+        if($this->getUser()->getRole() != 3){
+            return $this->redirectToRoute('index');
+        }
+        $user = $this->getDoctrine()->getRepository(User::class)->find($id);
+        $user->setRole($role);
+        $this->getDoctrine()->getManager()->flush();
+        return $this->redirectToRoute('clientListReview');
+    }
 }
