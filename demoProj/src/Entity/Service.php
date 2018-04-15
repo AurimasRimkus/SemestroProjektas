@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ServiceRepository")
@@ -30,6 +31,12 @@ class Service
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(
+     *     min = 1,
+     *     max = 5,
+     *     minMessage = "Service must be at least 1 hour long",
+     *     maxMessage = "Service must not exceed 5 hour long"
+     * )
      */
     private $duration;
 
