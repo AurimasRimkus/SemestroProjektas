@@ -73,7 +73,7 @@ class RegistrationController extends AbstractController
 
     public function SendActivationEmail($name, $email, $token, \Swift_Mailer $mailer)
     {
-        $message = (new \Swift_Message('Remind password - Car34'))
+        $message = (new \Swift_Message('Account activation - Car34'))
                 ->setFrom('car34project@gmail.com')
                 ->setTo($email)
                 ->setBody(
