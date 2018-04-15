@@ -26,38 +26,46 @@ class RemindPasswordController extends AbstractController
         if ($authChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
             return $this->redirectToRoute('index');
         }
+        $error="";
         $user = new ForgotPassword();
         $form = $this->createForm(ForgotPasswordType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid())
         {
             $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $user->getEmail()]);
-            $passwordResetToken = base64_encode(random_bytes(20));
-            $passwordResetToken = str_replace("/","",$passwordResetToken); // because / will make errors with routes
-            $user->setPasswordResetToken($passwordResetToken);
-            $this->getDoctrine()->getManager()->flush();
+            if ($user)
+            {
+                $passwordResetToken = base64_encode(random_bytes(20));
+                $passwordResetToken = str_replace("/","",$passwordResetToken); // because / will make errors with routes
+                $user->setPasswordResetToken($passwordResetToken);
+                $this->getDoctrine()->getManager()->flush();
 
-            $message = (new \Swift_Message('Remind password - Car34'))
-                ->setFrom('car34project@gmail.com')
-                ->setTo($user->getEmail())
-                ->setBody(
-                    $this->renderView(
-                        'emails/remindpass.html.twig',
-                        array(
-                            'token' => $passwordResetToken,
-                            'username' => $user->getUsername()
-                        )
-                    ),
-                    'text/html'
-                )
-            ;
+                $message = (new \Swift_Message('Remind password - Car34'))
+                    ->setFrom('car34project@gmail.com')
+                    ->setTo($user->getEmail())
+                    ->setBody(
+                        $this->renderView(
+                            'emails/remindpass.html.twig',
+                            array(
+                                'token' => $passwordResetToken,
+                                'username' => $user->getUsername()
+                            )
+                        ),
+                        'text/html'
+                    )
+                ;
 
-            $mailer->send($message);
-            return $this->redirectToRoute('index');
+                $mailer->send($message);
+                return $this->redirectToRoute('index');
+            }
+            else {
+                $error="User with this email doesn't exist in database.";
+            }
         }
 
         return $this->render('remindPassword.html.twig', [
             'form'=>$form->createView(),
+            'error'=>$error
         ]);
     }
 
