@@ -8,15 +8,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class ClientListReviewController extends AbstractController
 {
     /**
      * @Route("/clientListReview", name="clientListReview")
      */
-    public function showAllClients()
+    public function showAllClients(AuthorizationCheckerInterface $authChecker)
     {
+        if (!$authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('index');
+        }
+
         $users = $this->getDoctrine()->getManager()->getRepository(User::class)->findAll();
         return $this->render('clientListReview.html.twig', [
             'users' => $users,

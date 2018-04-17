@@ -1,0 +1,14 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %}
+    <link href="{{ asset('assets/css/index.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+    <div id = "menu">
+        <h1>Add car</h1>
+        <div id="profile">
+            {{ form(form, {'method': 'POST'}) }}
+        </div>
+
+        <a href="{{ path('profile') }}">{{ 'Back to profile' }}</a>
+    </div>
+{% endblock %}
