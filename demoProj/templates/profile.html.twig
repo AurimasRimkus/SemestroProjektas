@@ -1,0 +1,45 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %}
+    <link href="{{ asset('assets/css/index.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+    <div id = "menu">
+        <h1>User profile</h1>
+        {% if error != null %}
+            <div id="warning">{{ error }}</div>
+        {% endif %}
+        <div id = "profile">
+            First name: {{ app.user.profile.name }}<br />
+            Second name: {{ app.user.profile.secondName }}<br />
+            Email: {{ app.user.profile.email }}<br />
+            Phone number: {{ app.user.profile.phoneNumber }}<br />
+            Birth date: {{ app.user.profile.birthDate|date("Y/m/d") }}<br />
+            <br />
+            Owned cars list: <a href="{{ path('addCar') }}">{{ 'Add car' }}</a><br />
+            {% if app.user.profile.cars|length > 0 %}
+                <table align="left" bgcolor="gray">
+                    <tr>
+                        <th>NumberPlate</th>
+                        <th>Model</th>
+                        <th>EngineType</th>
+                        <th>Transmission</th>
+                        <th>Power kW</th>
+                    </tr>
+                    {% for car in app.user.profile.cars %}
+                        <tr>
+                            <td>{{ car.numberPlate }}</td>
+                            <td>{{ car.model }}</td>
+                            <td>{{ car.engineType }}</td>
+                            <td>{{ car.transmission }}</td>
+                            <td>{{ car.power }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                &nbsp;&nbsp;No cars registered
+            {% endif %}
+        </div>
+        <a href="{{ path('editProfile') }}">{{ 'Edit profile' }}</a><br />
+        <a href="{{ path('index') }}">{{ 'Back to menu page' }}</a>
+    </div>
+{% endblock %}

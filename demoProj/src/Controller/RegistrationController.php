@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Profile;
 use App\Entity\User;
 use App\Form\UserType;
+use App\Form\ProfileType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -53,6 +55,10 @@ class RegistrationController extends AbstractController
 
             $user->setRole(1);
 
+            $profile = new Profile();
+            $profile->setEmail($user->getEmail());
+            $profile->setUser($user);
+
             $registrationToken = base64_encode(random_bytes(20));
             $registrationToken = str_replace("/","",$registrationToken); // because / will make errors with routes
             $user->setRegistrationToken($registrationToken);
@@ -60,6 +66,7 @@ class RegistrationController extends AbstractController
             $this->SendActivationEmail($user->getUsername(), $user->getEmail(), 
                 $user->getRegistrationToken(), $mailer);
 
+            $em->persist($profile);
             $em->persist($user);
             $em->flush();
 

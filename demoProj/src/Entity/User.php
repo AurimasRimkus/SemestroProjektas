@@ -109,6 +109,11 @@ class User implements UserInterface
     private $registrationToken;
 
     /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Profile", mappedBy="user")
+     */
+    private $profile;
+
+    /**
      * @return bool
      */
 
@@ -315,4 +320,15 @@ class User implements UserInterface
     public function eraseCredentials()
     {
     }
+
+    public function getProfile(): Profile
+    {
+        return $this->profile;
+    }
+
+    public function setProfile(Profile $profile)
+    {
+        $this->profile = $profile;
+    }
+
 }

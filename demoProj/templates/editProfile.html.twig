@@ -1,0 +1,22 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %}
+    <link href="{{ asset('assets/css/index.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+    <div id = "menu">
+        <h1>Car34 - Password change</h1>
+        <div id="profile">
+            {{ form_start(form) }}
+                Name            {{ form_widget(form.name, {'value' :  app.user.profile.name  }) }}<br />
+                Second name     {{ form_widget(form.secondName, {'value' :  app.user.profile.secondName  }) }}<br />
+                Email           {{ form_widget(form.email, {'value' :  app.user.profile.email  }) }}<br />
+                Phone number    {{ form_widget(form.phoneNumber, {'value' :  app.user.profile.phoneNumber  }) }}<br />
+                Birth date      {{ form_widget(form.birthDate, {'value' :  app.user.profile.birthDate  }) }}<br />
+        </div>
+            {{ form_widget(form.submit) }}<br />
+            {{ form_end(form) }}
+
+        <a href="{{ path('profile') }}">{{ 'Back to profile' }}</a>
+
+    </div>
+{% endblock %}
