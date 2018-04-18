@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Profile;
 use App\Entity\User;
 use App\Form\UserType;
-use App\Form\ProfileType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -63,8 +62,10 @@ class RegistrationController extends AbstractController
             $registrationToken = str_replace("/","",$registrationToken); // because / will make errors with routes
             $user->setRegistrationToken($registrationToken);
 
-            $this->SendActivationEmail($user->getUsername(), $user->getEmail(), 
-                $user->getRegistrationToken(), $mailer);
+            /* Needs to fix activation letter sending
+            $send = $this->get('app.email_activation_service');
+            $send->SendActivationEmail($user->getUsername(), $user->getEmail(), $user->getRegistrationToken(), $mailer);
+            */
 
             $em->persist($profile);
             $em->persist($user);
@@ -76,25 +77,6 @@ class RegistrationController extends AbstractController
         return $this->render('register/register.html.twig', array(
            'form'=>$form->createView(),
         ));
-    }
-
-    public function SendActivationEmail($name, $email, $token, \Swift_Mailer $mailer)
-    {
-        $message = (new \Swift_Message('Account activation - Car34'))
-                ->setFrom('car34project@gmail.com')
-                ->setTo($email)
-                ->setBody(
-                    $this->renderView(
-                        'emails/activation.html.twig',
-                        array(
-                            'token' => $token,
-                            'username' => $name,
-                        )
-                    ),
-                    'text/html'
-                );
-
-        $mailer->send($message);
     }
 
     /**

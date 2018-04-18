@@ -3,11 +3,10 @@ namespace App\Form;
 
 use App\Entity\Car;
 
-use Doctrine\DBAL\Types\IntegerType;
 use function Sodium\add;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -36,11 +35,11 @@ class CarType extends AbstractType
                     'Manual' => 'Manual'),
                 'label' => 'Transmission'
             ))
-            ->add('power', TextType::class, array(
+            ->add('power', IntegerType::class, array(
                 'label' => 'Power kW'
             ))
             ->add('submit', SubmitType::class, array(
-                'label' => 'Register car'
+                'label' => 'Save car'
             ))
         ;
     }

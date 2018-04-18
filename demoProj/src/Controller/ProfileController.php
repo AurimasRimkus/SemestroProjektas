@@ -7,7 +7,6 @@ use App\Entity\Car;
 use App\Entity\Profile;
 use App\Form\CarType;
 use App\Form\ProfileType;
-use App\Controller\RegistrationController;
 
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -60,10 +59,13 @@ class ProfileController extends Controller
                 $profile->setEmail($newProfile->getEmail());
                 $user->setEmail($newProfile->getEmail());
 
-                /*
                 $user->setIsActive(false);
-                need to add email reconfirmation after changing email
-                */
+                $registrationToken = base64_encode(random_bytes(20));
+                $registrationToken = str_replace("/","",$registrationToken); // because / will make errors with routes
+                $user->setRegistrationToken($registrationToken);
+
+                $send = $this->get('app.email_activation_service');
+                $send->SendActivationEmail($user->getUsername(), $user->getEmail(), $user->getRegistrationToken(), $mailer);
             }
             elseif($user->getEmail() != $newProfile->getEmail())
             {
@@ -127,5 +129,39 @@ class ProfileController extends Controller
         return $this->render('addCar.html.twig', [
             'form'=>$form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/editCar/{id}", name="editCar")
+     */
+    public function editCar(Request $request, $id)
+    {
+        $car = $this->getDoctrine()->getRepository(Car::class)->find($id);
+        $form = $this->createForm(CarType::class, $car);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid())
+        {
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            return $this->redirectToRoute('profile');
+        }
+
+        return $this->render('addCar.html.twig', array(
+            'form' => $form->createView(),
+            'action' => "Edit",
+        ));
+    }
+
+    /**
+     * @Route("/deleteCar/{id}", name="deleteCar")
+     */
+    public function deleteServiceType($id)
+    {
+        $car = $this->getDoctrine()->getRepository(Car::class)->find($id);
+        $this->getDoctrine()->getManager()->remove($car);
+        $this->getDoctrine()->getManager()->flush();
+        return $this->redirectToRoute('profile');
     }
 }
