@@ -24,6 +24,7 @@
                         <th>EngineType</th>
                         <th>Transmission</th>
                         <th>Power kW</th>
+                        <th>Edit</th>
                     </tr>
                     {% for car in app.user.profile.cars %}
                         <tr>
@@ -32,6 +33,7 @@
                             <td>{{ car.engineType }}</td>
                             <td>{{ car.transmission }}</td>
                             <td>{{ car.power }}</td>
+                            <td><a href="{{ 'editCar/' ~ car.numberPlate }}">{{ 'Edit' }}</a></td>
                         </tr>
                     {% endfor %}
                 </table>

@@ -3,17 +3,12 @@
     <link href="{{ asset('assets/css/index.css') }}" rel="stylesheet">
 {% endblock %}
 {% block body %}
-        {% if app.user %}
+    {% if app.user %}
         <div id = "menu">
-            {% if app.user.role == 3 or app.user.role == 2 %}
                 <h1>{{ action }} service type</h1>
                 {{ form(form, {'method': 'POST'}) }}
                 <br />
                 <a href="{{ path('editServiceTypes') }}">{{ 'Back to all services' }}</a>
-            {% else %}
-                <h1>You don't have permission to do that.</h1>
-                <a href="{{ path('index') }}">{{ 'Back to menu page' }}</a>
-            {% endif %}
         </div>
-        {% endif %}
+    {% endif %}
 {% endblock %}
