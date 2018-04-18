@@ -30,6 +30,8 @@ class ProfileType extends AbstractType
                 'label' => 'Phone Number'
             ))
             ->add('birthDate', DateType::class, array(
+                'widget' => 'choice',
+                'years' => range(date('Y'), date('Y')-100),
                 'label' => 'Birth Date'
             ))
             ->add('submit', SubmitType::class, array(

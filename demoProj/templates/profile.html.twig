@@ -15,6 +15,8 @@
             Phone number: {{ app.user.profile.phoneNumber }}<br />
             Birth date: {{ app.user.profile.birthDate|date("Y/m/d") }}<br />
             <br />
+            <a href="{{ path('editProfile') }}">{{ 'Edit profile' }}</a><br />
+            <br />
             Owned cars list: <a href="{{ path('addCar') }}">{{ 'Add car' }}</a><br />
             {% if app.user.profile.cars|length > 0 %}
                 <table align="left" bgcolor="gray">
@@ -25,6 +27,7 @@
                         <th>Transmission</th>
                         <th>Power kW</th>
                         <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                     {% for car in app.user.profile.cars %}
                         <tr>
@@ -34,6 +37,9 @@
                             <td>{{ car.transmission }}</td>
                             <td>{{ car.power }}</td>
                             <td><a href="{{ 'editCar/' ~ car.numberPlate }}">{{ 'Edit' }}</a></td>
+                            <td>
+                                <a href="{{ 'deleteCar/' ~ car.numberPlate }}"><img src = "{{ asset('assets/images/x.png') }}" alt="Delete car" height="20" width="20" align="center"></a>
+                            </td>
                         </tr>
                     {% endfor %}
                 </table>
@@ -41,7 +47,6 @@
                 &nbsp;&nbsp;No cars registered
             {% endif %}
         </div>
-        <a href="{{ path('editProfile') }}">{{ 'Edit profile' }}</a><br />
         <a href="{{ path('index') }}">{{ 'Back to menu page' }}</a>
     </div>
 {% endblock %}

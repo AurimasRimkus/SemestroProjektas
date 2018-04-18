@@ -7,7 +7,6 @@ use App\Entity\Car;
 use App\Entity\Profile;
 use App\Form\CarType;
 use App\Form\ProfileType;
-use App\Controller\RegistrationController;
 
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -153,5 +152,16 @@ class ProfileController extends Controller
             'form' => $form->createView(),
             'action' => "Edit",
         ));
+    }
+
+    /**
+     * @Route("/deleteCar/{id}", name="deleteCar")
+     */
+    public function deleteServiceType($id)
+    {
+        $car = $this->getDoctrine()->getRepository(Car::class)->find($id);
+        $this->getDoctrine()->getManager()->remove($car);
+        $this->getDoctrine()->getManager()->flush();
+        return $this->redirectToRoute('profile');
     }
 }
