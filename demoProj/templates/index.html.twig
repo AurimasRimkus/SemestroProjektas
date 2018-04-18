@@ -15,7 +15,8 @@
 
         {% if is_granted('IS_AUTHENTICATED_FULLY') and app.user.isActive %}
             <h1>Car34 - User menu</h1>
-            <a href="{{ path('changePassword') }}">{{ 'Change password' }}</a>
+            <a href="{{ path('changePassword') }}">{{ 'Change password' }}</a><br />
+            <a href="{{ path('serviceRegistration') }}">{{ 'Register your car for a service' }}</a>
             {% if app.user.role == 2 or app.user.role == 3 %}
                 <br><br>
                 <h1>Mechanic menu</h1>

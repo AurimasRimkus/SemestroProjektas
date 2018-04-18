@@ -42,6 +42,11 @@ class Car
      */
     private $profile;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Order", mappedBy="car")
+     */
+    private $order;
+
     public function getNumberPlate()
     {
         return $this->numberPlate;
@@ -108,5 +113,15 @@ class Car
     public function setProfile(Profile $profile)
     {
         $this->profile = $profile;
+    }
+
+    public function getOrder(): Order
+    {
+        return $this->profile;
+    }
+
+    public function setOrder(Order $order)
+    {
+        $this->order = $order;
     }
 }

@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * User
  *
  * @ORM\Table(name="users")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields={"email"}, message="This email is already taken. Please, choose different one.")
  * @UniqueEntity(fields={"username"}, message="This username is already taken. Please, choose different one.")
  */
@@ -113,16 +113,6 @@ class User implements UserInterface
      * @ORM\OneToOne(targetEntity="App\Entity\Profile", mappedBy="user")
      */
     private $profile;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Order", mappedBy="user")
-     */
-    private $orders;
-
-    public function __construct()
-    {
-        $this->orders = new ArrayCollection();
-    }
 
     /**
      * @return int

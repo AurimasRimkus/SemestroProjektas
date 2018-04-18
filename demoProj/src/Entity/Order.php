@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Table(name="orders")
@@ -20,7 +21,7 @@ class Order
     /**
      * @ORM\Column(name="arrivalDate", type="datetime", nullable=false)
      */
-    private $arivalDate;
+    private $arrivalDate;
 
     /**
      * @ORM\Column(name="isDone", type="boolean", nullable=false)
@@ -28,36 +29,58 @@ class Order
     private $isDone;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
-     * @ORM\Id
+     * @ORM\ManyToOne(targetEntity="App\Entity\Profile", inversedBy="orders")
+     * @ORM\JoinColumn(name="profile_id", referencedColumnName="id")
      */
-    private $numberPlate;
+    private $profile;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\OneToOne(targetEntity="App\Entity\Car", inversedBy="order")
+     * @ORM\JoinColumn(name="cariukas", referencedColumnName="number_plate")
      */
-    private $model;
+    private $car;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @ORM\OneToMany(targetEntity="App\Entity\Repair", mappedBy="order")
      */
-    private $engineType;
+    private $repairs;
+
+    public function __construct()
+    {
+        $this->repairs = new ArrayCollection();
+    }
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @return mixed
      */
-    private $transmission;
+    public function getProfile()
+    {
+        return $this->profile;
+    }
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=false)
+     * @param mixed $profile
      */
-    private $power;
+    public function setProfile($profile)
+    {
+        $this->profile = $profile;
+    }
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="orders")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @return mixed
      */
-    private $user;
+    public function getRepairs()
+    {
+        return $this->repairs;
+    }
+
+    /**
+     * @param mixed $repair
+     */
+    public function addRepairs(Repair $repair)
+    {
+        $this->repairs->add($repair);
+    }
 
     /**
      * @return mixed
@@ -80,25 +103,25 @@ class Order
     /**
      * @return mixed
      */
-    public function getArivalDate()
+    public function getArrivalDate()
     {
-        return $this->arivalDate;
+        return $this->arrivalDate;
     }
 
     /**
-     * @param mixed $arivalDate
+     * @param mixed $arrivalDate
      * @return Order
      */
-    public function setArivalDate($arivalDate)
+    public function setArrivalDate($arrivalDate)
     {
-        $this->arivalDate = $arivalDate;
+        $this->arrivalDate = $arrivalDate;
         return $this;
     }
 
     /**
      * @return mixed
      */
-    public function getisDone()
+    public function getIsDone()
     {
         return $this->isDone;
     }
@@ -116,106 +139,32 @@ class Order
     /**
      * @return mixed
      */
-    public function getNumberPlate()
-    {
-        return $this->numberPlate;
-    }
-
-    /**
-     * @param mixed $numberPlate
-     * @return Order
-     */
-    public function setNumberPlate($numberPlate)
-    {
-        $this->numberPlate = $numberPlate;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getModel()
-    {
-        return $this->model;
-    }
-
-    /**
-     * @param mixed $model
-     * @return Order
-     */
-    public function setModel($model)
-    {
-        $this->model = $model;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getEngineType()
-    {
-        return $this->engineType;
-    }
-
-    /**
-     * @param mixed $engineType
-     * @return Order
-     */
-    public function setEngineType($engineType)
-    {
-        $this->engineType = $engineType;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTransmission()
-    {
-        return $this->transmission;
-    }
-
-    /**
-     * @param mixed $transmission
-     * @return Order
-     */
-    public function setTransmission($transmission)
-    {
-        $this->transmission = $transmission;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPower()
-    {
-        return $this->power;
-    }
-
-    /**
-     * @param mixed $power
-     * @return Order
-     */
-    public function setPower($power)
-    {
-        $this->power = $power;
-        return $this;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getUser(): User
     {
-        return $this->user;
+        return $this->profile;
     }
 
     /**
-     * @param mixed $user
+     * @param mixed $profile
      */
-    public function setUser($user)
+    public function setUser($profile)
     {
-        $this->user = $user;
+        $this->profile = $profile;
+    }
+
+    /**
+     * @return Car
+     */
+    public function getCar(): Car
+    {
+        return $this->car;
+    }
+
+    /**
+     * @param $car
+     */
+    public function setCar($car)
+    {
+        $this->car = $car;
     }
 }

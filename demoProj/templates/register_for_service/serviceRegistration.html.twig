@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Car34 - Service registration
+{% endblock %}
+{% block stylesheets %}
+    <link href="{{ asset('assets/css/index.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+    <div id = "menu">
+        Choose a car from your profile or input other<br /><br />
+        {% if cars %}
+            <table align="center" bgcolor="gray">
+                <tr>
+                    <th>NumberPlate</th>
+                    <th>Model</th>
+                    <th>EngineType</th>
+                    <th>Transmission</th>
+                    <th>Power kW</th>
+                    <th>Choose</th>>
+                </tr>
+                {% for car in cars %}
+                <tr>
+                    <td>{{ car.numberPlate }}</td>
+                    <td>{{ car.model }}</td>
+                    <td>{{ car.engineType }}</td>
+                    <td>{{ car.transmission }}</td>
+                    <td>{{ car.power }}</td>
+                    <td><a href="{{ path('serviceRegistration') }}">{{ 'Select' }}</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            No cars available in your profile.<br />
+        {% endif %}
+        <br />
+        {{ form(form, {'method': 'POST'}) }}
+        <br />
+        <a href="{{ path('index') }}">{{ 'Back to menu page' }}</a>
+    </div>
+{% endblock %}
