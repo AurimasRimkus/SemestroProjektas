@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
@@ -55,6 +56,10 @@ class Profile
      */
     private $user;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Order", mappedBy="profile")
+     */
+    private $orders;
 
     public function getId()
     {
@@ -124,6 +129,7 @@ class Profile
     public function __construct()
     {
         $this->cars = new ArrayCollection();
+        $this->orders = new ArrayCollection();
     }
 
     /**
@@ -137,6 +143,16 @@ class Profile
     public function addCar(Car $car)
     {
         $this->cars->add($car);
+    }
+
+    public  function getOrder()
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Order $order)
+    {
+        $this->orders->add($order);
     }
 
     public function getUser(): User

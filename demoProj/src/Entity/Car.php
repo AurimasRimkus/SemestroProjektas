@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="cars")
@@ -32,7 +33,7 @@ class Car
     private $transmission;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $power;
 
@@ -41,6 +42,11 @@ class Car
      * @ORM\JoinColumn(name="profile_id", referencedColumnName="id")
      */
     private $profile;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Order", mappedBy="car")
+     */
+    private $order;
 
     public function getNumberPlate()
     {
@@ -108,5 +114,15 @@ class Car
     public function setProfile(Profile $profile)
     {
         $this->profile = $profile;
+    }
+
+    public function getOrder(): Order
+    {
+        return $this->profile;
+    }
+
+    public function setOrder(Order $order)
+    {
+        $this->order = $order;
     }
 }
