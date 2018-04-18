@@ -5,6 +5,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * User
@@ -114,9 +115,18 @@ class User implements UserInterface
     private $profile;
 
     /**
-     * @return bool
+     * @ORM\OneToMany(targetEntity="App\Entity\Order", mappedBy="user")
      */
+    private $orders;
 
+    public function __construct()
+    {
+        $this->orders = new ArrayCollection();
+    }
+
+    /**
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
@@ -203,7 +213,7 @@ class User implements UserInterface
     }
 
     /**
-     * @param null|string $passwordResetToken
+     * @param null|string $passwordResetTokenProfile
      */
     public function setPasswordResetToken($passwordResetToken)
     {
@@ -306,6 +316,31 @@ class User implements UserInterface
         $this->registrationToken = $registrationToken;
     }
 
+    public function getProfile(): Profile
+    {
+        return $this->profile;
+    }
+
+    public function setProfile(Profile $profile)
+    {
+        $this->profile = $profile;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrders(): Order
+    {
+        return $this->orders;
+    }
+
+    /**
+     * @param mixed $orders
+     */
+    public function setOrders($orders)
+    {
+        $this->orders = $orders;
+    }
 
     public function getSalt()
     {
@@ -320,15 +355,4 @@ class User implements UserInterface
     public function eraseCredentials()
     {
     }
-
-    public function getProfile(): Profile
-    {
-        return $this->profile;
-    }
-
-    public function setProfile(Profile $profile)
-    {
-        $this->profile = $profile;
-    }
-
 }
