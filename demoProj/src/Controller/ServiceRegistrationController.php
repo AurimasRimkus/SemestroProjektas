@@ -34,30 +34,30 @@ class ServiceRegistrationController extends Controller
         $checkedBoxes = $request->get('student_ids');
         $form = $this->createForm(CarType::class, $newCar);
         $form->handleRequest($request);
-
-        //if no services for car were checked in checkboxes
-        if (!$checkedBoxes)
-        {
-            return $this->render('register_for_service/serviceRegistration.html.twig', [
-                'cars' => $cars,
-                'form'=>$form->createView(),
-                'services'=>$services,
-                'error'=>"Please select at least one service type for a car"
-            ]);
-        }
-
-        //parse ids from checkboxes names
-        $ids = array();
-        foreach ($checkedBoxes as $box)
-        {
-            $args = explode(";", $box);
-            array_push($ids, $args[0]);
-        }
-
-        $newOrder = new Order();
-
+        
         if ($form->isSubmitted() && $form->isValid())
         {
+            //if no services for car were checked in checkboxes
+            if (!$checkedBoxes)
+            {
+                return $this->render('register_for_service/serviceRegistration.html.twig', [
+                    'cars' => $cars,
+                    'form'=>$form->createView(),
+                    'services'=>$services,
+                    'error'=>"Please select at least one service type for a car"
+                ]);
+            }
+
+            //parse ids from checkboxes names
+            $ids = array();
+            foreach ($checkedBoxes as $box)
+            {
+                $args = explode(";", $box);
+                array_push($ids, $args[0]);
+            }
+
+            $newOrder = new Order();
+
             $em = $this->getDoctrine()->getManager();
             //return car from database if it exists by submitted numberPlate
             $car = $this->getDoctrine()->getRepository(Car::class)->find($newCar->getNumberPlate());
