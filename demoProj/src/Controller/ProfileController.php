@@ -160,6 +160,15 @@ class ProfileController extends Controller
     public function deleteCar($id)
     {
         $car = $this->getDoctrine()->getRepository(Car::class)->find($id);
+        $orders= $car->getOrders();
+
+        if ( $orders )
+        {
+            return $this->render('profile.html.twig', [
+                'error' => "Car can't be deleted"
+            ]);
+        }
+
         $this->getDoctrine()->getManager()->remove($car);
         $this->getDoctrine()->getManager()->flush();
         return $this->redirectToRoute('profile');
