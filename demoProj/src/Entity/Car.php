@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -46,7 +47,12 @@ class Car
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Order", mappedBy="car")
      */
-    private $order;
+    private $orders;
+
+    public function __construct()
+    {
+        $this->orders = new ArrayCollection();
+    }
 
     public function getNumberPlate()
     {
@@ -116,13 +122,13 @@ class Car
         $this->profile = $profile;
     }
 
-    public function getOrder(): Order
+    public function getOrders()
     {
-        return $this->profile;
+        return $this->orders;
     }
 
-    public function setOrder(Order $order)
+    public function addOrder(Order $order)
     {
-        $this->order = $order;
+        $this->orders->add($order);
     }
 }

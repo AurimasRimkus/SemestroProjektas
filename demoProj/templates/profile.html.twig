@@ -38,7 +38,7 @@
                             <td>{{ car.power }}</td>
                             <td><a href="{{ 'editCar/' ~ car.numberPlate }}">{{ 'Edit' }}</a></td>
                             <td>
-                                <a href="{{ 'deleteCar/' ~ car.numberPlate }}"><img src = "{{ asset('assets/images/x.png') }}" alt="Delete car" height="20" width="20" align="center"></a>
+                                <a href="{{ path('deleteCar', { 'id': car.numberPlate }) }}"><img src = "{{ asset('assets/images/x.png') }}" alt="Delete car" height="20" width="20" align="center"></a>
                             </td>
                         </tr>
                     {% endfor %}
