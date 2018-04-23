@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Order;
 use App\Entity\User;
 use App\Entity\Service;
 use App\Form\ServiceType;
@@ -28,6 +29,32 @@ class RegisteredCarsController extends AbstractController
         return $this->render('registeredCars.html.twig', [
             'users' => $users,
         ]);
+    }
+    /**
+     * @Route("/editCarServices", name="editCarServices")
+     */
+    public function showCarServices(AuthorizationCheckerInterface $authChecker)
+    {
+        if (!$authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('index');
+        }
+
+        $users = $this->getDoctrine()->getManager()->getRepository(User::class)->findAll();
+        return $this->render('editCarServices.html.twig', [
+            'users' => $users,
+        ]);
+    }
+
+    /**
+     * @Route("/showServices/{id}", name="showServices")
+     */
+    public function showServices($id)
+    {
+        $order = $this->getDoctrine()->getRepository(Order::class)->find($id);
+
+        return $this->render('editCarServices.html.twig', array(
+            'order' => $order,
+        ));
     }
 
 }
