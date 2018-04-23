@@ -145,7 +145,10 @@ class Profile
         $this->cars->add($car);
     }
 
-    public  function getOrder()
+    /**
+     * @return Collection|Order[]
+     */
+    public  function getOrders()
     {
         return $this->orders;
     }
