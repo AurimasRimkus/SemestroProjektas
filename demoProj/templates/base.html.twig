@@ -19,7 +19,7 @@
                     Hello, <b>{{ app.user.username }}</b>. Your email: <b>{{ app.user.email }}</b>. Last login time:  <b>{{ app.user.lastLoginTime|date("Y/m/d H:i:s") }}</b>
                     Role: <b>{% if app.user.role == 1 %}Client{% elseif app.user.role == 2 %}Mechanic{% elseif app.user.role == 3 %}Admin{% else %}Unknown{% endif %}</b> <br />
                     Your profile: <a href="{{ path('profile') }}"><b>{{ app.user.username }}</b></a>
-                    <div id="warning">{% if app.user.profile.name == null or app.user.profile.phoneNumber == null %}&nbsp;&nbsp;Warning!! Missing profile information{% endif %}</div>
+                    <div id="warning">{% if app.user.profile.name == null or app.user.profile.phoneNumber == null %}&nbsp;&nbsp;Warning!! Missing profile information. Appliance for a service is unavailable{% endif %}</div>
                     <div id="logOut"><a href="{{ logout_path() }}">Log out</a></div>
                 </div>
             {% endif %}

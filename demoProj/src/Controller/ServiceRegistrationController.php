@@ -34,7 +34,7 @@ class ServiceRegistrationController extends Controller
         $checkedBoxes = $request->get('student_ids');
         $form = $this->createForm(CarType::class, $newCar);
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid())
         {
             //if no services for car were checked in checkboxes
