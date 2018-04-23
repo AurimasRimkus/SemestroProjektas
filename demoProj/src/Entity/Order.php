@@ -35,8 +35,8 @@ class Order
     private $profile;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Car", inversedBy="order")
-     * @ORM\JoinColumn(name="cariukas", referencedColumnName="number_plate")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Car", inversedBy="order")
+     * @ORM\JoinColumn(name="car_id", referencedColumnName="number_plate")
      */
     private $car;
 
