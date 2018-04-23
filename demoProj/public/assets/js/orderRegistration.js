@@ -19,30 +19,11 @@ $(document).ready(function() {
         }
     });
 
-    // $('.carChoice').click(() => {
-    //     $(this).parent().siblings().each(function() {
-    //         var textval = $(this).text(); // this will be the text of each <td>
-    //         alert(textval);
-    //         console.log("Ciklas");
-    //     });
-    //
-    //     console.log("Ne ciklas");
-    //     //closest('tr').find('td')
-    //
-    //     // var tableRow = $(this).closest("tr");
-    //     // var numberPlate = tableRow.find("td:nth-child(2)");
-    //     // console.log(numberPlate);
-    //     //
-    //     // $(this).closest('tr').find('td').each(function() {
-    //     //     var textval = $(this).text();
-    //     //     console.log(textval);
-    //     // });
-    //     //
-    //     // // $.each($numberPlate, function() {                // Visits every single <td> element
-    //     // //     console.log($(this).text());         // Prints out the text within the <td>
-    //     // // });
-    //     //
-    //     // $('#totalPriceAndDuration').text('Veikia button ' + numberPlate);
-    //     // $('#car_numberPlate').val(numberPlate);
-    // });
+    $('.carChoice').click((event) => {
+        $('#car_numberPlate').val($(event.target).closest('tr').find("td:nth-child(1)").text());
+        $('#car_model').val($(event.target).closest('tr').find("td:nth-child(2)").text());
+        $('#car_engineType').val($(event.target).closest('tr').find("td:nth-child(3)").text());
+        $('#car_transmission').val($(event.target).closest('tr').find("td:nth-child(4)").text());
+        $('#car_power').val($(event.target).closest('tr').find("td:nth-child(5)").text());
+    });
 });
