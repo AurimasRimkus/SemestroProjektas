@@ -20,7 +20,8 @@
             {% if app.user.role == 2 or app.user.role == 3 %}
                 <br><br>
                 <h1>Mechanic menu</h1>
-                <a href="{{ path('editServiceTypes') }}">{{ 'Edit service types' }}</a>
+                <a href="{{ path('editServiceTypes') }}">{{ 'Edit service types' }}</a><br />
+                <a href="{{ path('registeredCars') }}">{{ 'Registered cars for services' }}</a>
             {% endif %}
             {% if app.user.role == 3 %}
                 <br><br>

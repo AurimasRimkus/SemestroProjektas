@@ -1,0 +1,30 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %}
+<link href="{{ asset('assets/css/index.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+<div id = "menu">
+    Car34 - Registered cars for service list<br />
+    <br />
+    <table bgcolor="gray">
+        <tr>
+            <th>User</th>
+            <th>Date</th>
+            <th>Car model</th>
+            <th>Services</th>
+        </tr>
+        {% for user in users %}
+            {% for order in user.profile.getOrders() %}
+                <tr>
+                    <td>{{ user.profile.name }} {{ user.profile.secondName }}</td>
+                    <td>{{ order.arrivalDate|date("Y/m/d") }}</td>
+                    <td>{{ order.car.model }}</td>
+                    <td><a href="{{ path('registeredCars') }}">{{ 'Services' }}</a></td>
+                </tr>
+            {% endfor %}
+        {% endfor %}
+    </table>
+    <br />
+    <a href="{{ path('index') }}">{{ 'Back to menu page' }}</a>
+</div>
+{% endblock %}

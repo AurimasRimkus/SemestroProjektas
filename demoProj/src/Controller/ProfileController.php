@@ -157,7 +157,7 @@ class ProfileController extends Controller
     /**
      * @Route("/deleteCar/{id}", name="deleteCar")
      */
-    public function deleteServiceType($id)
+    public function deleteCar($id)
     {
         $car = $this->getDoctrine()->getRepository(Car::class)->find($id);
         $this->getDoctrine()->getManager()->remove($car);
