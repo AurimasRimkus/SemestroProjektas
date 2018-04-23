@@ -40,6 +40,7 @@ class CarType extends AbstractType
             ))
             ->add('submit', SubmitType::class, array(
                 'label' => 'Save car'
+                //'attr' => array('id' => 'carTypeSubmit')
             ))
         ;
     }

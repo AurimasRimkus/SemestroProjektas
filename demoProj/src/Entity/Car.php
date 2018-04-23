@@ -44,7 +44,7 @@ class Car
     private $profile;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Order", mappedBy="car")
+     * @ORM\OneToMany(targetEntity="App\Entity\Order", mappedBy="car")
      */
     private $order;
 
