@@ -19,7 +19,7 @@
                     <td>{{ user.profile.name }} {{ user.profile.secondName }}</td>
                     <td>{{ order.arrivalDate|date("Y/m/d") }}</td>
                     <td>{{ order.car.model }}</td>
-                    <td><a href="{{ path('registeredCars') }}">{{ 'Services' }}</a></td>
+                    <td><a href="{{ 'showServices/' ~ order.id }}">{{ 'Services' }}</a></td>
                 </tr>
             {% endfor %}
         {% endfor %}
