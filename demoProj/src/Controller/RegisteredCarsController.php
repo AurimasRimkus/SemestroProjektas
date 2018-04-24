@@ -44,14 +44,20 @@ class RegisteredCarsController extends AbstractController
             'repairs'=>$repairs,
         ));
     }
-
     /**
-     * @Route("/changeIsDoneOrder{id}", name="changeIsDoneOrder")
+     * @Route("/changeIsDoneOrder/{id}", name="changeIsDoneOrder")
      */
     public function changeIsDoneOrder($id)
     {
-        $repair = $this->getDoctrine()->getRepository(Order::class)->find($id);
-        $repair->setIsDone(!$repair->getIsDone());
+        $order = $this->getDoctrine()->getRepository(Order::class)->find($id);
+        $repairs = $order->getRepairs();
+        $order->setIsDone(!$order->getIsDone());
+
+        foreach ($repairs as $repair)
+        {
+                $repair->setIsDone(true);
+
+        }
         $this->getDoctrine()->getManager()->flush();
         return $this->redirectToRoute('registeredCars');
     }

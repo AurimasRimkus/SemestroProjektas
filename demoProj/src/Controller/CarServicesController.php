@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Repair;
+use App\Entity\Order;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,6 +21,6 @@ class CarServicesController extends AbstractController
         $repair = $this->getDoctrine()->getRepository(Repair::class)->find($id);
         $repair->setIsDone(!$repair->getIsDone());
         $this->getDoctrine()->getManager()->flush();
-        return $this->redirectToRoute('editCarServices');
+        return $this->redirect('/showServices/' . $id);
     }
 }
