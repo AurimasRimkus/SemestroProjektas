@@ -4,10 +4,9 @@
 {% endblock %}
 {% block body %}
         <div id = "menu">
-            {% if app.user.role == 3 or app.user.role == 2 %}
-                    <h1>Edit repairs for car</h1>
+            {% if app.user %}
+                    <h1>Your services list</h1>
                     <a href="{{ path('index') }}">{{ 'Back to main menu' }}</a><br />
-                    <h2>User: {{ order.getProfile.getName }} {{ order.getProfile.getSecondName }}</h2>
                     <table align="center" bgcolor="gray">
                             <tr>
                                     <th>Order ID</th>
@@ -23,9 +22,9 @@
                                         <td>{{ repair.getname }}</td>
                                         <td>{{ repair.getCost }}</td>
                                         <td>{{ repair.getDuration }}</td>
-                                        <td> {% if repair.getIsDone == true %} Done </a>
-                        {% else %} <a href="{{ 'changeIsDone/' ~ repair.getId }}">{{ 'Done' }}</a>
-                        {% endif %} </td>
+                                        <td> {% if repair.getIsDone == true %} Done <br /> About </a>
+                        {% else %} Not done
+                             {% endif %} </td>
                                 </tr>
                         {% endif %}
                         {% endfor %}

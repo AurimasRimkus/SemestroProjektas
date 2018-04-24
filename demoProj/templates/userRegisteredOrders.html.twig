@@ -1,0 +1,37 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %}
+<link href="{{ asset('assets/css/index.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+<div id = "menu">
+    {% if app.user %}
+        <h1>Registred services list</h1>
+        <a href="{{ path('index') }}">{{ 'Back to main menu' }}</a><br />
+        <table align="center" bgcolor= "gray">
+            <tr>
+                <th>Date</th>
+                <th>Car Model</th>
+                <th>Is done</th>
+                <th>Service</th>
+            </tr>
+            {% for user in users %}
+            {% for order in user.profile.getOrders() %}
+                {% if user.id == app.user.id %}
+                    <tr>
+                        <td>{{ order.arrivalDate|date("Y/m/d") }}</td>
+                        <td>{{ order.car.model }}</td>
+                        <td><a href="{{ 'showUserServices/' ~ order.id}}">{{ 'Services' }}</a></td>
+                        <td> {% if order.getIsDone == true %} Done </a>
+                            {% else %} Not done</a>
+                            {% endif %} </td>
+                    </tr>
+            {% endif %}
+                {% endfor %}
+            {% endfor %}
+        </table>
+    {% else %}
+        <h1>You don't have permission to do that.</h1>
+        <a href="{{ path('index') }}">{{ 'Back to menu page' }}</a>
+    {% endif %}
+</div>
+{% endblock %}
