@@ -20,8 +20,8 @@
                     <td>{{ user.profile.name }} {{ user.profile.secondName }}</td>
                     <td>{{ order.arrivalDate|date("Y/m/d") }}</td>
                     <td>{{ order.car.model }}</td>
-                    <td><a href="{{ 'showServices/' ~ order.id}}">{{ 'Services' }}</a></td>
-                    <td> {% if order.getIsDone == true %} Done </a>
+                    <td><a href="{{ 'showServices/' ~ order.getId}}">{{ 'Services' }}</a></td>
+                    <td> {% if order.getIsDone == true %} <a href="{{ 'changeIsDoneOrder/' ~ order.getId }}">{{ 'UnDone' }}</a>
                         {% else %} <a href="{{ 'changeIsDoneOrder/' ~ order.getId }}">{{ 'Done' }}</a>
                         {% endif %} </td>
                 </tr>

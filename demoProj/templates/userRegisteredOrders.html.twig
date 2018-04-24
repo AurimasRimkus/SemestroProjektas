@@ -11,8 +11,8 @@
             <tr>
                 <th>Date</th>
                 <th>Car Model</th>
-                <th>Is done</th>
                 <th>Service</th>
+                <th>Is done</th>
             </tr>
             {% for user in users %}
             {% for order in user.profile.getOrders() %}
