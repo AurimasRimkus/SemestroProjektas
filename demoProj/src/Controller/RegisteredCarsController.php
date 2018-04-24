@@ -51,13 +51,14 @@ class RegisteredCarsController extends AbstractController
     {
         $order = $this->getDoctrine()->getRepository(Order::class)->find($id);
         $repairs = $order->getRepairs();
-        $order->setIsDone(!$order->getIsDone());
+        $order->setIsDone(true);
 
         foreach ($repairs as $repair)
         {
                 $repair->setIsDone(true);
 
         }
+
         $this->getDoctrine()->getManager()->flush();
         return $this->redirectToRoute('registeredCars');
     }

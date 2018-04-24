@@ -19,8 +19,9 @@ class CarServicesController extends AbstractController
     public function changeIsDone($id)
     {
         $repair = $this->getDoctrine()->getRepository(Repair::class)->find($id);
-        $repair->setIsDone(!$repair->getIsDone());
+        $orderId = $repair->getOrder()->getId();
+        $repair->setIsDone(true);
         $this->getDoctrine()->getManager()->flush();
-        return $this->redirect('/showServices/' . $id);
+        return $this->redirect('/showServices/' . $orderId);
     }
 }

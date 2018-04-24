@@ -22,11 +22,15 @@
                                         <td>{{ repair.getname }}</td>
                                         <td>{{ repair.getCost }}</td>
                                         <td>{{ repair.getDuration }}</td>
-                                        <td> {% if repair.getIsDone == true %} Done <br /> About </a>
-                        {% else %} Not done
-                             {% endif %} </td>
+                                        <td>
+                                            {% if repair.getIsDone %}
+                                                Done
+                                            {% else %}
+                                                Not done
+                                            {% endif %}
+                                        </td>
                                 </tr>
-                        {% endif %}
+                            {% endif %}
                         {% endfor %}
                     </table>
             {% else %}

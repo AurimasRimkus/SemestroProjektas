@@ -23,10 +23,15 @@
                                         <td>{{ repair.getname }}</td>
                                         <td>{{ repair.getCost }}</td>
                                         <td>{{ repair.getDuration }}</td>
-                                        <td> {% if repair.getIsDone == true %} Done </a>
-                        {% else %} <a href="{{ 'changeIsDone/' ~ repair.getId }}">{{ 'Done' }}</a>
-                        {% endif %} </td>
+                                        <td>
+                                            {% if repair.isDone %}
+                                                Done
+                                            {% else %}
+                                                <a href="{{ path('changeIsDone', { 'id': repair.getId }) }}">{{ 'Done' }}</a>
+                                            {% endif %}
+                                        </td>
                                 </tr>
+
                         {% endif %}
                         {% endfor %}
                     </table>
