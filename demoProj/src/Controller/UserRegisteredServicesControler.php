@@ -35,7 +35,7 @@ class UserRegisteredServicesControler extends AbstractController
     {
         $order = $this->getDoctrine()->getRepository(Order::class)->find($id);
         $repairs = $this->getDoctrine()->getManager()->getRepository(Repair::class)->findAll();
-        return $this->render('userRegisteredServicesList.html.twig', array(
+        return $this->render('userRegisteredOrdersList.html.twig', array(
             'order' => $order,
             'repairs'=>$repairs,
         ));
