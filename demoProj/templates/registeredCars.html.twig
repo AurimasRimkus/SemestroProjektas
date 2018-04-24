@@ -12,6 +12,7 @@
             <th>Date</th>
             <th>Car model</th>
             <th>Services</th>
+            <th>Is done</th>
         </tr>
         {% for user in users %}
             {% for order in user.profile.getOrders() %}
@@ -19,7 +20,10 @@
                     <td>{{ user.profile.name }} {{ user.profile.secondName }}</td>
                     <td>{{ order.arrivalDate|date("Y/m/d") }}</td>
                     <td>{{ order.car.model }}</td>
-                    <td><a href="{{ 'showServices/' ~ order.id }}">{{ 'Services' }}</a></td>
+                    <td><a href="{{ 'showServices/' ~ order.id}}">{{ 'Services' }}</a></td>
+                    <td> {% if order.getIsDone == true %} Done </a>
+                        {% else %} <a href="{{ 'changeIsDoneOrder/' ~ order.getId }}">{{ 'Done' }}</a>
+                        {% endif %} </td>
                 </tr>
             {% endfor %}
         {% endfor %}

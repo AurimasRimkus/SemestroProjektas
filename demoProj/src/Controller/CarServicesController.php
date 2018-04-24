@@ -2,8 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Service;
-use App\Form\ServiceType;
+use App\Entity\Repair;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,88 +11,15 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class CarServicesController extends AbstractController
 {
-    /**
-     * @Route("/editServiceTypes", name="editServiceTypes")
-     */
-    public function showAllServices(AuthorizationCheckerInterface $authChecker)
-    {
-        if (!$authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            return $this->redirectToRoute('index');
-        }
-
-        $services = $this->getDoctrine()->getManager()->getRepository(Service::class)->findAll();
-        return $this->render('editServiceTypes.html.twig', [
-            'services' => $services,
-        ]);
-    }
 
     /**
-     * @Route("/changeServiceType/{id}", name="changeServiceType")
+     * @Route("/changeIsDone/{id}", name="changeIsDone")
      */
-    public function changeServiceType(Request $request, $id)
+    public function changeIsDone($id)
     {
-        $service = $this->getDoctrine()->getRepository(Service::class)->find($id);
-        $form = $this->createForm(ServiceType::class, $service);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
-
-            return $this->redirectToRoute('editServiceTypes');
-        }
-
-        return $this->render('editServiceType.html.twig', array(
-            'form' => $form->createView(),
-            'action' => "Edit",
-        ));
-    }
-
-    /**
-     * @Route("/addServiceType", name="addServiceType")
-     */
-    public function addServiceType(Request $request)
-    {
-        $service = new Service();
-        $form = $this->createForm(ServiceType::class, $service);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid())
-        {
-            $em = $this->getDoctrine()->getManager();
-
-            $em->persist($service);
-            $em->flush();
-
-            return $this->redirectToRoute('editServiceTypes');
-        }
-
-        return $this->render('editServiceType.html.twig', array(
-            'form'=>$form->createView(),
-            'action' => "Add",
-        ));
-    }
-
-    /**
-     * @Route("/changeIsRepaired/{id}", name="changeIsRepaired")
-     */
-    public function changeIsRepaired($id)
-    {
-        $repair = $this->getDoctrine()->getRepository(Repaic::class)->find($id);
+        $repair = $this->getDoctrine()->getRepository(Repair::class)->find($id);
         $repair->setIsDone(!$repair->getIsDone());
         $this->getDoctrine()->getManager()->flush();
         return $this->redirectToRoute('editCarServices');
-    }
-
-    /**
-     * @Route("/deleteServiceType/{id}", name="deleteServiceType")
-     */
-    public function deleteServiceType($id)
-    {
-        $service = $this->getDoctrine()->getRepository(Service::class)->find($id);
-        $this->getDoctrine()->getManager()->remove($service);
-        $this->getDoctrine()->getManager()->flush();
-        return $this->redirectToRoute('editServiceTypes');
     }
 }
