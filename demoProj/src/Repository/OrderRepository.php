@@ -19,16 +19,19 @@ class OrderRepository extends ServiceEntityRepository
         parent::__construct($registry, Order::class);
     }
 
-    /*
-    public function findBySomething($value)
+    public function findByDate($date)
     {
+        $dateStart = new \DateTime($date);
+        $dateStart->setTime(7,0);
+        $dateEnd = new \DateTime($date);
+        $dateEnd->setTime(18,0);
+
         return $this->createQueryBuilder('o')
-            ->where('o.something = :value')->setParameter('value', $value)
-            ->orderBy('o.id', 'ASC')
-            ->setMaxResults(10)
+            ->andwhere('o.startDate > :dateStart')->setParameter('dateStart', $dateStart)
+            ->andwhere('o.finishDate < :dateEnd')->setParameter('dateEnd', $dateEnd)
+            //->select('o.startDate', 'o.finishDate')
+            ->orderBy('o.startDate', 'ASC')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
 }

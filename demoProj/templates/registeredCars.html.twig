@@ -19,7 +19,7 @@
                 {% if not order.isDone %}
                     <tr>
                         <td>{{ user.profile.name }} {{ user.profile.secondName }}</td>
-                        <td>{{ order.arrivalDate|date("Y/m/d") }}</td>
+                        <td>{{ order.startDate|date("Y/m/d") }}</td>
                         <td>{{ order.car.model }}</td>
                         <td>
                             <a href="{{ 'showServices/' ~ order.getId}}">{{ 'Services' }}</a>

@@ -19,22 +19,28 @@ class Car
     private $numberPlate;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $model;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $engineType;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=false)
      */
     private $transmission;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer", nullable=false)
+     * @Assert\Range(
+     *     min = 0,
+     *     max = 1000,
+     *     minMessage = "Engine power can not be negative",
+     *     maxMessage = "Engine power is too high"
+     * )
      */
     private $power;
 
