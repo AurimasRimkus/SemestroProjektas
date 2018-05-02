@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Order;
 use App\Entity\Repair;
 use App\Entity\Service;
-use App\Form\ListedServices;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Car;
@@ -26,34 +25,33 @@ class ServiceRegistrationController extends Controller
             return $this->redirectToRoute('index');
         }
 
+        if(!$service = $this->getDoctrine()->getRepository(Service::class)->findAll())
+        {
+            return $this->redirectToRoute('index');
+        }
+
         $user = $this->getUser();
         $profile = $user->getProfile();
         $cars = $profile->getCars();
         $newCar = new Car();
         $services = $this->getDoctrine()->getRepository(Service::class)->findBy(['isActive'=>'1']);
         $checkedBoxes = $request->get('student_ids');
+        $orderTime = $request->get('chosenTime');
+        $comment = $request->get('comment');
         $form = $this->createForm(CarType::class, $newCar);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
         {
-            //if no services for car were checked in checkboxes
-            if (!$checkedBoxes)
-            {
-                return $this->render('register_for_service/serviceRegistration.html.twig', [
-                    'cars' => $cars,
-                    'form'=>$form->createView(),
-                    'services'=>$services,
-                    'error'=>"Please select at least one service type for a car"
-                ]);
-            }
-
+            //order's duration in time
+            $orderDuration = 0;
             //parse ids from checkboxes names
             $ids = array();
             foreach ($checkedBoxes as $box)
             {
                 $args = explode(";", $box);
                 array_push($ids, $args[0]);
+                $orderDuration += (int)$args[2];
             }
 
             $newOrder = new Order();
@@ -76,9 +74,14 @@ class ServiceRegistrationController extends Controller
                 $em->persist($newCar);
             }
 
-            $time = new \DateTime();
-            $newOrder->setArrivalDate($time);
+            $startFinishTimes = explode("/", $orderTime);
+            $startTime = new \DateTime($startFinishTimes[0]);
+            $finishTime = new \DateTime($startFinishTimes[1]);
+            $newOrder->setStartDate($startTime);
+            $newOrder->setFinishDate($finishTime);
+            $newOrder->setDuration($orderDuration);
             $newOrder->setProfile($profile);
+            $newOrder->setComment($comment);
             $newOrder->setIsDone(false);
 
             //for each service checked we create a repair. one order has many repairs (ManyToOne)
@@ -106,5 +109,68 @@ class ServiceRegistrationController extends Controller
             'form'=>$form->createView(),
             'services'=>$services,
         ]);
+    }
+
+    /**
+     * @Route("/availableServiceTimes", name="availableServiceTimes")
+     */
+    public function ajaxAction(Request $request)
+    {
+        if($request->isXmlHttpRequest() && $request->request->get('date'))
+        {
+            $date = $request->request->get('date');
+            $duration = $request->request->get('duration');
+
+            $time = array (8, 9, 10, 11, 12, 13, 14, 15, 16);
+            $orders = $this->getDoctrine()->getRepository(Order::class)->findByDate($date);
+
+            // iterate through orders
+            foreach ($orders as $order)
+            {
+                $startHour = $order->getStartDate()->format("H");
+                $finishHour = $order->getFinishDate()->format("H");
+
+                //remove hours from array what are already taken
+                for ( $i = (int)$startHour; $i < (int)$finishHour; $i++ )
+                {
+                    $key = array_search($i, $time);
+                    unset($time[$key]);
+                }
+            }
+
+            $time = $this->findAvailableHours($duration, array_values($time));
+
+            $arrData = ['times' => $time];
+            return new JsonResponse($arrData);
+        }
+
+        return $this->redirectToRoute('index');
+    }
+
+    private function findAvailableHours($duration, $hours)
+    {
+        $availableHours = array();
+
+        // for every hour
+        for ( $i = 0; $i < count($hours); $i++ )
+        {
+            $count = 0;
+            // for every single service hour (duration)
+            for ( $j = 0; $j < $duration; $j++ )
+            {
+                if ( array_search($hours[$i]+$j, $hours) !== false )
+                {
+                    $count++;
+                }
+            }
+
+            if ( $count == $duration )
+            {
+                $data = $hours[$i] . ":00 - " . ($hours[$i]+$duration) . ":00";
+                array_push($availableHours, $data);
+            }
+        }
+
+        return $availableHours;
     }
 }

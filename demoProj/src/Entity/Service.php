@@ -25,12 +25,18 @@ class Service
     private $name;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=false)
+     * @Assert\Range(
+     *     min = 1,
+     *     max = 10000,
+     *     minMessage = "Service's cost can not be negative or equal to 0",
+     *     maxMessage = "Service's cost is too high"
+     * )
      */
     private $cost;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=false)
      * @Assert\Range(
      *     min = 1,
      *     max = 5,

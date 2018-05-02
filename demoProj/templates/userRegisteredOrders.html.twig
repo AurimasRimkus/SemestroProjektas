@@ -18,7 +18,7 @@
             {% for order in user.profile.getOrders() %}
                 {% if user.id == app.user.id %}
                     <tr>
-                        <td>{{ order.arrivalDate|date("Y/m/d") }}</td>
+                        <td>{{ order.startDate|date("Y-m-d") }}</td>
                         <td>{{ order.car.model }}</td>
                         <td><a href="{{ 'showUserServices/' ~ order.id}}">{{ 'Services' }}</a></td>
                         <td> {% if order.getIsDone == true %} Done </a>

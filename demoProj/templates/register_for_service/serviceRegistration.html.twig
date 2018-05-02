@@ -3,12 +3,13 @@
     Car34 - Service registration
 {% endblock %}
 {% block stylesheets %}
-    <link href="{{ asset('assets/css/index.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/datetimepicker.css') }}" rel="stylesheet">
     <script src="{{ asset('assets/js/orderRegistration.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap-datetimepicker.min.js') }}"></script>
 {% endblock %}
 {% block body %}
     <div id = "menu">
-        Choose a car from your profile or input other<br /><br />
+        Choose a car from your profile or input other:<br /><br />
         {% if error is defined %}
             {{ error }}<br /><br />
         {% endif %}
@@ -45,8 +46,9 @@
             {{ form_row(form.transmission) }}
             {{ form_row(form.power) }}
             <br />
-            Check which services you want to apply for your car: <br /><br />
-            <table align="center" bgcolor="gray" id>
+            Choose which services you want to apply for your car: <br />
+            Total duration can not exceed 5 hours.<br /><br />
+            <table align="center" bgcolor="gray">
                 <tr>
                     <th>Name</th>
                     <th>Cost</th>
@@ -62,8 +64,16 @@
                     </tr>
                 {% endfor %}
             </table>
-            <p id="totalPriceAndDuration"></p>
-            {{ form_row(form.submit, { 'label': 'Apply for service' }) }}
+        <br />
+            <p id="totalPriceAndDuration">No services were selected.</p>
+            <input size="16" type="text" value="" readonly class="form_datetime">
+        <table id="timesTable" align="center" bgcolor="gray">
+            <tbody id="serviceTime"></tbody>
+        </table>
+        <p id="availableTimesError">No available times for a service this day. Choose different day.</p>
+        <br />
+        <textarea cols="30" name="comment" placeholder="Leave a comment...(Optional)"></textarea>
+        {{ form_row(form.submit, { 'label': 'Apply for service', 'disabled': 'true' }) }}
         {{ form_end(form) }}
 
         <br />

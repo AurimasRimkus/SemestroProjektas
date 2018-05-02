@@ -33,7 +33,7 @@ a:visited, a{
 }
 
 body{
-	background-image: url('../images/background.jpg');
+	/*background-image: url('../images/background.jpg');*/
 }
 #table{
 	border:1px solid black;
@@ -60,6 +60,10 @@ body{
 	display: inline;
 }
 
-#totalPriceAndDuration, #error{
+#error, .form_datetime, #availableTimesError{
 	display: none;
+}
+
+#availableTimesError{
+	color: red;
 }

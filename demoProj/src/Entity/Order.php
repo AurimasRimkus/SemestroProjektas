@@ -19,9 +19,19 @@ class Order
     private $id;
 
     /**
-     * @ORM\Column(name="arrivalDate", type="datetime", nullable=false)
+     * @ORM\Column(name="startDate", type="datetime", nullable=false)
      */
-    private $arrivalDate;
+    private $startDate;
+
+    /**
+     * @ORM\Column(name="finishDate", type="datetime", nullable=false)
+     */
+    private $finishDate;
+
+    /**
+     * @ORM\Column(name="duration", type="integer", nullable=false)
+     */
+    private $duration;
 
     /**
      * @ORM\Column(name="isDone", type="boolean", nullable=false)
@@ -35,7 +45,7 @@ class Order
     private $profile;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Car", inversedBy="order")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Car", inversedBy="orders")
      * @ORM\JoinColumn(name="car_id", referencedColumnName="number_plate")
      */
     private $car;
@@ -44,6 +54,11 @@ class Order
      * @ORM\OneToMany(targetEntity="App\Entity\Repair", mappedBy="order")
      */
     private $repairs;
+
+    /**
+     * @ORM\Column(name="comment", type="text", nullable=true)
+     */
+    private $comment;
 
     public function __construct()
     {
@@ -103,18 +118,54 @@ class Order
     /**
      * @return mixed
      */
-    public function getArrivalDate()
+    public function getDuration()
     {
-        return $this->arrivalDate;
+        return $this->duration;
     }
 
     /**
-     * @param mixed $arrivalDate
+     * @param mixed $duration
      * @return Order
      */
-    public function setArrivalDate($arrivalDate)
+    public function setDuration($duration)
     {
-        $this->arrivalDate = $arrivalDate;
+        $this->duration = $duration;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getStartDate()
+    {
+        return $this->startDate;
+    }
+
+    /**
+     * @param mixed $startDate
+     * @return Order
+     */
+    public function setStartDate($startDate)
+    {
+        $this->startDate = $startDate;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFinishDate()
+    {
+        return $this->finishDate;
+    }
+
+    /**
+     * @param mixed $finishDate
+     * @return Order
+     */
+    public function setFinishDate($finishDate)
+    {
+        $this->finishDate = $finishDate;
         return $this;
     }
 
@@ -133,6 +184,24 @@ class Order
     public function setIsDone($isDone)
     {
         $this->isDone = $isDone;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * @param $comment
+     * @return $this
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
         return $this;
     }
 

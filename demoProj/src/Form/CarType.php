@@ -26,7 +26,9 @@ class CarType extends AbstractType
             ->add('engineType', ChoiceType::class, array(
                 'choices' => array(
                     'Petrol' => 'Petrol',
-                    'Diesel' => 'Diesel'),
+                    'Diesel' => 'Diesel',
+                    'Electric' => 'Electric',
+                    'Hybrid' => 'Hybrid'),
                 'label' => 'Engine Type'
             ))
             ->add('transmission', ChoiceType::class, array(
