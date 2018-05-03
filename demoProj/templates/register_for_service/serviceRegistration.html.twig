@@ -9,10 +9,13 @@
 {% endblock %}
 {% block body %}
     <div id = "menu">
-        Choose a car from your profile or input other:<br /><br />
-        {% if error is defined %}
-            {{ error }}<br /><br />
+        {% if error is defined and error is not empty %}
+            <div class="alert">
+                <span class="closeAlertButton">&times</span>
+                <strong>Error:</strong> {{ error }}
+            </div>
         {% endif %}
+        Choose a car from your profile or input other:<br /><br />
         {% if cars %}
             <table align="center" bgcolor="gray">
                 <tr>

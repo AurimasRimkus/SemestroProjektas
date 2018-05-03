@@ -5,6 +5,13 @@
 {% block body %}
     <div id = "menu">
         <h1>Add car</h1>
+        {% if error is defined and error is not empty %}
+            <div class="alert">
+                <span class="closeAlertButton">&times</span>
+                <strong>Error: </strong> {{ error }}
+            </div>
+        {% endif %}
+
         <div id="profile">
             {{ form(form, {'method': 'POST'}) }}
         </div>

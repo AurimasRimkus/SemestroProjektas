@@ -8,8 +8,11 @@
 {% block body %}
 <div id = "menu">
     <h1>Car34 - Login</h1>
-    {% if error %}
-        <div>{{ error }}</div><br />
+    {% if error is defined and error is not empty %}
+        <div class="alert">
+            <span class="closeAlertButton">&times</span>
+            <strong>Error:</strong> {{ error }}
+        </div>
     {% endif %}
 
     <form action="{{ path('login') }}" method="post">

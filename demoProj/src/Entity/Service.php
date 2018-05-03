@@ -56,48 +56,48 @@ class Service
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName()
     {
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName($name)
     {
         $this->name = $name;
 
         return $this;
     }
 
-    public function getCost(): ?int
+    public function getCost()
     {
         return $this->cost;
     }
 
-    public function setCost(int $cost): self
+    public function setCost($cost)
     {
         $this->cost = $cost;
 
         return $this;
     }
 
-    public function getDuration(): ?int
+    public function getDuration()
     {
         return $this->duration;
     }
 
-    public function setDuration(int $duration): self
+    public function setDuration($duration)
     {
         $this->duration = $duration;
 
         return $this;
     }
 
-    public function getIsActive(): ?bool
+    public function getIsActive()
     {
         return $this->isActive;
     }
 
-    public function setIsActive(bool $isActive): self
+    public function setIsActive($isActive)
     {
         $this->isActive = $isActive;
 

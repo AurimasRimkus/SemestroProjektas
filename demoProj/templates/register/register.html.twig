@@ -9,9 +9,12 @@
     <div id = "menu">
         <h1>Car34 - Register</h1>
         {{ form_start(form) }}
-            {{ form_errors(form.username) }}
-            {{ form_errors(form.email) }}
-            {{ form_errors(form.password.first) }}
+            {% for error in form.vars.errors.form.getErrors(true) %}
+                <div class="alert">
+                    <span class="closeAlertButton">&times</span>
+                    <strong>Error: </strong> {{ error.message|striptags }}
+                </div>
+            {% endfor %}
 
             Username: {{ form_widget(form.username) }}<br /><br />
             Email: {{ form_widget(form.email) }}<br /><br />

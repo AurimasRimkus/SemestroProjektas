@@ -5,8 +5,11 @@
 {% block body %}
     <div id = "menu">
         <h1>User profile</h1>
-        {% if error != null %}
-            <div id="warning">{{ error }}</div>
+        {% if error is defined and error is not empty %}
+            <div class="alert">
+                <span class="closeAlertButton">&times</span>
+                <strong>Error: </strong> {{ error }}
+            </div>
         {% endif %}
         <div id = "profile">
             First name: {{ app.user.profile.name }}<br />

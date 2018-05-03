@@ -45,7 +45,7 @@ class ChangePasswordController extends Controller
                 $em->flush();
                 return $this->redirectToRoute('index');
             }else{
-                $error = "Old password is not correct";
+                $error = "Old password is not correct.";
             }
         }
 

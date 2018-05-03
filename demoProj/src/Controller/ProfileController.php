@@ -70,6 +70,10 @@ class ProfileController extends Controller
             elseif($user->getEmail() != $newProfile->getEmail())
             {
                 $error = 'Email incorrect or already in use';
+                return $this->render('editProfile.html.twig', [
+                    'error' => $error,
+                    'form'=>$form->createView()
+                ]);
             }
 
             $em = $this->getDoctrine()->getManager();
@@ -121,8 +125,9 @@ class ProfileController extends Controller
         {
             $error = 'Incorrect information or the same number plate';
 
-            return $this->render('profile.html.twig', array(
+            return $this->render('addCar.html.twig', array(
                 'error'=>$error,
+                'form'=>$form->createView()
             ));
         }
 
@@ -165,12 +170,13 @@ class ProfileController extends Controller
         if ( $orders )
         {
             return $this->render('profile.html.twig', [
-                'error' => "Car can't be deleted"
+                'error' => "Car cannot be deleted because is already in an order"
             ]);
         }
 
         $this->getDoctrine()->getManager()->remove($car);
         $this->getDoctrine()->getManager()->flush();
         return $this->redirectToRoute('profile');
+
     }
 }

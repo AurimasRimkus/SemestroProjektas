@@ -4,9 +4,27 @@
 {% endblock %}
 {% block body %}
         <div id = "menu">
+            {% if error is defined and error is not empty %}
+                    <div class="alert">
+                            <span class="closeAlertButton">&times</span>
+                            <strong>Error: </strong> {{ error }}
+                    </div>
+            {% endif %}
+
+            {% for error in form.vars.errors.form.getErrors(true) %}
+                    <div class="alert">
+                            <span class="closeAlertButton">&times</span>
+                            <strong>Error: </strong> {{ error.message|striptags }}
+                    </div>
+            {% endfor %}
+
             {% if app.user.role == 3 or app.user.role == 2 %}
                 <h1>{{ action }} service type</h1>
-                {{ form(form, {'method': 'POST'}) }}
+                {{ form_start(form) }}
+                    Name: {{ form_widget(form.name) }}<br /><br />
+                    Cost: {{ form_widget(form.cost) }}<br /><br />
+                    Duration: {{ form_widget(form.duration) }}<br /><br />
+                {{ form_end(form) }}
                 <br />
                 <a href="{{ path('editServiceTypes') }}">{{ 'Back to all services' }}</a>
             {% else %}

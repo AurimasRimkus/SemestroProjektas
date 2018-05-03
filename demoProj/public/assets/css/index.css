@@ -8,7 +8,6 @@
 	text-align:center;
 	color: #373C3E;
 	background-color: rgba(181, 197, 136, 0.85);
-	font-weight: bold;
 }
 
 table, th, td {
@@ -66,4 +65,25 @@ body{
 
 #availableTimesError{
 	color: red;
+}
+
+.alert {
+	padding: 20px;
+	background-color: #f44336;
+	color: white;
+	width: 50%;
+	left: 25%;
+}
+
+.closeAlertButton {
+	margin-left: 15px;
+	color: white;
+	float: right;
+	font-size: 22px;
+	line-height: 20px;
+	cursor: pointer;
+}
+
+.closeAlertButton:hover {
+	color: black;
 }
