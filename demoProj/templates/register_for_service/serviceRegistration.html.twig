@@ -9,12 +9,9 @@
 {% endblock %}
 {% block body %}
     <div id = "menu">
-        {% if error is defined and error is not empty %}
-            <div class="alert">
-                <span class="closeAlertButton">&times</span>
-                <strong>Error:</strong> {{ error }}
-            </div>
-        {% endif %}
+        {# alerts rendering #}
+        {% set formErrors = form.vars.errors.form.getErrors(true) %}
+        {{ parent() }}
         Choose a car from your profile or input other:<br /><br />
         {% if cars %}
             <table align="center" bgcolor="gray">
@@ -43,11 +40,11 @@
         <br />
 
         {{ form_start(form) }}
-            {{ form_row(form.numberPlate) }}
-            {{ form_row(form.model) }}
-            {{ form_row(form.engineType) }}
-            {{ form_row(form.transmission) }}
-            {{ form_row(form.power) }}
+            Number plate: {{ form_widget(form.numberPlate) }}<br />
+            Car model: {{ form_widget(form.model) }}<br />
+            Engine: {{ form_widget(form.engineType) }}<br />
+            Transmission: {{ form_widget(form.transmission) }}<br />
+            Power: {{ form_widget(form.power) }}<br />
             <br />
             Choose which services you want to apply for your car: <br />
             Total duration can not exceed 5 hours.<br /><br />

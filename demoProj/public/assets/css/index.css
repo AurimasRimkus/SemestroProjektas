@@ -54,10 +54,6 @@ body{
 	text-align: left;
 	padding-left:15px;
 }
-#warning{
-	color: red;
-	display: inline;
-}
 
 #error, .form_datetime, #availableTimesError{
 	display: none;
@@ -67,23 +63,6 @@ body{
 	color: red;
 }
 
-.alert {
-	padding: 20px;
-	background-color: #f44336;
-	color: white;
-	width: 50%;
-	left: 25%;
-}
-
-.closeAlertButton {
-	margin-left: 15px;
-	color: white;
-	float: right;
-	font-size: 22px;
-	line-height: 20px;
-	cursor: pointer;
-}
-
-.closeAlertButton:hover {
-	color: black;
+::placeholder{
+	font-style:italic;
 }

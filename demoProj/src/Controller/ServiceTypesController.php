@@ -33,19 +33,20 @@ class ServiceTypesController extends AbstractController
     public function changeServiceType(Request $request, $id)
     {
         $service = $this->getDoctrine()->getRepository(Service::class)->find($id);
+        $serviceName = $service->getName();
         $form = $this->createForm(ServiceType::class, $service);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid())
         {
             $foundService = $this->getDoctrine()->getRepository(Service::class)
-                ->findOneBy(['name'=>$request->get('service[name]')]);
-            if ($foundService->getName() !== $service->getName())
+                ->findOneBy(['name'=>$form->get('name')->getData()]);
+            if ($foundService !== null && $foundService->getName() != $serviceName)
             {
                 return $this->render('editServiceType.html.twig', array(
                     'form' => $form->createView(),
                     'action' => "Edit",
-                    'error'=>"Service with this name already exist"
+                    'error'=>"Service with this name already exist."
                 ));
             }
 
@@ -77,7 +78,7 @@ class ServiceTypesController extends AbstractController
             {
                 return $this->render('editServiceType.html.twig', array(
                     'form'=>$form->createView(),
-                    'error'=>"This service type already exist",
+                    'error'=>"This service type already exist.",
                     'action' => "Add",
                 ));
             }

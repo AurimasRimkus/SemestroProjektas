@@ -4,20 +4,10 @@
 {% endblock %}
 {% block body %}
     <div id = "menu">
-        <h1>Car34 - Password change</h1>
-        {% if error is defined and error is not empty %}
-            <div class="alert">
-                <span class="closeAlertButton">&times</span>
-                <strong>Error: </strong> {{ error }}
-            </div>
-        {% endif %}
-
-        {% for error in form.vars.errors.form.getErrors(true) %}
-            <div class="alert">
-                <span class="closeAlertButton">&times</span>
-                <strong>Error: </strong> {{ error.message|striptags }}
-            </div>
-        {% endfor %}
+        <h1>Edit profile</h1>
+        {# alerts rendering #}
+        {% set formErrors = form.vars.errors.form.getErrors(true) %}
+        {{ parent() }}
         <div id="profile">
             {{ form_start(form) }}
                 Name            {{ form_widget(form.name, {'value' :  app.user.profile.name  }) }}<br />

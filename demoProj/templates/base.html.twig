@@ -10,27 +10,60 @@
         <link href="{{ asset('assets/css/index.css') }}" rel="stylesheet">
         <link href="{{ asset('assets/css/test.css') }}" rel="stylesheet">
         <!--Boostrap-->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
         <!--Font-->
         <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
-        <!-- Popper.js, Bootstrap.js, jQuery.js-->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <!-- jQuery first, then Popper.js, then Bootstrap JS-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
         <!--Alert-->
         <script src="{{ asset('assets/js/alert.js') }}"></script>
    	     	{% block stylesheets %}{% endblock %}
 	{% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        {% block body %}
+            {% if error is defined and error is not empty %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Error!</strong> {{ error }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+            {% if success is defined and success is not empty %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Success!</strong> {{ success }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+            {% if formErrors is defined %}
+                {% for formError in formErrors %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Error!</strong> {{ formError.message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            {% if app.user %}
+                {% if app.user.profile.name == null or app.user.profile.phoneNumber == null or app.user.profile.secondName == null %}
+                    <div class="alert alert-danger">
+                        <strong>Warning!</strong> Missing profile information. Appliance for a service is unavailable.
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% endblock %}
 	    {% block footer %}
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 <div id="base">
                     Hello, <b>{{ app.user.username }}</b>. Your email: <b>{{ app.user.email }}</b>. Last login time:  <b>{{ app.user.lastLoginTime|date("Y/m/d H:i:s") }}</b>
                     Role: <b>{% if app.user.role == 1 %}Client{% elseif app.user.role == 2 %}Mechanic{% elseif app.user.role == 3 %}Admin{% else %}Unknown{% endif %}</b> <br />
                     Your profile: <a href="{{ path('profile') }}"><b>{{ app.user.username }}</b></a>
-                    <div id="warning">{% if app.user.profile.name == null or app.user.profile.phoneNumber == null %}&nbsp;&nbsp;Warning!! Missing profile information. Appliance for a service is unavailable{% endif %}</div>
                     <div id="logOut"><a href="{{ logout_path() }}">Log out</a></div>
                 </div>
             {% endif %}

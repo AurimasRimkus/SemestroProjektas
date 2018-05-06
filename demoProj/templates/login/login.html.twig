@@ -8,13 +8,8 @@
 {% block body %}
 <div id = "menu">
     <h1>Car34 - Login</h1>
-    {% if error is defined and error is not empty %}
-        <div class="alert">
-            <span class="closeAlertButton">&times</span>
-            <strong>Error:</strong> {{ error }}
-        </div>
-    {% endif %}
-
+    {# alerts rendering #}
+    {{ parent() }}
     <form action="{{ path('login') }}" method="post">
         Username:
         <input type="text" id="username" name="_username" value="{{ last_username }}" />

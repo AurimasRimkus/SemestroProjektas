@@ -43,7 +43,9 @@ class ChangePasswordController extends Controller
 
                 $em->persist($user);
                 $em->flush();
-                return $this->redirectToRoute('index');
+                return $this->render('index.html.twig', array(
+                    'success' => "Password was changed."
+                ));
             }else{
                 $error = "Old password is not correct.";
             }

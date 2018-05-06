@@ -4,19 +4,9 @@
 {% endblock %}
 {% block body %}
         <div id = "menu">
-            {% if error is defined and error is not empty %}
-                    <div class="alert">
-                            <span class="closeAlertButton">&times</span>
-                            <strong>Error: </strong> {{ error }}
-                    </div>
-            {% endif %}
-
-            {% for error in form.vars.errors.form.getErrors(true) %}
-                    <div class="alert">
-                            <span class="closeAlertButton">&times</span>
-                            <strong>Error: </strong> {{ error.message|striptags }}
-                    </div>
-            {% endfor %}
+            {# alerts rendering #}
+            {% set formErrors = form.vars.errors.form.getErrors(true) %}
+            {{ parent() }}
 
             {% if app.user.role == 3 or app.user.role == 2 %}
                 <h1>{{ action }} service type</h1>
