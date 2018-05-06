@@ -5,9 +5,8 @@
 {% block body %}
     <div id = "menu">
         <h1>User profile</h1>
-        {% if error != null %}
-            <div id="warning">{{ error }}</div>
-        {% endif %}
+        {# alerts rendering #}
+        {{ parent() }}
         <div id = "profile">
             First name: {{ app.user.profile.name }}<br />
             Second name: {{ app.user.profile.secondName }}<br />

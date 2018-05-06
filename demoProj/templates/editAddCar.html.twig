@@ -1,0 +1,24 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %}
+    <link href="{{ asset('assets/css/index.css') }}" rel="stylesheet">
+{% endblock %}
+{% block body %}
+    <div id = "menu">
+        <h1>{{ action }} car</h1>
+        {# alerts rendering #}
+        {% set formErrors = form.vars.errors.form.getErrors(true) %}
+        {{ parent() }}
+
+        <div id="profile">
+            {{ form_start(form) }}
+                Number plate: {{ form_widget(form.numberPlate) }}<br />
+                Car model: {{ form_widget(form.model) }}<br />
+                Engine: {{ form_widget(form.engineType) }}<br />
+                Transmission: {{ form_widget(form.transmission) }}<br />
+                Power: {{ form_widget(form.power) }}<br />
+            {{ form_end(form) }}<br />
+        </div>
+
+        <a href="{{ path('profile') }}">{{ 'Back to profile' }}</a>
+    </div>
+{% endblock %}

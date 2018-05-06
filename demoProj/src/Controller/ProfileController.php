@@ -70,6 +70,10 @@ class ProfileController extends Controller
             elseif($user->getEmail() != $newProfile->getEmail())
             {
                 $error = 'Email incorrect or already in use';
+                return $this->render('editProfile.html.twig', [
+                    'error' => $error,
+                    'form'=>$form->createView()
+                ]);
             }
 
             $em = $this->getDoctrine()->getManager();
@@ -78,6 +82,7 @@ class ProfileController extends Controller
             $em->flush();
             return $this->render('profile.html.twig', [
                 'error' => $error,
+                'success' => "Your profile was updated."
             ]);
         }
 
@@ -115,19 +120,23 @@ class ProfileController extends Controller
 
             return $this->render('profile.html.twig', array(
                 'error'=>$error,
+                'success' => "Car was added."
             ));
         }
         elseif($form->isSubmitted())
         {
-            $error = 'Incorrect information or the same number plate';
+            $error = 'Incorrect information or the same number plate.';
 
-            return $this->render('profile.html.twig', array(
+            return $this->render('editAddCar.html.twig', array(
                 'error'=>$error,
+                'form'=>$form->createView(),
+                'action'=>"Add"
             ));
         }
 
-        return $this->render('addCar.html.twig', [
+        return $this->render('editAddCar.html.twig', [
             'form'=>$form->createView(),
+            'action'=>"Add"
         ]);
     }
 
@@ -145,10 +154,12 @@ class ProfileController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            return $this->redirectToRoute('profile');
+            return $this->render('profile.html.twig', array(
+                'success' => "Car information was updated",
+            ));
         }
 
-        return $this->render('addCar.html.twig', array(
+        return $this->render('editAddCar.html.twig', array(
             'form' => $form->createView(),
             'action' => "Edit",
         ));
@@ -165,12 +176,15 @@ class ProfileController extends Controller
         if ( $orders )
         {
             return $this->render('profile.html.twig', [
-                'error' => "Car can't be deleted"
+                'error' => "Car cannot be deleted because is already in an order"
             ]);
         }
 
         $this->getDoctrine()->getManager()->remove($car);
         $this->getDoctrine()->getManager()->flush();
-        return $this->redirectToRoute('profile');
+        return $this->render('profile.html.twig', [
+            'success' => "Car was deleted."
+        ]);
+
     }
 }

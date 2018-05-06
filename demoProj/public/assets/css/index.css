@@ -8,7 +8,6 @@
 	text-align:center;
 	color: #373C3E;
 	background-color: rgba(181, 197, 136, 0.85);
-	font-weight: bold;
 }
 
 table, th, td {
@@ -55,10 +54,6 @@ body{
 	text-align: left;
 	padding-left:15px;
 }
-#warning{
-	color: red;
-	display: inline;
-}
 
 #error, .form_datetime, #availableTimesError{
 	display: none;
@@ -66,4 +61,8 @@ body{
 
 #availableTimesError{
 	color: red;
+}
+
+::placeholder{
+	font-style:italic;
 }

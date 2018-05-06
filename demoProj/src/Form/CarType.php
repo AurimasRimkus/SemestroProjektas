@@ -18,10 +18,12 @@ class CarType extends AbstractType
     {
         $builder
             ->add('numberPlate', TextType::class, array(
-                'label' => 'Number Plate'
+                'label' => 'Number Plate',
+                'attr' => array('placeholder' => 'ABC123')
             ))
             ->add('model', TextType::class, array(
-                'label' => 'Model'
+                'label' => 'Model',
+                'attr' => array('placeholder' => 'Audi')
             ))
             ->add('engineType', ChoiceType::class, array(
                 'choices' => array(
@@ -38,7 +40,8 @@ class CarType extends AbstractType
                 'label' => 'Transmission'
             ))
             ->add('power', IntegerType::class, array(
-                'label' => 'Power kW'
+                'label' => 'Power kW',
+                'attr' => array('placeholder' => 'Up to 1000')
             ))
             ->add('submit', SubmitType::class, array(
                 'label' => 'Save car'

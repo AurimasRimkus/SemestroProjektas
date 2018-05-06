@@ -4,9 +4,17 @@
 {% endblock %}
 {% block body %}
         <div id = "menu">
+            {# alerts rendering #}
+            {% set formErrors = form.vars.errors.form.getErrors(true) %}
+            {{ parent() }}
+
             {% if app.user.role == 3 or app.user.role == 2 %}
                 <h1>{{ action }} service type</h1>
-                {{ form(form, {'method': 'POST'}) }}
+                {{ form_start(form) }}
+                    Name: {{ form_widget(form.name) }}<br /><br />
+                    Cost: {{ form_widget(form.cost) }}<br /><br />
+                    Duration: {{ form_widget(form.duration) }}<br /><br />
+                {{ form_end(form) }}
                 <br />
                 <a href="{{ path('editServiceTypes') }}">{{ 'Back to all services' }}</a>
             {% else %}

@@ -31,7 +31,6 @@ class LoginController extends Controller
             $error = "Wrong username or password";
         }
 
-
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('login/login.html.twig', array(

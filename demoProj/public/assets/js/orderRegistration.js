@@ -89,7 +89,6 @@ $(document).ready(function() {
                 "duration": duration
             },
             success:function (data) {
-                console.log(data);
                 var times = data.times;
                 if(times.length > 0){
                     $('#availableTimesError').hide();

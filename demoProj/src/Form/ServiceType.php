@@ -2,6 +2,7 @@
 namespace App\Form;
 
 use App\Entity\Service;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use function Sodium\add;
 use Symfony\Component\Form\AbstractType;
@@ -16,8 +17,8 @@ class ServiceType extends AbstractType
     {
         $builder
             ->add('name', TextType::class)
-            ->add('cost', TextType::class)
-            ->add('duration', TextType::class)
+            ->add('cost', IntegerType::class)
+            ->add('duration', IntegerType::class)
             ->add('isActive',ChoiceType::class, array(
                 'choices' => array(
                     'Yes' => true,

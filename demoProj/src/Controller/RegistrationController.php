@@ -6,7 +6,7 @@ use App\Entity\Profile;
 use App\Entity\User;
 use App\Form\UserType;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
  * Class RegistrationController
  * @package App\Controller
  */
-class RegistrationController extends AbstractController
+class RegistrationController extends Controller
 {
     /**
      * @Route("/register", name="register")
@@ -62,16 +62,18 @@ class RegistrationController extends AbstractController
             $registrationToken = str_replace("/","",$registrationToken); // because / will make errors with routes
             $user->setRegistrationToken($registrationToken);
 
-            /* Needs to fix activation letter sending
+            // Needs to fix activation letter sending
             $send = $this->get('app.email_activation_service');
             $send->SendActivationEmail($user->getUsername(), $user->getEmail(), $user->getRegistrationToken(), $mailer);
-            */
 
             $em->persist($profile);
             $em->persist($user);
             $em->flush();
 
-            return $this->redirectToRoute('login');
+            return $this->render('login/login.html.twig', array(
+                'success'=> "User ". $user->getUsername(). " was created.",
+                'last_username' => $user->getUsername()
+            ));
         }
 
         return $this->render('register/register.html.twig', array(

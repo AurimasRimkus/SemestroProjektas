@@ -4,7 +4,10 @@
 {% endblock %}
 {% block body %}
     <div id = "menu">
-        <h1>Car34 - Password change</h1>
+        <h1>Edit profile</h1>
+        {# alerts rendering #}
+        {% set formErrors = form.vars.errors.form.getErrors(true) %}
+        {{ parent() }}
         <div id="profile">
             {{ form_start(form) }}
                 Name            {{ form_widget(form.name, {'value' :  app.user.profile.name  }) }}<br />

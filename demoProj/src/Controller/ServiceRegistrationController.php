@@ -101,7 +101,9 @@ class ServiceRegistrationController extends Controller
             $em->persist($newOrder);
             $em->flush();
 
-            return $this->redirectToRoute('index');
+            return $this->render('index.html.twig', [
+                'success' => "Car with plate number: \"" . $newCar->getNumberPlate() . "\" was applied for a service."
+            ]);
         }
 
         return $this->render('register_for_service/serviceRegistration.html.twig', [
