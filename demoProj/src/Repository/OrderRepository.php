@@ -34,4 +34,14 @@ class OrderRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function countOfUndoneOrders($id)
+    {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.isDone = :done')->setParameter('done', false)
+            ->andWhere('o.car = :carId')->setParameter('carId', $id)
+            ->select('COUNT(o.id)')
+            ->getQuery()
+            ->getResult();
+    }
 }
