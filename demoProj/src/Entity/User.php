@@ -19,8 +19,6 @@ class User implements UserInterface
 {
 
     /**
-     * @var int
-     *
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
@@ -28,23 +26,18 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="username", type="string", length=255, nullable=false, unique=true)
+     * @Assert\Type("string")
      */
     private $username;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="email", type="string", length=255, nullable=false, unique=true)
      * @Assert\Email()
      */
     private $email;
 
     /**
-     * @var string
-     *
      * @ORM\Column(name="password", type="string", length=255, nullable=false)
      * @Assert\Length(
      *     min=6,
@@ -54,8 +47,6 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @var string
-     *
      * @Assert\Length(
      *     min=6,
      *     minMessage = "New password must be at least {{ limit }} characters long"
@@ -64,48 +55,48 @@ class User implements UserInterface
     private $newPassword;
 
     /**
-     * @var string|null
-     *
      * @ORM\Column(name="passwordResetToken", type="string", length=255, nullable=true)
+     * @Assert\Type("string")
      */
     private $passwordResetToken;
 
     // Role 1 = user; 2 = mechanic; 3 = admin
     /**
-     * @var int
-     *
      * @ORM\Column(name="role", type="integer", nullable=false)
+     * @Assert\Range(
+     *     min = 1,
+     *     max = 3
+     * )
      */
     private $role;
 
     /**
-     * @var \DateTime
-     *
      * @ORM\Column(name="registrationDate", type="datetime", nullable=false)
+     * @Assert\DateTime()
      */
     private $registrationDate;
 
     /**
-     * @var \DateTime
-     *
      * @ORM\Column(name="lastLoginTime", type="datetime", nullable=false)
+     * @Assert\DateTime()
      */
     private $lastLoginTime;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Assert\Type("bool")
      */
     private $isActive;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Assert\Type("bool")
      */
     private $isDeleted;
 
     /**
-     * @var string|null
-     *
      * @ORM\Column(name="registrationToken", type="string", length=255, nullable=true)
+     * @Assert\Type("string")
      */
     private $registrationToken;
 

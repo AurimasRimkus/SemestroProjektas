@@ -21,6 +21,7 @@ class Service
     /**
      * @var string
      * @ORM\Column(type="string", length=255, nullable=false, unique=true)
+     * @Assert\Type("string")
      */
     private $name;
 
@@ -48,6 +49,7 @@ class Service
 
     /**
      * @ORM\Column(type="boolean")
+     * @Assert\Type("bool")
      */
     private $isActive;
 

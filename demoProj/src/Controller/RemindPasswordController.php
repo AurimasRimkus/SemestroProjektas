@@ -56,7 +56,9 @@ class RemindPasswordController extends AbstractController
                 ;
 
                 $mailer->send($message);
-                return $this->redirectToRoute('index');
+                return $this->render('index.html.twig', array(
+                    'success' => "Password was reset. Follow instructions in a letter we sent you in terms to change it."
+                ));
             }
             else {
                 $error="User with this email doesn't exist in database.";
@@ -65,6 +67,7 @@ class RemindPasswordController extends AbstractController
 
         return $this->render('remindPassword.html.twig', [
             'form'=>$form->createView(),
+            'action' => "reset",
             'error'=>$error
         ]);
     }
@@ -98,6 +101,7 @@ class RemindPasswordController extends AbstractController
 
         return $this->render('remindPassword.html.twig', [
             'form'=>$form->createView(),
+            'action' => "set",
         ]);
     }
 

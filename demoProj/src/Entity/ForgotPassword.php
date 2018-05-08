@@ -2,29 +2,9 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
-/**
- * @ORM\Entity(repositoryClass="App\Repository\ForgotPasswordRepository")
- */
 class ForgotPassword
 {
-    /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
-     */
-    private $id;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
     private $email;
-
-    public function getId()
-    {
-        return $this->id;
-    }
 
     public function getEmail(): ?string
     {
