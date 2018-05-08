@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Order;
 use App\Entity\User;
 use App\Entity\Car;
 use App\Entity\Profile;
@@ -170,21 +171,39 @@ class ProfileController extends Controller
      */
     public function deleteCar($id)
     {
-        $car = $this->getDoctrine()->getRepository(Car::class)->find($id);
-        $orders= $car->getOrders();
+        $undoneOrdersCount= $this->getDoctrine()->getRepository(Order::class)->countOfUndoneOrders($id);
 
-        if ( $orders )
+        if ( $undoneOrdersCount[0][1] != 0 )
         {
             return $this->render('profile.html.twig', [
-                'error' => "Car cannot be deleted because is already in an order"
+                'error' => "Car cannot be deleted because it has undone orders."
             ]);
         }
+        else
+        {
+            $car = $this->getDoctrine()->getRepository(Car::class)->find($id);
+            $orders = $car->getOrders();
 
-        $this->getDoctrine()->getManager()->remove($car);
-        $this->getDoctrine()->getManager()->flush();
-        return $this->render('profile.html.twig', [
-            'success' => "Car was deleted."
-        ]);
+            $em = $this->getDoctrine()->getManager();
+            foreach ($orders as $order)
+            {
+                $repairs = $order->getRepairs();
+                foreach ($repairs as $repair)
+                {
+                    $em->remove($repair);
+                    $em->flush();
+                }
 
+                $em->remove($order);
+                $em->flush();
+            }
+
+            $em->remove($car);
+            $em->flush();
+
+            return $this->render('profile.html.twig', [
+                'success' => "Car was deleted."
+            ]);
+        }
     }
 }
