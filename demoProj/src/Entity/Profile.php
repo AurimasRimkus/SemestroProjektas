@@ -24,9 +24,9 @@ class Profile
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Regex(
-     *     pattern="/\d/",
+     *     pattern="/[\d. \W]+/",
      *     match=false,
-     *     message="Your name cannot contain a number"
+     *     message="Your name cannot contain a digit or special character."
      * )
      */
     private $name;
@@ -34,9 +34,9 @@ class Profile
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Regex(
-     *     pattern="/\d/",
+     *     pattern="/[\d. \W]+/",
      *     match=false,
-     *     message="Your second name cannot contain a number"
+     *     message="Your name cannot contain a digit or special character."
      * )
      */
     private $secondName;
@@ -52,14 +52,14 @@ class Profile
      * @Assert\Regex(
      *     pattern="/^\+?\d+/",
      *     match=true,
-     *     message="Your phone number must only contain digits"
+     *     message="Your phone number must only contain digits."
      * )
      */
     private $phoneNumber;
 
     /**
      * @ORM\Column(type="date", nullable=true)
-     * * @Assert\Date()
+     * @Assert\Date()
      */
     private $birthDate;
 

@@ -15,21 +15,33 @@ class Car
     /**
      * @ORM\Column(type="string", length=255)
      * @ORM\Id
+     * @Assert\Regex(
+     *     pattern = "/\W+/",
+     *     match = false,
+     *     message = "Car number plate cannot contain special symbols."
+     * )
      */
     private $numberPlate;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
+     * @Assert\Regex(
+     *     pattern = "/[\d\W]+/",
+     *     match = false,
+     *     message = "Car model cannot contain digits or special character"
+     * )
      */
     private $model;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
+     * @Assert\Type("string")
      */
     private $engineType;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=false)
+     * @Assert\Type("string")
      */
     private $transmission;
 
@@ -38,8 +50,8 @@ class Car
      * @Assert\Range(
      *     min = 0,
      *     max = 1000,
-     *     minMessage = "Engine power can not be negative",
-     *     maxMessage = "Engine power is too high"
+     *     minMessage = "Engine power cannot be negative.",
+     *     maxMessage = "Engine power is too high."
      * )
      */
     private $power;

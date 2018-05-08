@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="orders")
@@ -20,21 +21,25 @@ class Order
 
     /**
      * @ORM\Column(name="startDate", type="datetime", nullable=false)
+     * @Assert\DateTime()
      */
     private $startDate;
 
     /**
      * @ORM\Column(name="finishDate", type="datetime", nullable=false)
+     * @Assert\DateTime()
      */
     private $finishDate;
 
     /**
      * @ORM\Column(name="duration", type="integer", nullable=false)
+     * @Assert\Type("integer")
      */
     private $duration;
 
     /**
      * @ORM\Column(name="isDone", type="boolean", nullable=false)
+     * @Assert\Type("bool")
      */
     private $isDone;
 
@@ -57,6 +62,7 @@ class Order
 
     /**
      * @ORM\Column(name="comment", type="text", nullable=true)
+     * @Assert\Type("string")
      */
     private $comment;
 

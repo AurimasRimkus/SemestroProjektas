@@ -4,6 +4,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Table(name="repair")
@@ -21,22 +22,25 @@ class Repair
     /**
      * @var string
      * @ORM\Column(type="string", length=255, nullable=false)
+     * @Assert\Type("string")
      */
     private $name;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
+     * @Assert\Type("integer")
      */
     private $cost;
 
     /**
      * @ORM\Column(type="integer", nullable=false)
-     * )
+     * @Assert\Type("integer")
      */
     private $duration;
 
     /**
      * @ORM\Column(type="boolean", nullable=false)
+     * @Assert\Type("bool")
      */
     private $isDone;
 
