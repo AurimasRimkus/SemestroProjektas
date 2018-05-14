@@ -97,4 +97,21 @@ class RegistrationController extends Controller
         $em->flush();
         return $this->redirectToRoute('login');
     }
+
+    /**
+     * @Route("/resend/", name="resendActivationMail")
+     */
+    public function resendActivationMail(\Swift_Mailer $mailer){
+        $user = $this->getUser();
+        if($user == null || $user->getIsActive() == true){
+            return $this->render('index.html.twig', array(
+                'error'=>'Your account is already activated',
+            ));
+        }
+        $send = $this->get('app.email_activation_service');
+        $send->SendActivationEmail($user->getUsername(), $user->getEmail(), $user->getRegistrationToken(), $mailer);
+        return $this->render('index.html.twig', array(
+           'success'=>'Activation e-mail resent!',
+        ));
+    }
 }
