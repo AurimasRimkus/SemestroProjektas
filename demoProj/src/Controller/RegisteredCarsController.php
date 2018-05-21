@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Entity\Service;
 use App\Form\ServiceType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+//use App\Controller\EmailActivationController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -47,7 +48,7 @@ class RegisteredCarsController extends AbstractController
     /**
      * @Route("/changeIsDoneOrder/{id}", name="changeIsDoneOrder")
      */
-    public function changeIsDoneOrder($id)
+    public function changeIsDoneOrder(Request $request, $id, \Swift_Mailer $mailer)
     {
         $order = $this->getDoctrine()->getRepository(Order::class)->find($id);
         $repairs = $order->getRepairs();
@@ -56,10 +57,15 @@ class RegisteredCarsController extends AbstractController
         foreach ($repairs as $repair)
         {
                 $repair->setIsDone(true);
-
         }
 
         $this->getDoctrine()->getManager()->flush();
+
+//        $user = $this->getUser();
+//        $send = $this->get('app.email_activation_service');
+//        $send->SendAllServiceDoneEmail($user->getUsername(), $user->getEmail(), $repairs->getOrder()->getCar()->getModel(), $mailer);
+
+
         return $this->redirectToRoute('registeredCars');
     }
 

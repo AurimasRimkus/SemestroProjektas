@@ -35,4 +35,23 @@ class EmailActivationController extends AbstractController
 
         $mailer->send($message);
     }
+
+    public function SendAllServiceDoneEmail($name, $email, $carModel, \Swift_Mailer $mailer)
+    {
+        $message = (new \Swift_Message('Car completion - Car34'))
+            ->setFrom('car34project@gmail.com')
+            ->setTo($email)
+            ->setBody(
+                $this->renderView(
+                    'emails/servicesDone.html.twig',
+                    array(
+                        'username' => $name,
+                        'model' => $carModel,
+                    )
+                ),
+                'text/html'
+            );
+
+        $mailer->send($message);
+    }
 }
