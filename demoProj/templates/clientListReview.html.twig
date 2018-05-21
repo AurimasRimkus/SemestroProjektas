@@ -9,13 +9,13 @@
         <a href="{{ path('index') }}">{{ 'Back to main menu' }}</a><br />
         <table align="center" bgcolor= "gray">
             <tr>
-                <th>Online</th>
-                <th>User ID</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Last login</th>
-                <th>Is Active</th>
+                <th>{{ knp_pagination_sortable(users, 'Online', 'u.lastLoginTime') }}</th>
+                <th>{{ knp_pagination_sortable(users, 'User ID', 'u.id') }}</th>
+                <th>{{ knp_pagination_sortable(users, 'Username', 'u.username') }}</th>
+                <th>{{ knp_pagination_sortable(users, 'Email', 'u.email') }}</th>
+                <th>{{ knp_pagination_sortable(users, 'Role', 'u.role') }}</th>
+                <th>{{ knp_pagination_sortable(users, 'Last login time', 'u.lastLoginTime') }}</th>
+                <th>{{ knp_pagination_sortable(users, 'Is Active', 'u.isActive') }}</th>
                 <th>Set role</th>
                 <th>Delete</th>
             </tr>

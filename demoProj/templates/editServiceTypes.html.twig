@@ -9,12 +9,12 @@
         <a href="{{ path('index') }}">{{ 'Back to main menu' }}</a><br />
         <table align="center" bgcolor="gray">
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Cost</th>
-                <th>Duration</th>
+                <th>{{ knp_pagination_sortable(services, 'Id', 's.id') }}</th>
+                <th>{{ knp_pagination_sortable(services, 'Name', 's.name') }}</th>
+                <th>{{ knp_pagination_sortable(services, 'Cost', 's.cost') }}</th>
+                <th>{{ knp_pagination_sortable(services, 'Duration', 's.duration') }}</th>
                 <th>Edit</th>
-                <th>Is active</th>
+                <th>{{ knp_pagination_sortable(services, 'Is active', 's.isActive') }}</th>
                 <th>Delete</th>
             </tr>
             {% for service in services %}
@@ -37,7 +37,7 @@
         </table>
         <br />
         <div class="pagination justify-content-center">
-            {{ knp_pagination_render(users, null, {}, {
+            {{ knp_pagination_render(services, null, {}, {
                 'size': 'small'
             }) }}
         </div>

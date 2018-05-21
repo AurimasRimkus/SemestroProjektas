@@ -9,10 +9,10 @@
         <a href="{{ path('index') }}">{{ 'Back to main menu' }}</a><br />
         <table align="center" bgcolor= "gray">
             <tr>
-                <th>Date</th>
-                <th>Car Model</th>
+                <th>{{ knp_pagination_sortable(services, 'Date', 'o.startDate') }}</th>
+                <th>{{ knp_pagination_sortable(services, 'Car model', 'c.model') }}</th>
                 <th>Service</th>
-                <th>Is done</th>
+                <th>{{ knp_pagination_sortable(services, 'Is Done', 'o.id') }}</th>
             </tr>
             {% for service in services %}
                 <tr>

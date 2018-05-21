@@ -8,9 +8,9 @@
     <br />
     <table align="center" bgcolor="gray">
         <tr>
-            <th>User</th>
-            <th>Date</th>
-            <th>Car model</th>
+            <th>{{ knp_pagination_sortable(data, 'User', 'p.secondName') }}</th>
+            <th>{{ knp_pagination_sortable(data, 'Date', 'o.startDate') }}</th>
+            <th>{{ knp_pagination_sortable(data, 'Car model', 'c.model') }}</th>
             <th>Services</th>
             <th>Mark as done</th>
         </tr>
