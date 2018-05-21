@@ -61,7 +61,7 @@ class RegisteredCarsController extends Controller
     /**
      * @Route("/changeIsDoneOrder/{id}", name="changeIsDoneOrder")
      */
-    public function changeIsDoneOrder($id)
+    public function changeIsDoneOrder(Request $request, $id, \Swift_Mailer $mailer)
     {
         $order = $this->getDoctrine()->getRepository(Order::class)->find($id);
         $repairs = $order->getRepairs();
@@ -70,10 +70,15 @@ class RegisteredCarsController extends Controller
         foreach ($repairs as $repair)
         {
                 $repair->setIsDone(true);
-
         }
 
         $this->getDoctrine()->getManager()->flush();
+
+        $user = $this->getUser();
+        $send = $this->get('app.email_activation_service');
+        $send->SendAllServiceDoneEmail($user->getUsername(), $user->getEmail(), $order->getCar()->getModel(), $mailer);
+
+
         return $this->redirectToRoute('registeredCars');
     }
 

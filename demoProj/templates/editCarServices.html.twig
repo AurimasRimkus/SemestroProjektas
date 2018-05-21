@@ -7,6 +7,7 @@
             {% if app.user.role == 3 or app.user.role == 2 %}
                     <h1>Edit repairs for car</h1>
                     <a href="{{ path('index') }}">{{ 'Back to main menu' }}</a><br />
+                    <a href="{{ path('registeredCars') }}">{{ 'Back to registered cars list' }}</a><br />
                     <h2>User: {{ order.getProfile.getName }} {{ order.getProfile.getSecondName }}</h2>
                     <table align="center" bgcolor="gray">
                             <tr>
@@ -32,7 +33,7 @@
                                         </td>
                                 </tr>
 
-                        {% endif %}
+                            {% endif %}
                         {% endfor %}
                     </table>
             {% else %}

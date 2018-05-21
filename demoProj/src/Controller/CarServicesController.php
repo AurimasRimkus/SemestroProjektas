@@ -22,6 +22,7 @@ class CarServicesController extends AbstractController
         $orderId = $repair->getOrder()->getId();
         $repair->setIsDone(true);
         $this->getDoctrine()->getManager()->flush();
+
         return $this->redirect('/showServices/' . $orderId);
     }
 }
