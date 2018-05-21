@@ -14,24 +14,26 @@
             <th>Services</th>
             <th>Mark as done</th>
         </tr>
-        {% for user in users %}
-            {% for order in user.profile.getOrders() %}
-                {% if not order.isDone %}
-                    <tr>
-                        <td>{{ user.profile.name }} {{ user.profile.secondName }}</td>
-                        <td>{{ order.startDate|date("Y/m/d") }}</td>
-                        <td>{{ order.car.model }}</td>
-                        <td>
-                            <a href="{{ 'showServices/' ~ order.getId}}">{{ 'Services' }}</a>
-                        </td>
-                        <td>
-                            <a href="{{ 'changeIsDoneOrder/' ~ order.getId }}">{{ 'Select' }}</a>
-                        </td>
-                    </tr>
-                {% endif %}
-            {% endfor %}
+        {% for element in data %}
+            <tr>
+                <td>{{ element.name }} {{ element.secondName }}</td>
+                <td>{{ element.startDate|date("Y/m/d") }}</td>
+                <td>{{ element.model }}</td>
+                <td>
+                    <a href="{{ 'showServices/' ~ element.id}}">{{ 'Services' }}</a>
+                </td>
+                <td>
+                    <a href="{{ 'changeIsDoneOrder/' ~ element.id }}">{{ 'Select' }}</a>
+                </td>
+            </tr>
         {% endfor %}
     </table>
+    <br />
+    <div class="pagination justify-content-center">
+        {{ knp_pagination_render(data, null, {}, {
+            'size': 'small'
+        }) }}
+    </div>
     <br />
     <a href="{{ path('index') }}">{{ 'Back to menu page' }}</a>
 </div>

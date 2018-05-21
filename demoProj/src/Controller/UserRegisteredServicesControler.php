@@ -7,24 +7,40 @@ use App\Entity\Repair;
 use App\Entity\User;
 use App\Entity\Service;
 use App\Form\ServiceType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
-class UserRegisteredServicesControler extends AbstractController
+class UserRegisteredServicesControler extends Controller
 {
 
     /**
      * @Route("/userRegisteredServices", name="userRegisteredServices")
      */
-    public function userRegisteredServices(AuthorizationCheckerInterface $authChecker)
+    public function userRegisteredServices(AuthorizationCheckerInterface $authChecker, Request $request)
     {
+        $userId = $this->getUser()->getId();
 
-        $users = $this->getDoctrine()->getManager()->getRepository(User::class)->findAll();
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery(
+            'SELECT o.startDate, c.model, o.id
+            FROM App\Entity\Order o
+              LEFT JOIN o.profile p
+              LEFT JOIN o.car c
+            WHERE p.user = :user'
+        )->setParameter('user', $userId);
+
+        $paginator = $this->get('knp_paginator');
+        $result = $paginator->paginate(
+            $query,
+            $request->query->get('page',1),
+            5
+        );
+
         return $this->render('userRegisteredOrders.html.twig', [
-            'users' => $users,
+            'services' => $result,
         ]);
     }
 

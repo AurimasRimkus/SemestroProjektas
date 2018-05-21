@@ -36,6 +36,12 @@
             {% endfor %}
         </table>
         <br />
+        <div class="pagination justify-content-center">
+            {{ knp_pagination_render(users, null, {}, {
+                'size': 'small'
+            }) }}
+        </div>
+        <br />
         <a href = "{{ path('addServiceType') }}"><img src = "{{ asset('assets/images/plus.png') }}" alt="Add a new service type" height="30" width="30"></a>
     {% else %}
         <h1>You don't have permission to do that.</h1>

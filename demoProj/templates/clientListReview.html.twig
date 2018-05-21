@@ -20,7 +20,6 @@
                 <th>Delete</th>
             </tr>
         {% for user in users %}
-            {% if user.isDeleted == false %}
                 <tr>
                     <td>
                         {% if user.lastLoginTime|date("U") > "-10 minutes"|date("U") %}
@@ -50,9 +49,15 @@
                         {% endif %}
                     </td>
                 </tr>
-            {% endif %}
             {% endfor %}
         </table>
+
+        <br />
+        <div class="pagination justify-content-center">
+            {{ knp_pagination_render(users, null, {}, {
+                'size': 'small'
+            }) }}
+        </div>
     {% else %}
         <h1>You don't have permission to do that.</h1>
         <a href="{{ path('index') }}">{{ 'Back to menu page' }}</a>
