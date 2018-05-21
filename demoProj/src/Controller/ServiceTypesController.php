@@ -34,7 +34,6 @@ class ServiceTypesController extends Controller
             5 //limit per page
         );
 
-        $services = $this->getDoctrine()->getManager()->getRepository(Service::class)->findAll();
         return $this->render('editServiceTypes.html.twig', [
             'services' => $result,
         ]);
