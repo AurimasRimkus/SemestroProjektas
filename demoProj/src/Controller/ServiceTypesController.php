@@ -4,26 +4,39 @@ namespace App\Controller;
 
 use App\Entity\Service;
 use App\Form\ServiceType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
-class ServiceTypesController extends AbstractController
+class ServiceTypesController extends Controller
 {
     /**
      * @Route("/editServiceTypes", name="editServiceTypes")
      */
-    public function showAllServices(AuthorizationCheckerInterface $authChecker)
+    public function showAllServices(AuthorizationCheckerInterface $authChecker, Request $request)
     {
         if (!$authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return $this->redirectToRoute('index');
         }
 
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery(
+            'SELECT s
+            FROM App\Entity\Service s'
+        );
+
+        $paginator = $this->get('knp_paginator');
+        $result = $paginator->paginate(
+            $query,
+            $request->query->get('page',1),
+            5 //limit per page
+        );
+
         $services = $this->getDoctrine()->getManager()->getRepository(Service::class)->findAll();
         return $this->render('editServiceTypes.html.twig', [
-            'services' => $services,
+            'services' => $result,
         ]);
     }
 

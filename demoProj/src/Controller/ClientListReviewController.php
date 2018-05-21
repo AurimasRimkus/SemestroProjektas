@@ -4,26 +4,39 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\UserType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
-class ClientListReviewController extends AbstractController
+class ClientListReviewController extends Controller
 {
     /**
      * @Route("/clientListReview", name="clientListReview")
      */
-    public function showAllClients(AuthorizationCheckerInterface $authChecker)
+    public function showAllClients(AuthorizationCheckerInterface $authChecker, Request $request)
     {
         if (!$authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return $this->redirectToRoute('index');
         }
 
-        $users = $this->getDoctrine()->getManager()->getRepository(User::class)->findAll();
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery(
+            'SELECT u
+            FROM App\Entity\User u
+            WHERE  u.isDeleted = false'
+        );
+
+        $paginator = $this->get('knp_paginator');
+        $result = $paginator->paginate(
+            $query,
+            $request->query->get('page',1),
+            5 //limit per page
+        );
+
         return $this->render('clientListReview.html.twig', [
-            'users' => $users,
+            'users' => $result,
         ]);
     }
 

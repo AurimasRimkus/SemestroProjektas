@@ -7,28 +7,42 @@ use App\Entity\Repair;
 use App\Entity\User;
 use App\Entity\Service;
 use App\Form\ServiceType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
-class RegisteredCarsController extends AbstractController
+class RegisteredCarsController extends Controller
 {
 
     /**
      * @Route("/registeredCars", name="registeredCars")
      */
-    public function showAllServices(AuthorizationCheckerInterface $authChecker)
+    public function showAllServices(AuthorizationCheckerInterface $authChecker, Request $request)
     {
         if (!$authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return $this->redirectToRoute('index');
         }
 
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQuery(
+            'SELECT p.name, p.secondName, o.startDate, c.model, o.id
+            FROM App\Entity\Order o
+              LEFT JOIN o.profile p
+              LEFT JOIN o.car c
+            WHERE o.isDone = false'
+        );
 
-        $users = $this->getDoctrine()->getManager()->getRepository(User::class)->findAll();
+        $paginator = $this->get('knp_paginator');
+        $result = $paginator->paginate(
+            $query,
+            $request->query->get('page',1),
+            5
+        );
+
         return $this->render('registeredCars.html.twig', [
-            'users' => $users,
+            'data' => $result,
         ]);
     }
 

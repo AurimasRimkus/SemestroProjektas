@@ -14,21 +14,22 @@
                 <th>Service</th>
                 <th>Is done</th>
             </tr>
-            {% for user in users %}
-            {% for order in user.profile.getOrders() %}
-                {% if user.id == app.user.id %}
-                    <tr>
-                        <td>{{ order.startDate|date("Y-m-d") }}</td>
-                        <td>{{ order.car.model }}</td>
-                        <td><a href="{{ 'showUserServices/' ~ order.id}}">{{ 'Services' }}</a></td>
-                        <td> {% if order.getIsDone == true %} Done </a>
-                            {% else %} Not done</a>
-                            {% endif %} </td>
-                    </tr>
-            {% endif %}
-                {% endfor %}
+            {% for service in services %}
+                <tr>
+                    <td>{{ service.startDate|date("Y-m-d") }}</td>
+                    <td>{{ service.model }}</td>
+                    <td><a href="{{ 'showUserServices/' ~ service.id}}">{{ 'Services' }}</a></td>
+                    <td> {% if service.id == true %} Done </a>
+                        {% else %} Not done</a>
+                        {% endif %} </td>
+                </tr>
             {% endfor %}
         </table>
+        <br />
+        {{ knp_pagination_render(services, null, {}, {
+            'size': 'small'
+        }) }}
+        <br />
     {% else %}
         <h1>You don't have permission to do that.</h1>
         <a href="{{ path('index') }}">{{ 'Back to menu page' }}</a>
