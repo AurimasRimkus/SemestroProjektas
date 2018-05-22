@@ -24,14 +24,26 @@ class LoginController extends Controller
             return $this->redirectToRoute('index');
         }
 
+        $lastUsername = $authenticationUtils->getLastUsername();
+
+        if($lastUsername != null)
+        {
+            $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['username'=>$lastUsername]);
+            if($user != null && $user->getIsDeleted())
+            {
+                return $this->render('login/login.html.twig', array(
+                    'last_username' => $lastUsername,
+                    'error' => 'This user is banned.',
+                ));
+            }
+        }
+
         $error = $authenticationUtils->getLastAuthenticationError();
 
         if ($error)
         {
             $error = "Wrong username or password";
         }
-
-        $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render('login/login.html.twig', array(
             'last_username' => $lastUsername,

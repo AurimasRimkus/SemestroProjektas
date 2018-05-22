@@ -44,8 +44,16 @@ class ClientListReviewController extends Controller
     /**
      * @Route("/changeIsActive/{id}", name="changeIsActiveUserType")
      */
-    public function changeIsActive($id)
+    public function changeIsActive($id, AuthorizationCheckerInterface $authChecker)
     {
+        if (!$authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('index');
+        }
+
+        if ($this->getUser()->getId() == $id){
+            return $this->redirectToRoute('clientListReview');
+        }
+
         $user = $this->getDoctrine()->getRepository(User::class)->find($id);
         $user->setIsActive(!$user->getIsActive());
         $this->getDoctrine()->getManager()->flush();
@@ -55,8 +63,16 @@ class ClientListReviewController extends Controller
     /**
      * @Route("/deleteUser/{id}", name="deleteUser")
      */
-    public function deleteUser($id)
+    public function deleteUser($id, AuthorizationCheckerInterface $authChecker)
     {
+        if (!$authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('index');
+        }
+
+        if ($this->getUser()->getId() == $id){
+            return $this->redirectToRoute('clientListReview');
+        }
+
         $user = $this->getDoctrine()->getRepository(User::class)->find($id);
         $user->setIsDeleted(true);
         $this->getDoctrine()->getManager()->flush();
@@ -65,7 +81,15 @@ class ClientListReviewController extends Controller
     /**
      * @Route("/changeRole/{id}/{role}", name="changeRole")
      */
-    public function setRole($id, $role){
+    public function setRole($id, $role, AuthorizationCheckerInterface $authChecker){
+        if (!$authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('index');
+        }
+
+        if ($this->getUser()->getId() == $id){
+            return $this->redirectToRoute('clientListReview');
+        }
+
         if($this->getUser()->getRole() != 3){
             return $this->redirectToRoute('index');
         }
