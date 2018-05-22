@@ -30,9 +30,11 @@
             </tbody>
         </table>
         <br />
-        {{ knp_pagination_render(services, null, {}, {
-            'size': 'small'
-        }) }}
+        <div class="pagination justify-content-center">
+            {{ knp_pagination_render(services, null, {}, {
+                'size': 'small'
+            }) }}
+        </div>
         <br />
     {% else %}
         <h1>You don't have permission to do that.</h1>

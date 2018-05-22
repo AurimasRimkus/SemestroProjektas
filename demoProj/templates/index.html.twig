@@ -18,11 +18,7 @@
             <h1>Car34 - User menu</h1>
             <a href="{{ path('changePassword') }}">{{ 'Change password' }}</a><br />
             {% if not app.user.profile.name == null and not app.user.profile.phoneNumber == null and not app.user.profile.secondName == null %}
-                {% if services is defined %}
                 <a href="{{ path('serviceRegistration') }}">{{ 'Register your car for a service' }}</a><br />
-                {% else %}
-                    Sorry, no available services at this moment.<br />
-                {% endif %}
                 <a href="{{ path('userRegisteredServices') }}">{{ 'Your registred services' }}</a>
             {% endif %}
             {% if app.user.role == 2 or app.user.role == 3 %}
