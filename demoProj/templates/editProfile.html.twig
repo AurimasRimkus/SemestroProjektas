@@ -4,20 +4,30 @@
 {% endblock %}
 {% block body %}
     <div id = "menu">
-        <h1>Edit profile</h1>
+        <h1>Car34 - Edit profile</h1>
         {# alerts rendering #}
         {% set formErrors = form.vars.errors.form.getErrors(true) %}
         {{ parent() }}
-        <div id="profile">
-            {{ form_start(form) }}
-                Name            {{ form_widget(form.name, {'value' :  app.user.profile.name  }) }}<br />
-                Second name     {{ form_widget(form.secondName, {'value' :  app.user.profile.secondName  }) }}<br />
-                Email           {{ form_widget(form.email, {'value' :  app.user.profile.email  }) }}<br />
-                Phone number    {{ form_widget(form.phoneNumber, {'value' :  app.user.profile.phoneNumber  }) }}<br />
-                Birth date      {{ form_widget(form.birthDate, {'value' :  app.user.profile.birthDate  }) }}<br />
-        </div>
-            {{ form_widget(form.submit) }}<br />
-            {{ form_end(form) }}
+            {{ form_start(form, {attr: {class: 'form-row'}}) }}
+            <div class="col-sm-2 col-centered">
+                Name: {{ form_widget(form.name, {'value' :  app.user.profile.name  }) }}<br />
+            </div>
+            <div class="col-sm-2 col-centered">
+                Second name: {{ form_widget(form.secondName, {'value' :  app.user.profile.secondName  }) }}<br />
+            </div>
+            <div class="col-sm-2 col-centered">
+                Email: {{ form_widget(form.email, {'value' :  app.user.profile.email  }) }}<br />
+            </div>
+            <div class="col-sm-2 col-centered">
+                Phone number: {{ form_widget(form.phoneNumber, {'value' :  app.user.profile.phoneNumber  }) }}<br />
+            </div>
+            <div class="col-centered">
+                Birth date: {{ form_widget(form.birthDate, {'value' :  app.user.profile.birthDate  }) }}<br />
+            </div>
+            <div class="col-sm-2 col-centered">
+                {{ form_widget(form.submit) }}<br />
+            </div>
+            {{ form_end(form) }}<br />
 
         <a href="{{ path('profile') }}">{{ 'Back to profile' }}</a>
 

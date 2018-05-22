@@ -5,35 +5,45 @@
 {% block body %}
 <div id = "menu">
     {% if app.user.role == 3 or app.user.role == 2 %}
-        <h1>Edit service types</h1>
-        <a href="{{ path('index') }}">{{ 'Back to main menu' }}</a><br />
-        <table align="center" bgcolor="gray">
-            <tr>
-                <th>{{ knp_pagination_sortable(services, 'Id', 's.id') }}</th>
-                <th>{{ knp_pagination_sortable(services, 'Name', 's.name') }}</th>
-                <th>{{ knp_pagination_sortable(services, 'Cost', 's.cost') }}</th>
-                <th>{{ knp_pagination_sortable(services, 'Duration', 's.duration') }}</th>
-                <th>Edit</th>
-                <th>{{ knp_pagination_sortable(services, 'Is active', 's.isActive') }}</th>
-                <th>Delete</th>
-            </tr>
-            {% for service in services %}
+        <h1>Car34 - Edit service types</h1>
+        <br />
+        <table class="table table-hover table-bordered">
+            <thead class="thead-light">
                 <tr>
-                    <td>{{ service.id }}</td>
-                    <td>{{ service.name }}</td>
-                    <td>{{ service.cost }}</td>
-                    <td>{{ service.duration }}</td>
-                    <td><a href="{{ 'changeServiceType/' ~ service.id }}">{{ 'edit' }}</a></td>
-                    <td>
-                        {% if service.isActive == true %} <a href="{{ 'changeIsActiveServiceType/' ~ service.id }}">{{ 'deactivate' }}</a>
-                        {% else %} <a href="{{ 'changeIsActiveServiceType/' ~ service.id }}">{{ 'activate' }}</a>
-                        {% endif %}
-                    </td>
-                    <td>
-                        <a href="{{ 'deleteServiceType/' ~ service.id }}"><img src = "{{ asset('assets/images/x.png') }}" alt="Delete service type" height="20" width="20"></a>
-                    </td>
+                    <th>{{ knp_pagination_sortable(services, 'Id', 's.id') }}</th>
+                    <th>{{ knp_pagination_sortable(services, 'Name', 's.name') }}</th>
+                    <th>{{ knp_pagination_sortable(services, 'Cost', 's.cost') }}</th>
+                    <th>{{ knp_pagination_sortable(services, 'Duration', 's.duration') }}</th>
+                    <th>Edit</th>
+                    <th>{{ knp_pagination_sortable(services, 'Activation', 's.isActive') }}</th>
+                    <th>Delete</th>
                 </tr>
-            {% endfor %}
+            </thead>
+            <tbody>
+                {% for service in services %}
+                    <tr>
+                        <td>{{ service.id }}</td>
+                        <td>{{ service.name }}</td>
+                        <td>{{ service.cost }} €</td>
+                        <td>{{ service.duration }}
+                            {% if service.duration == 1 %}
+                                hour
+                            {% else %}
+                                hours
+                            {% endif %}
+                        </td>
+                        <td><a href="{{ 'changeServiceType/' ~ service.id }}">{{ 'edit' }}</a></td>
+                        <td>
+                            {% if service.isActive == true %} <a href="{{ 'changeIsActiveServiceType/' ~ service.id }}">{{ 'deactivate' }}</a>
+                            {% else %} <a href="{{ 'changeIsActiveServiceType/' ~ service.id }}">{{ 'activate' }}</a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{{ 'deleteServiceType/' ~ service.id }}"><img src = "{{ asset('assets/images/x.png') }}" alt="Delete service type" height="20" width="20"></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
         </table>
         <br />
         <div class="pagination justify-content-center">
@@ -45,7 +55,6 @@
         <a href = "{{ path('addServiceType') }}"><img src = "{{ asset('assets/images/plus.png') }}" alt="Add a new service type" height="30" width="30"></a>
     {% else %}
         <h1>You don't have permission to do that.</h1>
-        <a href="{{ path('index') }}">{{ 'Back to menu page' }}</a>
     {% endif %}
 </div>
 {% endblock %}

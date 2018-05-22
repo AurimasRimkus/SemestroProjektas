@@ -4,18 +4,32 @@
 {% endblock %}
 {% block body %}
     <div id = "menu">
-        <h1>{{ action }} car</h1>
+        <h1>Car 34 - {{ action }} car</h1>
         {# alerts rendering #}
         {% set formErrors = form.vars.errors.form.getErrors(true) %}
         {{ parent() }}
 
         <div id="profile">
-            {{ form_start(form) }}
+            {{ form_start(form, {attr: {class: 'form-row'}}) }}
+            <div class="col-sm-2 col-centered">
                 Number plate: {{ form_widget(form.numberPlate) }}<br />
+            </div>
+            <div class="col-sm-2 col-centered">
                 Car model: {{ form_widget(form.model) }}<br />
+            </div>
+            <div class="col-sm-2 col-centered">
                 Engine: {{ form_widget(form.engineType) }}<br />
+            </div>
+            <div class="col-sm-2 col-centered">
                 Transmission: {{ form_widget(form.transmission) }}<br />
+            </div>
+            <div class="col-sm-2 col-centered">
                 Power: {{ form_widget(form.power) }}<br />
+            </div>
+            <div class="col-centered">
+                {{ action }}: {{ form_row(form.submit) }}
+            </div>
+
             {{ form_end(form) }}<br />
         </div>
 

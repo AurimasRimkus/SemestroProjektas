@@ -7,18 +7,27 @@
 {% endblock %}
 {% block body %}
     <div id = "menu">
-        <h1>Car34 - Register</h1>
+        <h1>Car34 - Registration</h1>
         {# alerts rendering #}
         {% set formErrors = form.vars.errors.form.getErrors(true) %}
         {{ parent() }}
-        {{ form_start(form) }}
-            Username: {{ form_widget(form.username) }}<br /><br />
-            Email: {{ form_widget(form.email) }}<br /><br />
-            Password: {{ form_widget(form.password.first) }}<br /><br />
-            Repeat password: {{ form_widget(form.password.second) }}<br /><br />
-            {{ form_row(form.isAgreedWithTOSChecked) }}<br />
+        {{ form_start(form, {attr: {class: 'form-group'}}) }}
+            <div class="col-sm-5 col-centered">
+                Username: {{ form_widget(form.username, { attr: {placeholder:'KTU'}}) }}<br />
+            </div>
+            <div class="col-sm-5 col-centered">
+                Email: {{ form_widget(form.email, { attr: {placeholder:'example@ktu.lt'}}) }}<br />
+            </div>
+            <div class="col-sm-5 col-centered">
+                Password: {{ form_widget(form.password.first, { attr: {placeholder:'******'}}) }}<br />
+            </div>
+            <div class="col-sm-5 col-centered">
+                Repeat password: {{ form_widget(form.password.second, { attr: {placeholder:'******'}}) }}
+            </div>
+            <br />
+            {{ form_row(form.isAgreedWithTOSChecked) }}
             {{ form_row(form.submit) }}
-        {{ form_end(form) }}<br /><br />
+        {{ form_end(form) }}
         <a href = "{{ path('login') }}">Already have an account? Login</a>
     </div>
 {% endblock %}

@@ -4,29 +4,33 @@
 {% endblock %}
 {% block body %}
 <div id = "menu">
-    Car34 - Registered cars for service list<br />
+    <h1>Car34 - Registered cars for services</h1>
     <br />
-    <table align="center" bgcolor="gray">
-        <tr>
-            <th>{{ knp_pagination_sortable(data, 'User', 'p.secondName') }}</th>
-            <th>{{ knp_pagination_sortable(data, 'Date', 'o.startDate') }}</th>
-            <th>{{ knp_pagination_sortable(data, 'Car model', 'c.model') }}</th>
-            <th>Services</th>
-            <th>Mark as done</th>
-        </tr>
-        {% for element in data %}
+    <table class="table table-hover table-bordered">
+        <thead class="thead-light">
             <tr>
-                <td>{{ element.name }} {{ element.secondName }}</td>
-                <td>{{ element.startDate|date("Y/m/d") }}</td>
-                <td>{{ element.model }}</td>
-                <td>
-                    <a href="{{ 'showServices/' ~ element.id}}">{{ 'Services' }}</a>
-                </td>
-                <td>
-                    <a href="{{ 'changeIsDoneOrder/' ~ element.id }}">{{ 'Select' }}</a>
-                </td>
+                <th>{{ knp_pagination_sortable(data, 'User', 'p.secondName') }}</th>
+                <th>{{ knp_pagination_sortable(data, 'Date', 'o.startDate') }}</th>
+                <th>{{ knp_pagination_sortable(data, 'Car model', 'c.model') }}</th>
+                <th>Services</th>
+                <th>Mark as done</th>
             </tr>
-        {% endfor %}
+        </thead>
+        <tbody>
+            {% for element in data %}
+                <tr>
+                    <td>{{ element.name }} {{ element.secondName }}</td>
+                    <td>{{ element.startDate|date("Y/m/d") }}</td>
+                    <td>{{ element.model }}</td>
+                    <td>
+                        <a href="{{ 'showServices/' ~ element.id}}">{{ 'Show' }}</a>
+                    </td>
+                    <td>
+                        <a href="{{ 'changeIsDoneOrder/' ~ element.id }}">{{ 'Select' }}</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
     </table>
     <br />
     <div class="pagination justify-content-center">

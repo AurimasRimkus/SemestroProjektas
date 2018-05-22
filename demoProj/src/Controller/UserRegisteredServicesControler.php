@@ -21,6 +21,10 @@ class UserRegisteredServicesControler extends Controller
      */
     public function userRegisteredServices(AuthorizationCheckerInterface $authChecker, Request $request)
     {
+        if (!$authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('index');
+        }
+
         $userId = $this->getUser()->getId();
 
         $em = $this->getDoctrine()->getManager();
@@ -47,8 +51,12 @@ class UserRegisteredServicesControler extends Controller
     /**
      * @Route("/showUserServices/{id}", name="showUserServices")
      */
-    public function showUserServices($id)
+    public function showUserServices($id, AuthorizationCheckerInterface $authChecker)
     {
+        if (!$authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('index');
+        }
+
         $order = $this->getDoctrine()->getRepository(Order::class)->find($id);
         $repairs = $this->getDoctrine()->getManager()->getRepository(Repair::class)->findAll();
         return $this->render('userRegisteredOrdersList.html.twig', array(

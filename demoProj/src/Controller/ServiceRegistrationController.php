@@ -27,7 +27,9 @@ class ServiceRegistrationController extends Controller
 
         if(!$service = $this->getDoctrine()->getRepository(Service::class)->findAll())
         {
-            return $this->redirectToRoute('index');
+            return $this->render('index.html.twig', [
+                'error' => "Sorry, no available repairs at this moment."
+            ]);
         }
 
         $user = $this->getUser();
@@ -116,8 +118,13 @@ class ServiceRegistrationController extends Controller
     /**
      * @Route("/availableServiceTimes", name="availableServiceTimes")
      */
-    public function ajaxAction(Request $request)
+    public function ajaxAction(Request $request, AuthorizationCheckerInterface $authChecker)
     {
+        if (!$authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED'))
+        {
+            return $this->redirectToRoute('index');
+        }
+
         if($request->isXmlHttpRequest() && $request->request->get('date'))
         {
             $date = $request->request->get('date');

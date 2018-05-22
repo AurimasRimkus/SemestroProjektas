@@ -144,8 +144,12 @@ class ProfileController extends Controller
     /**
      * @Route("/editCar/{id}", name="editCar")
      */
-    public function editCar(Request $request, $id)
+    public function editCar(Request $request, $id, AuthorizationCheckerInterface $authChecker)
     {
+        if (!$authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('index');
+        }
+
         $car = $this->getDoctrine()->getRepository(Car::class)->find($id);
         $form = $this->createForm(CarType::class, $car);
         $form->handleRequest($request);
@@ -169,8 +173,12 @@ class ProfileController extends Controller
     /**
      * @Route("/deleteCar/{id}", name="deleteCar")
      */
-    public function deleteCar($id)
+    public function deleteCar($id, AuthorizationCheckerInterface $authChecker)
     {
+        if (!$authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('index');
+        }
+
         $undoneOrdersCount= $this->getDoctrine()->getRepository(Order::class)->countOfUndoneOrders($id);
 
         if ( $undoneOrdersCount[0][1] != 0 )

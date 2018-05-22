@@ -11,13 +11,17 @@
     {# alerts rendering #}
     {{ parent() }}
     <form action="{{ path('login') }}" method="post">
-        Username:
-        <input type="text" id="username" name="_username" value="{{ last_username }}" />
-        <br /><br />
-        Password:
-        <input type="password" id="password" name="_password" />
-        <br /><br />
-        <button type="submit">Login</button><br /><br />
+        <div class="form-group col-sm-5 col-centered">
+            Username:
+            <input type="text" class="form-control" placeholder="Username" id="username" name="_username" value="{{ last_username }}" />
+        </div>
+        <br />
+        <div class="form-group col-sm-5 col-centered">
+            Password:
+            <input type="password" class="form-control" placeholder="******" id="password" name="_password" />
+        </div>
+        <br />
+        <button type="submit" class="btn-secondary btn">Login</button><br /><br />
         <a href = "{{ path('register') }}">Don't have an account? Register</a><br />
         <a href = "{{ path('remindPassword') }}">Forgot your password? Let us remind it</a>
     </form>

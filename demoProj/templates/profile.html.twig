@@ -4,48 +4,68 @@
 {% endblock %}
 {% block body %}
     <div id = "menu">
-        <h1>User profile</h1>
+        <h1>Car34 - User profile</h1>
         {# alerts rendering #}
         {{ parent() }}
-        <div id = "profile">
-            First name: {{ app.user.profile.name }}<br />
-            Second name: {{ app.user.profile.secondName }}<br />
-            Email: {{ app.user.profile.email }}<br />
-            Phone number: {{ app.user.profile.phoneNumber }}<br />
-            Birth date: {{ app.user.profile.birthDate|date("Y/m/d") }}<br />
+        <div class="container">
+            <div class="row">
+            <div class="card" style="width: 22rem;">
+                <div class="card-header">
+                    <b>User information:</b>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><b>First name:</b> {{ app.user.profile.name }}</li>
+                    <li class="list-group-item"><b>Second name:</b> {{ app.user.profile.secondName }}</li>
+                    <li class="list-group-item"><b>Email:</b> {{ app.user.profile.email }}</li>
+                    <li class="list-group-item"><b>Phone number:</b> {{ app.user.profile.phoneNumber  }}</li>
+                    <li class="list-group-item"><b>Birth date:</b> {{ app.user.profile.birthDate|date("Y/m/d") }}</li>
+                </ul>
+            </div>
+                <div class="row ml-2">
+                    {% if app.user.profile.cars|length > 0 %}
+                        <table class="table table-hover table-bordered table-sm">
+                            <thead class="thead-light">
+                            <tr>
+                                <th>Number Plate</th>
+                                <th>Model</th>
+                                <th>Engine Type</th>
+                                <th>Transmission</th>
+                                <th>Power kW</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for car in app.user.profile.cars %}
+                                <tr>
+                                    <td>{{ car.numberPlate }}</td>
+                                    <td>{{ car.model }}</td>
+                                    <td>{{ car.engineType }}</td>
+                                    <td>{{ car.transmission }}</td>
+                                    <td>{{ car.power }}</td>
+                                    <td><a href="{{ 'editCar/' ~ car.numberPlate }}">{{ 'Edit' }}</a></td>
+                                    <td>
+                                        <a href="{{ path('deleteCar', { 'id': car.numberPlate }) }}"><img src = "{{ asset('assets/images/x.png') }}" alt="Delete car" height="20" width="20" align="center"></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        &nbsp;&nbsp;No cars registered
+                    {% endif %}
+                </div>
+            </div>
             <br />
-            <a href="{{ path('editProfile') }}">{{ 'Edit profile' }}</a><br />
-            <br />
-            Owned cars list: <a href="{{ path('addCar') }}">{{ 'Add car' }}</a><br />
-            {% if app.user.profile.cars|length > 0 %}
-                <table align="left" bgcolor="gray">
-                    <tr>
-                        <th>NumberPlate</th>
-                        <th>Model</th>
-                        <th>EngineType</th>
-                        <th>Transmission</th>
-                        <th>Power kW</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                    {% for car in app.user.profile.cars %}
-                        <tr>
-                            <td>{{ car.numberPlate }}</td>
-                            <td>{{ car.model }}</td>
-                            <td>{{ car.engineType }}</td>
-                            <td>{{ car.transmission }}</td>
-                            <td>{{ car.power }}</td>
-                            <td><a href="{{ 'editCar/' ~ car.numberPlate }}">{{ 'Edit' }}</a></td>
-                            <td>
-                                <a href="{{ path('deleteCar', { 'id': car.numberPlate }) }}"><img src = "{{ asset('assets/images/x.png') }}" alt="Delete car" height="20" width="20" align="center"></a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            {% else %}
-                &nbsp;&nbsp;No cars registered
-            {% endif %}
+        <div class="row">
+            <div class="pr-1">
+                <a href="{{ path('editProfile') }}"><button type="button" class="btn btn-secondary">Edit profile</button></a><br />
+            </div>
+            <div class="pr-1">
+                <a href="{{ path('changePassword') }}"><button type="button" class="btn btn-secondary">Change password</button></a><br />
+            </div>
+                <a href="{{ path('addCar') }}"><button type="button" class="btn btn-secondary">Add car</button></a><br />
         </div>
-        <a href="{{ path('index') }}">{{ 'Back to menu page' }}</a>
+        </div>
     </div>
 {% endblock %}

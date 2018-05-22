@@ -60,12 +60,87 @@
         {% endblock %}
 	    {% block footer %}
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                <div id="base">
-                    Hello, <b>{{ app.user.username }}</b>. Your email: <b>{{ app.user.email }}</b>. Last login time:  <b>{{ app.user.lastLoginTime|date("Y/m/d H:i:s") }}</b>
-                    Role: <b>{% if app.user.role == 1 %}Client{% elseif app.user.role == 2 %}Mechanic{% elseif app.user.role == 3 %}Admin{% else %}Unknown{% endif %}</b> <br />
-                    Your profile: <a href="{{ path('profile') }}"><b>{{ app.user.username }}</b></a>
-                    <div id="logOut"><a href="{{ logout_path() }}">Log out</a></div>
-                </div>
+                <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #b5c588;">
+                    <a class="navbar-brand" href="{{ path('index') }}">Home</a>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{{ path('profile') }}">Profile <span class="sr-only">(current)</span></a>
+                            </li>
+                            {% if app.user.isActive and not app.user.profile.name == null and not app.user.profile.phoneNumber == null and not app.user.profile.secondName == null %}
+                            <li class="nav-item dropdown active">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Services
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ path('serviceRegistration') }}">Registration for a service</a>
+                                    <a class="dropdown-item" href="{{ path('userRegisteredServices') }}">Your registered services</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="{{ path('profile') }}">Car list</a>
+                                </div>
+                            </li>
+                            {% endif %}
+                            {% if app.user.role == 2 or app.user.role == 3 %}
+                                <li class="nav-item dropdown active">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Mechanic menu
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ path('editServiceTypes') }}">Car service types</a>
+                                        <a class="dropdown-item" href="{{ path('addServiceType') }}">Add new service type</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{ path('registeredCars') }}">Registered cars for services</a>
+                                    </div>
+                                </li>
+                            {% endif %}
+                            {% if app.user.role == 3 %}
+                                <li class="nav-item dropdown active">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Admin menu
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="{{ path('clientListReview') }}">See all clients</a>
+                                    </div>
+                                </li>
+                            {% endif %}
+                            <li class="nav-item dropdown active">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Others
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ path('faq') }}">Frequently asked questions</a>
+                                    <a class="dropdown-item" href="{{ path('tos') }}">Terms of services</a>
+                                </div>
+                            </li>
+                        </ul>
+                        <span class="navbar-text"> Hello, <b>{{ app.user.username }}. </b>
+                            Your role: <b>{% if app.user.role == 1 %}Client{% elseif app.user.role == 2 %}Mechanic{% elseif app.user.role == 3 %}Admin{% else %}Unknown{% endif %}.</b>
+                        </span>
+                            <a href="{{ logout_path() }}"><button class="btn btn-outline-danger my-2 my-sm-0">Log out</button></a>
+                    </div>
+                </nav>
+            {% else %}
+                <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #b5c588;">
+                    <a class="navbar-brand" href="{{ path('index') }}">Home</a>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{{ path('login') }}">Login<span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{{ path('register') }}">Sign up<span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{{ path('faq') }}">FAQ<span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{{ path('tos') }}">Terms of services<span class="sr-only">(current)</span></a>
+                            </li>
+                        </ul>
+                        <span class="navbar-text"> Welcome to Car34 garage!
+                        </span>
+                    </div>
+                </nav>
             {% endif %}
         {% endblock %}
         {% block javascripts %}{% endblock %}
