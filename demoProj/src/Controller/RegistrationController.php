@@ -62,7 +62,6 @@ class RegistrationController extends Controller
             $registrationToken = str_replace("/","",$registrationToken); // because / will make errors with routes
             $user->setRegistrationToken($registrationToken);
 
-            // Needs to fix activation letter sending
             $send = $this->get('app.email_activation_service');
             $send->SendActivationEmail($user->getUsername(), $user->getEmail(), $user->getRegistrationToken(), $mailer);
 

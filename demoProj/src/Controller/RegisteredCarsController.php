@@ -65,7 +65,8 @@ class RegisteredCarsController extends Controller
     /**
      * @Route("/changeIsDoneOrder/{id}", name="changeIsDoneOrder")
      */
-    public function changeIsDoneOrder($id, AuthorizationCheckerInterface $authChecker)
+
+    public function changeIsDoneOrder(Request $request, $id, \Swift_Mailer $mailer, AuthorizationCheckerInterface $authChecker)
     {
         if (!$authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return $this->redirectToRoute('index');
@@ -78,10 +79,15 @@ class RegisteredCarsController extends Controller
         foreach ($repairs as $repair)
         {
                 $repair->setIsDone(true);
-
         }
 
         $this->getDoctrine()->getManager()->flush();
+
+        $user = $this->getUser();
+        $send = $this->get('app.email_activation_service');
+        $send->SendAllServiceDoneEmail($user->getUsername(), $user->getEmail(), $order->getCar()->getModel(), $mailer);
+
+
         return $this->redirectToRoute('registeredCars');
     }
 
