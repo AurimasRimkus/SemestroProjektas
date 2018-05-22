@@ -42,8 +42,12 @@ class ServiceTypesController extends Controller
     /**
      * @Route("/changeServiceType/{id}", name="changeServiceType")
      */
-    public function changeServiceType(Request $request, $id)
+    public function changeServiceType(Request $request, $id, AuthorizationCheckerInterface $authChecker)
     {
+        if (!$authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('index');
+        }
+
         $service = $this->getDoctrine()->getRepository(Service::class)->find($id);
         $serviceName = $service->getName();
         $form = $this->createForm(ServiceType::class, $service);
@@ -77,8 +81,12 @@ class ServiceTypesController extends Controller
     /**
      * @Route("/addServiceType", name="addServiceType")
      */
-    public function addServiceType(Request $request)
+    public function addServiceType(Request $request, AuthorizationCheckerInterface $authChecker)
     {
+        if (!$authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('index');
+        }
+
         $service = new Service();
         $form = $this->createForm(ServiceType::class, $service);
         $form->handleRequest($request);
@@ -111,8 +119,12 @@ class ServiceTypesController extends Controller
     /**
      * @Route("/changeIsActiveServiceType/{id}", name="changeIsActiveServiceType")
      */
-    public function changeIsActive($id)
+    public function changeIsActive($id, AuthorizationCheckerInterface $authChecker)
     {
+        if (!$authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('index');
+        }
+
         $service = $this->getDoctrine()->getRepository(Service::class)->find($id);
         $service->setIsActive(!$service->getIsActive());
         $this->getDoctrine()->getManager()->flush();
@@ -122,8 +134,12 @@ class ServiceTypesController extends Controller
     /**
      * @Route("/deleteServiceType/{id}", name="deleteServiceType")
      */
-    public function deleteServiceType($id)
+    public function deleteServiceType($id, AuthorizationCheckerInterface $authChecker)
     {
+        if (!$authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('index');
+        }
+
         $service = $this->getDoctrine()->getRepository(Service::class)->find($id);
         $this->getDoctrine()->getManager()->remove($service);
         $this->getDoctrine()->getManager()->flush();

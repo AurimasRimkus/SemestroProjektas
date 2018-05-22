@@ -49,8 +49,12 @@ class RegisteredCarsController extends Controller
     /**
      * @Route("/showServices/{id}", name="showServices")
      */
-    public function showServices($id)
+    public function showServices($id, AuthorizationCheckerInterface $authChecker)
     {
+        if (!$authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('index');
+        }
+
         $order = $this->getDoctrine()->getRepository(Order::class)->find($id);
         $repairs = $this->getDoctrine()->getManager()->getRepository(Repair::class)->findAll();
         return $this->render('editCarServices.html.twig', array(
@@ -61,8 +65,13 @@ class RegisteredCarsController extends Controller
     /**
      * @Route("/changeIsDoneOrder/{id}", name="changeIsDoneOrder")
      */
-    public function changeIsDoneOrder(Request $request, $id, \Swift_Mailer $mailer)
+
+    public function changeIsDoneOrder(Request $request, $id, \Swift_Mailer $mailer, AuthorizationCheckerInterface $authChecker)
     {
+        if (!$authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('index');
+        }
+
         $order = $this->getDoctrine()->getRepository(Order::class)->find($id);
         $repairs = $order->getRepairs();
         $order->setIsDone(true);

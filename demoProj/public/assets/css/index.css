@@ -7,13 +7,13 @@
 	transform: translate(-50%, -50%);
 	text-align:center;
 	color: #373C3E;
-	background-color: rgba(181, 197, 136, 0.85);
+	/*background-color: rgba(181, 197, 136, 0.85);*/
 }
 
-table, th, td {
-    border: 1px solid black;
-    border-collapse: collapse;
-}
+/*table, th, td {*/
+    /*border: 1px solid black;*/
+    /*border-collapse: collapse;*/
+/*}*/
 #logOut{
 	text-align: right;
 }
@@ -38,7 +38,7 @@ body{
 	border:1px solid black;
 }
 #textField{
-	background-color: #777777;
+	/*background-color: #777777;*/
 	width:70%;
 	height:78%;
 	border:1px solid black;
@@ -48,7 +48,7 @@ body{
 	left: 50%;
 	transform: translate(-50%, -50%);
 	text-align:center;
-	color: #F9F9F9;
+	/*color: #F9F9F9;*/
 }
 #profile{
 	text-align: left;
@@ -65,4 +65,9 @@ body{
 
 ::placeholder{
 	font-style:italic;
+}
+
+.col-centered{
+	float: none;
+	margin: 0 auto;
 }

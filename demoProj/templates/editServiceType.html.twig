@@ -9,17 +9,22 @@
             {{ parent() }}
 
             {% if app.user.role == 3 or app.user.role == 2 %}
-                <h1>{{ action }} service type</h1>
+                <h1>Car34 - {{ action }} service type</h1>
                 {{ form_start(form) }}
-                    Name: {{ form_widget(form.name) }}<br /><br />
-                    Cost: {{ form_widget(form.cost) }}<br /><br />
-                    Duration: {{ form_widget(form.duration) }}<br /><br />
+                <div class="col-sm-4 col-centered">
+                    Name: {{ form_widget(form.name) }}<br />
+                </div>
+                <div class="col-sm-4 col-centered">
+                    Cost: {{ form_widget(form.cost) }}<br />
+                </div>
+                <div class="col-sm-4 col-centered">
+                    Duration: {{ form_widget(form.duration) }}<br />
+                </div>
                 {{ form_end(form) }}
                 <br />
                 <a href="{{ path('editServiceTypes') }}">{{ 'Back to all services' }}</a>
             {% else %}
                 <h1>You don't have permission to do that.</h1>
-                <a href="{{ path('index') }}">{{ 'Back to menu page' }}</a>
             {% endif %}
         </div>
 {% endblock %}

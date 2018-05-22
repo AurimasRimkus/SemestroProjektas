@@ -12,49 +12,68 @@
         {# alerts rendering #}
         {% set formErrors = form.vars.errors.form.getErrors(true) %}
         {{ parent() }}
+        <h1>Car34 - Registration for a service</h1>
         Choose a car from your profile or input other:<br /><br />
         {% if cars %}
-            <table align="center" bgcolor="gray">
-                <tr>
-                    <th>NumberPlate</th>
-                    <th>Model</th>
-                    <th>EngineType</th>
-                    <th>Transmission</th>
-                    <th>Power kW</th>
-                    <th>Choose</th>
-                </tr>
-                {% for car in cars %}
-                <tr>
-                    <td>{{ car.numberPlate }}</td>
-                    <td>{{ car.model }}</td>
-                    <td>{{ car.engineType }}</td>
-                    <td>{{ car.transmission }}</td>
-                    <td>{{ car.power }}</td>
-                    <td><button type="button" class="carChoice">Select</button></td>
-                </tr>
-                {% endfor %}
+            <table class="table table-hover table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>NumberPlate</th>
+                        <th>Model</th>
+                        <th>EngineType</th>
+                        <th>Transmission</th>
+                        <th>Power kW</th>
+                        <th>Choose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for car in cars %}
+                        <tr>
+                            <td>{{ car.numberPlate }}</td>
+                            <td>{{ car.model }}</td>
+                            <td>{{ car.engineType }}</td>
+                            <td>{{ car.transmission }}</td>
+                            <td>{{ car.power }}</td>
+                            <td><button type="button" class="carChoice">Select</button></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         {% else %}
             No cars available in your profile.<br />
         {% endif %}
         <br />
 
-        {{ form_start(form) }}
-            Number plate: {{ form_widget(form.numberPlate) }}<br />
-            Car model: {{ form_widget(form.model) }}<br />
-            Engine: {{ form_widget(form.engineType) }}<br />
-            Transmission: {{ form_widget(form.transmission) }}<br />
-            Power: {{ form_widget(form.power) }}<br />
+        {{ form_start(form, {attr: {class: 'form-row'}}) }}
+            <div class="col-sm-2 col-centered">
+                Number plate: {{ form_widget(form.numberPlate) }}<br />
+            </div>
+            <div class="col-sm-2 col-centered">
+                Car model: {{ form_widget(form.model) }}<br />
+            </div>
+            <div class="col-sm-2 col-centered">
+                Engine: {{ form_widget(form.engineType) }}<br />
+            </div>
+            <div class="col-sm-2 col-centered">
+                Transmission: {{ form_widget(form.transmission) }}<br />
+            </div>
+            <div class="col-sm-2 col-centered">
+                Power: {{ form_widget(form.power) }}<br />
+            </div>
             <br />
+        <div class="col-centered">
             Choose which services you want to apply for your car: <br />
             Total duration can not exceed 5 hours.<br /><br />
-            <table align="center" bgcolor="gray">
-                <tr>
-                    <th>Name</th>
-                    <th>Cost</th>
-                    <th>Duration</th>
-                    <th>Select</th>
-                </tr>
+            <table class="table table-hover table-bordered table-sm">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Name</th>
+                        <th>Cost</th>
+                        <th>Duration</th>
+                        <th>Select</th>
+                    </tr>
+                </thead>
+                <tbody>
                 {% for service in services %}
                     <tr>
                         <td>{{ service.name }}</td>
@@ -63,20 +82,22 @@
                         <td><input type="checkbox" name="student_ids[]" class="serviceCheckBox" value="{{ service.id ~ ';' ~ service.cost ~ ';' ~ service.duration }}"><br></td>
                     </tr>
                 {% endfor %}
+                </tbody>
             </table>
         <br />
             <p id="totalPriceAndDuration">No services were selected.</p>
             <input size="16" type="text" value="" readonly class="form_datetime">
-        <table id="timesTable" align="center" bgcolor="gray">
+        <table id="timesTable" class="table table-hover table-bordered table-sm">
+            <thead class="thead-light" id="serviceTimeHead"></thead>
             <tbody id="serviceTime"></tbody>
         </table>
         <p id="availableTimesError">No available times for a service this day. Choose different day.</p>
         <br />
         <textarea cols="30" name="comment" placeholder="Leave a comment...(Optional)"></textarea>
         {{ form_row(form.submit, { 'label': 'Apply for service', 'disabled': 'true' }) }}
+        </div>
         {{ form_end(form) }}
 
         <br />
-        <a href="{{ path('index') }}">{{ 'Back to menu page' }}</a>
     </div>
 {% endblock %}

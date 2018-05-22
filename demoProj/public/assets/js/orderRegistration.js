@@ -1,6 +1,7 @@
 $(document).ready(function() {
     /* When any service checkbox is checked, change total order's price and duration. */
     $('.serviceCheckBox').click(() => {
+        $('#serviceTimeHead').empty();
         $('#car_submit').prop('disabled', true);
         if($('input[class="serviceCheckBox"]:checked').length > 0) {
             $('.form_datetime').show();
@@ -62,6 +63,7 @@ $(document).ready(function() {
 
     /* Disables registration button */
     $('.form_datetime').change(() => {
+        $('#serviceTimeHead').empty();
         $('#car_submit').prop('disabled', true);
         getFreeTimesForService();
     });
@@ -92,8 +94,8 @@ $(document).ready(function() {
                 var times = data.times;
                 if(times.length > 0){
                     $('#availableTimesError').hide();
-                    var tableHeader = '<tr><th>Time</th><th>Select</th>';
-                    $('#serviceTime').append(tableHeader);
+                     var tableHeader = '<tr><th>Time</th><th>Select</th></tr>';
+                     $('#serviceTimeHead').append(tableHeader);
                     for(i = 0; i < times.length; i++){
                         var time = '<tr><td>' + times[i] +
                             '</td><td><input type="radio" name="chosenTime" value="' + constructDateTime(times[i]) + '"></input></td></tr>';

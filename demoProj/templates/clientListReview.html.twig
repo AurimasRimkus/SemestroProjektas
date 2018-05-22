@@ -6,50 +6,61 @@
 <div id = "menu">
     {% if app.user.role == 3 %}
         <h1>Client list</h1>
-        <a href="{{ path('index') }}">{{ 'Back to main menu' }}</a><br />
-        <table align="center" bgcolor= "gray">
-            <tr>
-                <th>{{ knp_pagination_sortable(users, 'Online', 'u.lastLoginTime') }}</th>
-                <th>{{ knp_pagination_sortable(users, 'User ID', 'u.id') }}</th>
-                <th>{{ knp_pagination_sortable(users, 'Username', 'u.username') }}</th>
-                <th>{{ knp_pagination_sortable(users, 'Email', 'u.email') }}</th>
-                <th>{{ knp_pagination_sortable(users, 'Role', 'u.role') }}</th>
-                <th>{{ knp_pagination_sortable(users, 'Last login time', 'u.lastLoginTime') }}</th>
-                <th>{{ knp_pagination_sortable(users, 'Is Active', 'u.isActive') }}</th>
-                <th>Set role</th>
-                <th>Delete</th>
-            </tr>
-        {% for user in users %}
+        <table class="table table-hover table-bordered">
+            <thead class="thead-light">
                 <tr>
-                    <td>
-                        {% if user.lastLoginTime|date("U") > "-10 minutes"|date("U") %}
-                            <img src = "{{ asset('assets/images/online.png') }}" alt="Online" height="20" width="20">
-                        {% else %}
-                            <img src = "{{ asset('assets/images/offline.png') }}" alt="Offline" height="20" width="20">
-                        {% endif %}
-                    </td>
-                    <td>{{ user.id }}</td>
-                    <td>{{ user.username }}</td>
-                    <td>{{ user.email}}</td>
-                    <td>{{ user.role }}</td>
-                    <td>{{ user.lastLoginTime|date("Y/m/d H:i:s") }}</td>
-                    <td>
-                        {% if user.isActive == true %} <a href="{{ 'changeIsActive/' ~ user.id }}">{{ 'deactivate' }}</a>
-                        {% else %} <a href="{{ 'changeIsActive/' ~ user.id }}">{{ 'activate' }}</a>
-                        {% endif %}
-                    </td>
-                    <td>
-                        {% if user.role != 1 %} <a href="{{ 'changeRole/' ~ user.id ~ '/1' }}">{{'1'}}</a>  {% endif %}
-                        {% if user.role != 2 %} <a href="{{ 'changeRole/' ~ user.id ~ '/2' }}">{{'2'}}</a>  {% endif %}
-                        {% if user.role != 3 %} <a href="{{ 'changeRole/' ~ user.id ~ '/3' }}">{{'3'}}</a>  {% endif %}
-                    </td>
-                    <td>
-                        {% if user.isDeleted == true %} deleted
-                        {% else %} <a href="{{ 'deleteUser/' ~ user.id }}"><img src = "{{ asset('assets/images/x.png') }}" alt="Delete service type" height="20" width="20"></a>
-                        {% endif %}
-                    </td>
+                    <th scope="col">{{ knp_pagination_sortable(users, 'Online', 'u.lastLoginTime') }}</th>
+                    <th scope="col">{{ knp_pagination_sortable(users, 'User ID', 'u.id') }}</th>
+                    <th scope="col">{{ knp_pagination_sortable(users, 'Username', 'u.username') }}</th>
+                    <th scope="col">{{ knp_pagination_sortable(users, 'Email', 'u.email') }}</th>
+                    <th scope="col">{{ knp_pagination_sortable(users, 'Role', 'u.role') }}</th>
+                    <th scope="col">{{ knp_pagination_sortable(users, 'Last login time', 'u.lastLoginTime') }}</th>
+                    <th scope="col">{{ knp_pagination_sortable(users, 'Is Active', 'u.isActive') }}</th>
+                    <th scope="col">Set role</th>
+                    <th scope="col">Delete</th>
                 </tr>
-            {% endfor %}
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>
+                            {% if user.lastLoginTime|date("U") > "-10 minutes"|date("U") %}
+                                <img src = "{{ asset('assets/images/online.png') }}" alt="Online" height="20" width="20">
+                            {% else %}
+                                <img src = "{{ asset('assets/images/offline.png') }}" alt="Offline" height="20" width="20">
+                            {% endif %}
+                        </td>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email}}</td>
+                        <td>
+                            {% if user.role == 1 %}
+                                User
+                            {% elseif user.role == 2 %}
+                                Mechanic
+                            {% else %}
+                                Admin
+                            {% endif %}
+                        </td>
+                        <td>{{ user.lastLoginTime|date("Y/m/d H:i:s") }}</td>
+                        <td>
+                            {% if user.isActive == true %} <a href="{{ 'changeIsActive/' ~ user.id }}">{{ 'deactivate' }}</a>
+                            {% else %} <a href="{{ 'changeIsActive/' ~ user.id }}">{{ 'activate' }}</a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if user.role != 1 %} <a href="{{ 'changeRole/' ~ user.id ~ '/1' }}">{{'1'}}</a>  {% endif %}
+                            {% if user.role != 2 %} <a href="{{ 'changeRole/' ~ user.id ~ '/2' }}">{{'2'}}</a>  {% endif %}
+                            {% if user.role != 3 %} <a href="{{ 'changeRole/' ~ user.id ~ '/3' }}">{{'3'}}</a>  {% endif %}
+                        </td>
+                        <td>
+                            {% if user.isDeleted == true %} deleted
+                            {% else %} <a href="{{ 'deleteUser/' ~ user.id }}"><img src = "{{ asset('assets/images/x.png') }}" alt="Delete service type" height="20" width="20"></a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
         </table>
 
         <br />
@@ -60,7 +71,6 @@
         </div>
     {% else %}
         <h1>You don't have permission to do that.</h1>
-        <a href="{{ path('index') }}">{{ 'Back to menu page' }}</a>
     {% endif %}
 </div>
 {% endblock %}

@@ -16,8 +16,12 @@ class CarServicesController extends AbstractController
     /**
      * @Route("/changeIsDone/{id}", name="changeIsDone")
      */
-    public function changeIsDone($id)
+    public function changeIsDone($id, AuthorizationCheckerInterface $authChecker)
     {
+        if (!$authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+            return $this->redirectToRoute('index');
+        }
+
         $repair = $this->getDoctrine()->getRepository(Repair::class)->find($id);
         $orderId = $repair->getOrder()->getId();
         $repair->setIsDone(true);

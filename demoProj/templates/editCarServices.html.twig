@@ -5,40 +5,43 @@
 {% block body %}
         <div id = "menu">
             {% if app.user.role == 3 or app.user.role == 2 %}
-                    <h1>Edit repairs for car</h1>
-                    <a href="{{ path('index') }}">{{ 'Back to main menu' }}</a><br />
-                    <a href="{{ path('registeredCars') }}">{{ 'Back to registered cars list' }}</a><br />
-                    <h2>User: {{ order.getProfile.getName }} {{ order.getProfile.getSecondName }}</h2>
-                    <table align="center" bgcolor="gray">
-                            <tr>
-                                    <th>Order ID</th>
-                                    <th>Name</th>
-                                    <th>Cost</th>
-                                    <th>Duration</th>
-                                    <th>Is done</th>
-                            </tr>
+                    <h1>Car34 - Edit repairs for car</h1>
+                    <br />
+                <table class="table table-hover table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Name</th>
+                            <th>Cost</th>
+                            <th>Duration</th>
+                            <th>Is done</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {% for repair in repairs %}
                             {% if order.id == repair.getOrder.getId %}
                                 <tr>
-                                        <td>{{ repair.getId }}</td>
-                                        <td>{{ repair.getname }}</td>
-                                        <td>{{ repair.getCost }}</td>
-                                        <td>{{ repair.getDuration }}</td>
-                                        <td>
-                                            {% if repair.isDone %}
-                                                Done
-                                            {% else %}
-                                                <a href="{{ path('changeIsDone', { 'id': repair.getId }) }}">{{ 'Done' }}</a>
-                                            {% endif %}
-                                        </td>
+                                    <td>{{ repair.getId }}</td>
+                                    <td>{{ repair.getname }}</td>
+                                    <td>{{ repair.getCost }}</td>
+                                    <td>{{ repair.getDuration }}</td>
+                                    <td>
+                                        {% if repair.isDone %}
+                                            Done
+                                        {% else %}
+                                            <a href="{{ path('changeIsDone', { 'id': repair.getId }) }}">{{ 'Done' }}</a>
+                                        {% endif %}
+                                    </td>
                                 </tr>
 
                             {% endif %}
                         {% endfor %}
+                    </tbody>
                     </table>
             {% else %}
                     <h1>You don't have permission to do that.</h1>
                     <a href="{{ path('index') }}">{{ 'Back to menu page' }}</a>
             {% endif %}
+            <a href="{{ path('registeredCars') }}">{{ 'Back to registered cars' }}</a>
         </div>
 {% endblock %}

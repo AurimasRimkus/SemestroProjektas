@@ -5,25 +5,29 @@
 {% block body %}
 <div id = "menu">
     {% if app.user %}
-        <h1>Registred services list</h1>
-        <a href="{{ path('index') }}">{{ 'Back to main menu' }}</a><br />
-        <table align="center" bgcolor= "gray">
-            <tr>
-                <th>{{ knp_pagination_sortable(services, 'Date', 'o.startDate') }}</th>
-                <th>{{ knp_pagination_sortable(services, 'Car model', 'c.model') }}</th>
-                <th>Service</th>
-                <th>{{ knp_pagination_sortable(services, 'Is Done', 'o.id') }}</th>
-            </tr>
-            {% for service in services %}
+        <h1>Car34 - Registred services list</h1>
+        <br />
+        <table class="table table-hover table-bordered">
+            <thead class="thead-light">
                 <tr>
-                    <td>{{ service.startDate|date("Y-m-d") }}</td>
-                    <td>{{ service.model }}</td>
-                    <td><a href="{{ 'showUserServices/' ~ service.id}}">{{ 'Services' }}</a></td>
-                    <td> {% if service.id == true %} Done </a>
-                        {% else %} Not done</a>
-                        {% endif %} </td>
+                    <th>{{ knp_pagination_sortable(services, 'Date', 'o.startDate') }}</th>
+                    <th>{{ knp_pagination_sortable(services, 'Car model', 'c.model') }}</th>
+                    <th>Service</th>
+                    <th>{{ knp_pagination_sortable(services, 'Status', 'o.id') }}</th>
                 </tr>
-            {% endfor %}
+            </thead>
+            <tbody>
+                {% for service in services %}
+                    <tr>
+                        <td>{{ service.startDate|date("Y-m-d") }}</td>
+                        <td>{{ service.model }}</td>
+                        <td><a href="{{ 'showUserServices/' ~ service.id}}">{{ 'Show' }}</a></td>
+                        <td> {% if service.id == true %} Done </a>
+                            {% else %}In progress</a>
+                            {% endif %} </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
         </table>
         <br />
         {{ knp_pagination_render(services, null, {}, {
@@ -32,7 +36,7 @@
         <br />
     {% else %}
         <h1>You don't have permission to do that.</h1>
-        <a href="{{ path('index') }}">{{ 'Back to menu page' }}</a>
+        <a href="{{ path('userRegisteredServices') }}">{{ 'Back to main menu' }}</a><br />
     {% endif %}
 </div>
 {% endblock %}
