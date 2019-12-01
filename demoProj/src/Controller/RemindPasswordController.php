@@ -35,8 +35,7 @@ class RemindPasswordController extends AbstractController
             $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['email' => $user->getEmail()]);
             if ($user)
             {
-                $passwordResetToken = base64_encode(random_bytes(20));
-                $passwordResetToken = str_replace("/","",$passwordResetToken); // because / will make errors with routes
+                $passwordResetToken = $this->getPasswordResetToken();
                 $user->setPasswordResetToken($passwordResetToken);
                 $this->getDoctrine()->getManager()->flush();
 
@@ -71,6 +70,17 @@ class RemindPasswordController extends AbstractController
             'error'=>$error
         ]);
     }
+	
+	public function getPasswordResetToken () {
+		$seed = random_bytes(20);
+		$token = $this->createRemindPasswordTokenFromSeed($seed);
+		return $token;
+	}
+	
+	public function createRemindPasswordTokenFromSeed ($seed) {
+		$passwordResetToken = base64_encode($seed);
+        $passwordResetToken = str_replace("/","",$passwordResetToken); // because / will make errors with routes
+	}
 
     /**
      * @Route("/remindPassword/{token}", name="setNewPassword")
@@ -91,10 +101,7 @@ class RemindPasswordController extends AbstractController
         {
             $em = $this->getDoctrine()->getManager();
             $password = $encoder->encodePassword($user, $newPassword->getPassword());
-            $user->setPassword($password);
-            //"NULL" because it has to be a string; when doing a password reset, we must then
-            // check if token is not "NULL"
-            $user->setPasswordResetToken(NULL);
+            $this->setNewPasswordAfterReminding($user, $password);
             $em->flush();
             return $this->redirectToRoute('login');
         }
@@ -104,6 +111,12 @@ class RemindPasswordController extends AbstractController
             'action' => "set",
         ]);
     }
-
+	
+	public setNewPasswordAfterReminding($user, $password) {
+		$user->setPassword($password);
+        //"NULL" because it has to be a string; when doing a password reset, we must then
+        // check if token is not "NULL"
+        $user->setPasswordResetToken(NULL);
+	}
 
 }
