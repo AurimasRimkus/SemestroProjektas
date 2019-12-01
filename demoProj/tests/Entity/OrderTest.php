@@ -8,7 +8,7 @@ use App\Entity\Order;
 use App\Entity\Profile;
 use App\Entity\Repair;
 use App\Entity\User;
-use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class OrderTest extends TestCase
 {
@@ -48,33 +48,9 @@ class OrderTest extends TestCase
     public function testId(){
         $order = new Order();
         $order->setId("1");
-        $this->assertEquals("5", $order->getId());
+        $this->assertEquals("1", $order->getId());
     }
 
 
-//    public function setUp()
-//    {
-//        $this->em = $this->getMockBuilder('EntityManager', array('persist', 'flush'));
-//        $this->em = $this->em->getMock();
-//        $this->em->get
-//            ->expects($this->any())
-//            ->method('persist')
-//            ->will($this->returnValue(true));
-//        $this->em
-//            ->expects($this->any())
-//            ->method('flush')
-//            ->will($this->returnValue(true));
-//        $this->doctrine = $this->getMock('Doctrine', array('getEntityManager'));
-//        $this->doctrine
-//            ->expects($this->any())
-//            ->method('getEntityManager')
-//            ->will($this->returnValue($this->em));
-//    }
-//
-//    public function tearDown()
-//    {
-//        $this->doctrine = null;
-//        $this->em       = null;
-//    }
 
 }

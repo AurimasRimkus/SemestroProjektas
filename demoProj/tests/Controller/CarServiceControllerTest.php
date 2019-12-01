@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 class CarServiceControllerTest extends TestCase
 {
-    public function testsetRepairDoneTest(){
+    public function testSetRepairDone(){
         $carService = new CarServicesController();
         $repair = new Repair();
         $carService->setRepairDone($repair);

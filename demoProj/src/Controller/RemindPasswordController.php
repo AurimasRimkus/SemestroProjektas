@@ -80,6 +80,7 @@ class RemindPasswordController extends AbstractController
 	public function createRemindPasswordTokenFromSeed ($seed) {
 		$passwordResetToken = base64_encode($seed);
         $passwordResetToken = str_replace("/","",$passwordResetToken); // because / will make errors with routes
+        return $passwordResetToken;
 	}
 
     /**
@@ -112,7 +113,7 @@ class RemindPasswordController extends AbstractController
         ]);
     }
 	
-	public setNewPasswordAfterReminding($user, $password) {
+	public function setNewPasswordAfterReminding($user, $password) {
 		$user->setPassword($password);
         //"NULL" because it has to be a string; when doing a password reset, we must then
         // check if token is not "NULL"
