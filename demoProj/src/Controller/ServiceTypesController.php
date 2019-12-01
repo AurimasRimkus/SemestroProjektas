@@ -126,10 +126,16 @@ class ServiceTypesController extends Controller
         }
 
         $service = $this->getDoctrine()->getRepository(Service::class)->find($id);
-        $service->setIsActive(!$service->getIsActive());
+        $this->changeServiceActiveStatus($service);
         $this->getDoctrine()->getManager()->flush();
         return $this->redirectToRoute('editServiceTypes');
     }
+	
+	public function changeServiceActiveStatus($service) {
+		$currentStatus = $service->getIsActive();
+		$newStatus = !$currentStatus;
+		$service->setIsActive($newStatus);
+	}
 
     /**
      * @Route("/deleteServiceType/{id}", name="deleteServiceType")
