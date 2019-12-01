@@ -88,18 +88,18 @@ class RegisteredCarsController extends Controller
         return $this->redirectToRoute('registeredCars');
     }
 	
-	public function setAllRepairsAsDone($repairs) {
+	public function updateAllRepairStatusToDone($repairs) {
 		foreach ($repairs as $repair)
         {
                 $this->setRepairAsDone($repair);
         }
 	}
 	
-	public function setRepairAsDone($repair) {
+	public function updateRepairToDone($repair) {
 		$repair->setIsDone(true);
 	}
 	
-	public function setOrderAsDone($order) {
+	public function updateRepairAsDone($order) {
 		$order->setIsDone(true);
 	}
 

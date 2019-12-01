@@ -51,11 +51,13 @@ class RegistrationController extends Controller
             $profile = new Profile();
             $profile->setEmail($user->getEmail());
             $profile->setUser($user);
+			
+			$regToken = $this->getRegistrationToken();
 
-            $user->setRegistrationToken($this->getRegistrationToken());
+            $user->setRegistrationToken($regToken);
 
             $send = $this->get('app.email_activation_service');
-            $send->SendActivationEmail($user->getUsername(), $user->getEmail(), $user->getRegistrationToken(), $mailer);
+            $send->SendActivationEmail($user->getUsername(), $user->getEmail(), $regToken, $mailer);
 
             $em->persist($profile);
             $em->persist($user);
@@ -72,7 +74,7 @@ class RegistrationController extends Controller
         ));
     }
 	
-	public function setInfoForNewUser($user) {
+	public function updateInfoForNewUser($user) {
             $user->setRegistrationDate($time);
             $user->setLastLoginTime($time);
 
