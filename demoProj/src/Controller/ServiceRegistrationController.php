@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Order;
+use App\Entity\Profile;
 use App\Entity\Repair;
 use App\Entity\Service;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -46,15 +47,8 @@ class ServiceRegistrationController extends Controller
         if ($form->isSubmitted() && $form->isValid())
         {
             //order's duration in time
-            $orderDuration = 0;
-            //parse ids from checkboxes names
             $ids = array();
-            foreach ($checkedBoxes as $box)
-            {
-                $args = explode(";", $box);
-                array_push($ids, $args[0]);
-                $orderDuration += (int)$args[2];
-            }
+            $orderDuration = parseOrderDuration($ids, $checkedBoxes);
 
             $newOrder = new Order();
 
@@ -67,12 +61,11 @@ class ServiceRegistrationController extends Controller
             if ($car)
             {
                 $newCar = $car;
-                $newOrder->setCar($newCar);
+                $this->updateCarInOrder($newOrder, $newCar);
             }
             else
             {
-                $newCar->setProfile($profile);
-                $newOrder->setCar($newCar);
+                $this->addCarToOrder($newCar, $profile, $newOrder);
                 $em->persist($newCar);
             }
 
@@ -116,6 +109,33 @@ class ServiceRegistrationController extends Controller
     }
 
     /**
+     * @param $ids - array of parsed service ids (pass in array variable)
+     * @param $checkedBoxes - array of strings ("id;cost;duration")
+     * @return int
+     */
+    public function parseOrderDuration(& $ids, $checkedBoxes) {
+        //order's duration in time
+        $orderDuration = 0;
+        foreach ($checkedBoxes as $box)
+        {
+            $args = explode(";", $box);
+            array_push($ids, $args[0]);
+            $orderDuration += (int)$args[2];
+        }
+
+        return $orderDuration;
+    }
+
+    public function addCarToOrder(Car $newCar, Profile $profile, Order $newOrder) {
+        $newCar->setProfile($profile);
+        $newOrder->setCar($newCar);
+    }
+
+    public function updateCarInOrder($newOrder, $newCar) {
+        $newOrder->setCar($newCar);
+    }
+
+    /**
      * @Route("/availableServiceTimes", name="availableServiceTimes")
      */
     public function ajaxAction(Request $request, AuthorizationCheckerInterface $authChecker)
@@ -133,19 +153,7 @@ class ServiceRegistrationController extends Controller
             $time = array (8, 9, 10, 11, 12, 13, 14, 15, 16);
             $orders = $this->getDoctrine()->getRepository(Order::class)->findByDate($date);
 
-            // iterate through orders
-            foreach ($orders as $order)
-            {
-                $startHour = $order->getStartDate()->format("H");
-                $finishHour = $order->getFinishDate()->format("H");
-
-                //remove hours from array what are already taken
-                for ( $i = (int)$startHour; $i < (int)$finishHour; $i++ )
-                {
-                    $key = array_search($i, $time);
-                    unset($time[$key]);
-                }
-            }
+            $this->removeTakeTimes($time, $orders);
 
             $time = $this->findAvailableHours($duration, array_values($time));
 
@@ -156,7 +164,23 @@ class ServiceRegistrationController extends Controller
         return $this->redirectToRoute('index');
     }
 
-    private function findAvailableHours($duration, $hours)
+    public function removeTakeTimes(& $time, $orders) {
+        // iterate through orders
+        foreach ($orders as $order)
+        {
+            $startHour = $order->getStartDate()->format("H");
+            $finishHour = $order->getFinishDate()->format("H");
+
+            //remove hours from array what are already taken
+            for ( $i = (int)$startHour; $i < (int)$finishHour; $i++ )
+            {
+                $key = array_search($i, $time);
+                unset($time[$key]);
+            }
+        }
+    }
+
+    public function findAvailableHours($duration, $hours)
     {
         $availableHours = array();
 
