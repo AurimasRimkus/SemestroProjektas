@@ -49,26 +49,17 @@ class ProfileController extends Controller
             $user = $this->getUser();
             $profile = $user->getProfile();
 
-            $profile->setName($newProfile->getName());
-            $profile->setSecondName($newProfile->getSecondName());
-            $profile->setPhoneNumber($newProfile->getPhoneNumber());
-            $profile->setBirthDate($newProfile->getBirthDate());
+            $this->updateUserProfile($profile, $newProfile);
 
             $mail = $this->getDoctrine()->getRepository(User::class)->findOneBy(['email'=>$newProfile->getEmail()]);
-            if($user->getEmail() != $newProfile->getEmail() && $mail == null)
+            if($this->isSendAllowed($user, $newProfile, $mail))
             {
-                $profile->setEmail($newProfile->getEmail());
-                $user->setEmail($newProfile->getEmail());
-
-                $user->setIsActive(false);
-                $registrationToken = base64_encode(random_bytes(20));
-                $registrationToken = str_replace("/","",$registrationToken); // because / will make errors with routes
-                $user->setRegistrationToken($registrationToken);
+                $this->updateUserEmail($profile, $newProfile, $user);
 
                 $send = $this->get('app.email_activation_service');
                 $send->SendActivationEmail($user->getUsername(), $user->getEmail(), $user->getRegistrationToken(), $mailer);
             }
-            elseif($user->getEmail() != $newProfile->getEmail())
+            elseif($this->isEmailInUse($user, $newProfile))
             {
                 $error = 'Email incorrect or already in use';
                 return $this->render('editProfile.html.twig', [
@@ -90,6 +81,31 @@ class ProfileController extends Controller
         return $this->render('editProfile.html.twig', [
             'form'=>$form->createView(),
         ]);
+    }
+
+    public function updateUserProfile(Profile $profile, Profile $newProfile) {
+        $profile->setName($newProfile->getName());
+        $profile->setSecondName($newProfile->getSecondName());
+        $profile->setPhoneNumber($newProfile->getPhoneNumber());
+        $profile->setBirthDate($newProfile->getBirthDate());
+    }
+
+    public function updateUserEmail(Profile $profile, Profile $newProfile, User $user) {
+        $profile->setEmail($newProfile->getEmail());
+        $user->setEmail($newProfile->getEmail());
+
+        $user->setIsActive(false);
+        $registrationToken = base64_encode(random_bytes(20));
+        $registrationToken = str_replace("/","",$registrationToken); // because / will make errors with routes
+        $user->setRegistrationToken($registrationToken);
+    }
+
+    public function isSendAllowed(User $user, Profile $newProfile, $mail) {
+        $user->getEmail() != $newProfile->getEmail() && $mail == null;
+    }
+
+    public function isEmailInUse(User $user, Profile $newProfile) {
+        return $user->getEmail() != $newProfile->getEmail();
     }
 
     /**
@@ -114,7 +130,7 @@ class ProfileController extends Controller
             $profile = $user->getProfile();
 
             $em = $this->getDoctrine()->getManager();
-            $newCar->setProfile($profile);
+            $this->updateCarProfile($newCar, $profile);
             $em->persist($profile);
             $em->persist($newCar);
             $em->flush();
@@ -139,6 +155,10 @@ class ProfileController extends Controller
             'form'=>$form->createView(),
             'action'=>"Add"
         ]);
+    }
+
+    public function updateCarProfile(Car $newCar, Profile $profile) {
+        $newCar->setProfile($profile);
     }
 
     /**
