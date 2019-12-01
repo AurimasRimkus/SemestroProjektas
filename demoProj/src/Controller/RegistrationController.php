@@ -46,21 +46,13 @@ class RegistrationController extends Controller
             $user->setPassword($password);
 
             $time = new \DateTime();
-            $user->setRegistrationDate($time);
-            $user->setLastLoginTime($time);
-
-            $user->setIsActive(false);
-            $user->setIsDeleted(false);
-
-            $user->setRole(1);
+            $this->setInfoForNewUser($user);
 
             $profile = new Profile();
             $profile->setEmail($user->getEmail());
             $profile->setUser($user);
 
-            $registrationToken = base64_encode(random_bytes(20));
-            $registrationToken = str_replace("/","",$registrationToken); // because / will make errors with routes
-            $user->setRegistrationToken($registrationToken);
+            $user->setRegistrationToken($this->getRegistrationToken());
 
             $send = $this->get('app.email_activation_service');
             $send->SendActivationEmail($user->getUsername(), $user->getEmail(), $user->getRegistrationToken(), $mailer);
@@ -79,6 +71,27 @@ class RegistrationController extends Controller
            'form'=>$form->createView(),
         ));
     }
+	
+	public function setInfoForNewUser($user) {
+            $user->setRegistrationDate($time);
+            $user->setLastLoginTime($time);
+
+            $user->setIsActive(false);
+            $user->setIsDeleted(false);
+			
+            $user->setRole(1);
+	}
+	
+	public function getRegistrationToken() {
+		$seed = random_bytes(20);
+		return $this->createRegistrationTokenFromSeed($seed);
+	}
+	
+	public function createRegistrationTokenFromSeed ($seed) {
+		$registrationToken = base64_encode($seed);
+        $registrationToken = str_replace("/","",$registrationToken); // because / will make errors with routes
+		return $registrationToken;
+	}
 
     /**
      * @Route("/activate/{token}", name="activateAccount")
@@ -91,11 +104,15 @@ class RegistrationController extends Controller
             return $this->redirectToRoute('index');
         }
         $em = $this->getDoctrine()->getManager();
-        $user->setIsActive(true);
-        $user->setRegistrationToken(null);
+        $this->makeUserActivated($user);
         $em->flush();
         return $this->redirectToRoute('login');
     }
+	
+	public function makeUserActivated ($user) {
+		$user->setIsActive(true);
+        $user->setRegistrationToken(null);
+	}
 
     /**
      * @Route("/resend/", name="resendActivationMail")
