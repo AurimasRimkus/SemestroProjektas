@@ -35,11 +35,11 @@ class ChangePasswordController extends Controller
         if($form->isSubmitted() && $form->isValid())
         {
             $em = $this->getDoctrine()->getManager();
-            if($encoder->isPasswordValid($user, $newPassword->getPassword()))
+            if($this->isPasswordValid($encoder, $user, $newPassword))
             {
                 //The old password which user used is correct.
                 //So we can change the password in user object
-                $user->setPassword($encoder->encodePassword($user, $newPassword->getNewPassword()));
+                $this->setUserEncodedPassword($encoder, $user, $newPassword);
 
                 $em->persist($user);
                 $em->flush();
@@ -56,6 +56,14 @@ class ChangePasswordController extends Controller
             'error' => $error,
             'form'=>$form->createView(),
         ));
+    }
+
+    public function isPasswordValid(UserPasswordEncoderInterface $encoder, User $user, User $userWithNewPassword) {
+        return $encoder->isPasswordValid($user, $userWithNewPassword->getPassword());
+    }
+
+    public function setUserEncodedPassword(UserPasswordEncoderInterface $encoder, User $user, User $userWithNewPassword) {
+        $user->setPassword($encoder->encodePassword($user, $userWithNewPassword->getNewPassword()));
     }
 
     public function show()
