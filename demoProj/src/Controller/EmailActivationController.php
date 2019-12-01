@@ -15,6 +15,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+/**
+ * Class EmailActivationController
+ * @package App\Controller
+ * @codeCoverageIgnore
+ */
 class EmailActivationController extends AbstractController
 {
     public function SendActivationEmail($name, $email, $token, \Swift_Mailer $mailer)

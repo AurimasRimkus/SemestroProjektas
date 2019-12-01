@@ -14,6 +14,11 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+/**
+ * Class ChangePasswordController
+ * @package App\Controller
+ * @codeCoverageIgnore
+ */
 class ChangePasswordController extends Controller
 {
     /**

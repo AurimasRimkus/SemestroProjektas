@@ -14,6 +14,7 @@ class ClientListReviewController extends Controller
 {
     /**
      * @Route("/clientListReview", name="clientListReview")
+     * @codeCoverageIgnore
      */
     public function showAllClients(AuthorizationCheckerInterface $authChecker, Request $request)
     {
@@ -43,6 +44,7 @@ class ClientListReviewController extends Controller
 
     /**
      * @Route("/changeIsActive/{id}", name="changeIsActiveUserType")
+     * @codeCoverageIgnore
      */
     public function changeIsActive($id, AuthorizationCheckerInterface $authChecker)
     {
@@ -68,6 +70,7 @@ class ClientListReviewController extends Controller
 
     /**
      * @Route("/deleteUser/{id}", name="deleteUser")
+     * @codeCoverageIgnore
      */
     public function deleteUser($id, AuthorizationCheckerInterface $authChecker)
     {
@@ -91,6 +94,7 @@ class ClientListReviewController extends Controller
 	
     /**
      * @Route("/changeRole/{id}/{role}", name="changeRole")
+     * @codeCoverageIgnore
      */
     public function setRole($id, $role, AuthorizationCheckerInterface $authChecker){
         if (!$authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {

@@ -13,6 +13,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
+/**
+ * Class UserRegisteredServicesControler
+ * @package App\Controller
+ * @codeCoverageIgnore
+ */
 class UserRegisteredServicesControler extends Controller
 {
 

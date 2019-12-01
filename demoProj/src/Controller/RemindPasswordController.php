@@ -20,6 +20,7 @@ class RemindPasswordController extends AbstractController
 
     /**
      * @Route("/remindPassword", name="remindPassword")
+     * @codeCoverageIgnore
      */
     public function remindPassword(Request $request, \Swift_Mailer $mailer, AuthorizationCheckerInterface $authChecker)
     {
@@ -85,6 +86,7 @@ class RemindPasswordController extends AbstractController
 
     /**
      * @Route("/remindPassword/{token}", name="setNewPassword")
+     * @codeCoverageIgnore
      */
     public function setNewPassword(Request $request, $token, UserPasswordEncoderInterface $encoder)
     {

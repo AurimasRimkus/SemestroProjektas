@@ -15,6 +15,7 @@ class CarServicesController extends AbstractController
 
     /**
      * @Route("/changeIsDone/{id}", name="changeIsDone")
+     * @codeCoverageIgnore
      */
     public function changeIsDone($id, AuthorizationCheckerInterface $authChecker)
     {

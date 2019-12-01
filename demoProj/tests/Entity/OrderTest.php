@@ -28,7 +28,7 @@ class OrderTest extends TestCase
 		$this->assertContains($repair , $order->getRepairs());
 	}
 	
-	public function testRepairs() {
+	public function testProfile() {
 		$order = new Order();
 		$profile = new Profile();
 		$order->setProfile($profile);
