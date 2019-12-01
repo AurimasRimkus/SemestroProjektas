@@ -9,6 +9,11 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Entity\User;
 
+/**
+ * Class LoginController
+ * @package App\Controller
+ * @codeCoverageIgnore
+ */
 class LoginController extends Controller
 {
     /**
