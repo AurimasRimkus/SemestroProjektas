@@ -55,10 +55,16 @@ class ClientListReviewController extends Controller
         }
 
         $user = $this->getDoctrine()->getRepository(User::class)->find($id);
-        $user->setIsActive(!$user->getIsActive());
+		$this->changeUserActiveStatus($user);
         $this->getDoctrine()->getManager()->flush();
         return $this->redirectToRoute('clientListReview');
     }
+	
+	public function changeUserActiveStatus($user) {
+		$currentActiveStatus = $user->getIsActive();
+		$newActiveStatus = !$currentActiveStatus;
+		$user->setIsActive($newActiveStatus);
+	}
 
     /**
      * @Route("/deleteUser/{id}", name="deleteUser")
@@ -74,10 +80,15 @@ class ClientListReviewController extends Controller
         }
 
         $user = $this->getDoctrine()->getRepository(User::class)->find($id);
-        $user->setIsDeleted(true);
+		$this->setUserDeleted($user);
         $this->getDoctrine()->getManager()->flush();
         return $this->redirectToRoute('clientListReview');
     }
+	
+	public function setUserDeleted ($user) {
+		$user->setIsDeleted(true);
+	}
+	
     /**
      * @Route("/changeRole/{id}/{role}", name="changeRole")
      */

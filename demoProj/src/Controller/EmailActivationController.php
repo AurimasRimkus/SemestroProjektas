@@ -19,7 +19,12 @@ class EmailActivationController extends AbstractController
 {
     public function SendActivationEmail($name, $email, $token, \Swift_Mailer $mailer)
     {
-        $message = (new \Swift_Message('Account activation - Car34'))
+        $message = $this->generateActivationEmail($name, $email, $token);
+        $mailer->send($message);
+    }
+	
+	public function generateActivationEmail($name, $email, $token) {
+		$message = (new \Swift_Message('Account activation - Car34'))
             ->setFrom('car34project@gmail.com')
             ->setTo($email)
             ->setBody(
@@ -32,13 +37,18 @@ class EmailActivationController extends AbstractController
                 ),
                 'text/html'
             );
-
-        $mailer->send($message);
-    }
+			
+		return $message;
+	}
 
     public function SendAllServiceDoneEmail($name, $email, $carModel, \Swift_Mailer $mailer)
     {
-        $message = (new \Swift_Message('Car completion - Car34'))
+        $message = $this->GenerateAllServiceDoneEmail($name, $carModel, $email);
+        $mailer->send($message);
+    }
+	
+	public function GenerateAllServiceDoneEmail($name, $carModel, $email) {
+		$message = (new \Swift_Message('Car completion - Car34'))
             ->setFrom('car34project@gmail.com')
             ->setTo($email)
             ->setBody(
@@ -51,7 +61,7 @@ class EmailActivationController extends AbstractController
                 ),
                 'text/html'
             );
-
-        $mailer->send($message);
-    }
+			
+		return $message;
+	}
 }
