@@ -46,7 +46,6 @@ class RegistrationController extends Controller
             $password = $encoder->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
 
-            $time = new \DateTime();
             $this->setInfoForNewUser($user);
 
             $profile = new Profile();
@@ -76,6 +75,7 @@ class RegistrationController extends Controller
     }
 	
 	public function updateInfoForNewUser($user) {
+			$time = new \DateTime();
             $user->setRegistrationDate($time);
             $user->setLastLoginTime($time);
 
