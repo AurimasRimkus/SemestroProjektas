@@ -77,7 +77,7 @@ class RegisteredCarsController extends Controller
 
         $order = $this->getDoctrine()->getRepository(Order::class)->find($id);
         $repairs = $order->getRepairs();
-        $this->setOrderAsDone($order);
+        $this->updateOrderAsDone($order);
 
         $this->setAllRepairsAsDone($repairs);
 
@@ -91,18 +91,18 @@ class RegisteredCarsController extends Controller
         return $this->redirectToRoute('registeredCars');
     }
 	
-	public function updateAllRepairStatusToDone($repairs) {
+	public function setAllRepairsAsDone($repairs) {
 		foreach ($repairs as $repair)
         {
-                $this->setRepairAsDone($repair);
+                $this->updateRepairToDone($repair);
         }
 	}
 	
-	public function updateRepairToDone($repair) {
+	private function updateRepairToDone($repair) {
 		$repair->setIsDone(true);
 	}
 	
-	public function updateRepairAsDone($order) {
+	public function updateOrderAsDone($order) {
 		$order->setIsDone(true);
 	}
 
