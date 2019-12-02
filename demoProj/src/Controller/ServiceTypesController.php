@@ -14,6 +14,7 @@ class ServiceTypesController extends Controller
 {
     /**
      * @Route("/editServiceTypes", name="editServiceTypes")
+     * @codeCoverageIgnore
      */
     public function showAllServices(AuthorizationCheckerInterface $authChecker, Request $request)
     {
@@ -41,6 +42,7 @@ class ServiceTypesController extends Controller
 
     /**
      * @Route("/changeServiceType/{id}", name="changeServiceType")
+     * @codeCoverageIgnore
      */
     public function changeServiceType(Request $request, $id, AuthorizationCheckerInterface $authChecker)
     {
@@ -80,6 +82,7 @@ class ServiceTypesController extends Controller
 
     /**
      * @Route("/addServiceType", name="addServiceType")
+     * @codeCoverageIgnore
      */
     public function addServiceType(Request $request, AuthorizationCheckerInterface $authChecker)
     {
@@ -118,6 +121,7 @@ class ServiceTypesController extends Controller
 
     /**
      * @Route("/changeIsActiveServiceType/{id}", name="changeIsActiveServiceType")
+     * @codeCoverageIgnore
      */
     public function changeIsActive($id, AuthorizationCheckerInterface $authChecker)
     {
@@ -139,6 +143,7 @@ class ServiceTypesController extends Controller
 
     /**
      * @Route("/deleteServiceType/{id}", name="deleteServiceType")
+     * @codeCoverageIgnore
      */
     public function deleteServiceType($id, AuthorizationCheckerInterface $authChecker)
     {

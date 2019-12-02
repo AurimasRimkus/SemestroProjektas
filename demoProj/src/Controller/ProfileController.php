@@ -18,6 +18,7 @@ class ProfileController extends Controller
 {
     /**
      * @Route("/profile", name="profile")
+     * @codeCoverageIgnore
      */
     public function Profile(AuthorizationCheckerInterface $authChecker)
     {
@@ -32,6 +33,7 @@ class ProfileController extends Controller
 
     /**
      * @Route("/editProfile", name="editProfile")
+     * @codeCoverageIgnore
      */
     public function editProfile(Request $request, AuthorizationCheckerInterface $authChecker, \Swift_Mailer $mailer)
     {
@@ -110,6 +112,7 @@ class ProfileController extends Controller
 
     /**
      * @Route("/addCar", name="addCar")
+     * @codeCoverageIgnore
      */
     public function AddCar(Request $request, AuthorizationCheckerInterface $authChecker)
     {
@@ -163,6 +166,7 @@ class ProfileController extends Controller
 
     /**
      * @Route("/editCar/{id}", name="editCar")
+     * @codeCoverageIgnore
      */
     public function editCar(Request $request, $id, AuthorizationCheckerInterface $authChecker)
     {
@@ -192,6 +196,7 @@ class ProfileController extends Controller
 
     /**
      * @Route("/deleteCar/{id}", name="deleteCar")
+     * @codeCoverageIgnore
      */
     public function deleteCar($id, AuthorizationCheckerInterface $authChecker)
     {

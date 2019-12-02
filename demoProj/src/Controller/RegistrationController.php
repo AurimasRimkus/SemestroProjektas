@@ -25,6 +25,7 @@ class RegistrationController extends Controller
      * @param UserPasswordEncoderInterface $encoder
      * @param AuthorizationCheckerInterface $authChecker
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @codeCoverageIgnore
      */
     public function register(Request $request, UserPasswordEncoderInterface $encoder, AuthorizationCheckerInterface $authChecker, \Swift_Mailer $mailer)
     {
@@ -97,6 +98,7 @@ class RegistrationController extends Controller
 
     /**
      * @Route("/activate/{token}", name="activateAccount")
+     * @codeCoverageIgnore
      */
     public function Activate(Request $request, $token)
     {
@@ -118,6 +120,7 @@ class RegistrationController extends Controller
 
     /**
      * @Route("/resend/", name="resendActivationMail")
+     * @codeCoverageIgnore
      */
     public function resendActivationMail(\Swift_Mailer $mailer){
         $user = $this->getUser();

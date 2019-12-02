@@ -18,6 +18,7 @@ class RegisteredCarsController extends Controller
 
     /**
      * @Route("/registeredCars", name="registeredCars")
+     * @codeCoverageIgnore
      */
     public function showAllServices(AuthorizationCheckerInterface $authChecker, Request $request)
     {
@@ -48,6 +49,7 @@ class RegisteredCarsController extends Controller
 
     /**
      * @Route("/showServices/{id}", name="showServices")
+     * @codeCoverageIgnore
      */
     public function showServices($id, AuthorizationCheckerInterface $authChecker)
     {
@@ -62,10 +64,11 @@ class RegisteredCarsController extends Controller
             'repairs'=>$repairs,
         ));
     }
+
     /**
      * @Route("/changeIsDoneOrder/{id}", name="changeIsDoneOrder")
+     * @codeCoverageIgnore
      */
-
     public function changeIsDoneOrder(Request $request, $id, \Swift_Mailer $mailer, AuthorizationCheckerInterface $authChecker)
     {
         if (!$authChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
