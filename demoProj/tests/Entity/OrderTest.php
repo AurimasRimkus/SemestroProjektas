@@ -12,8 +12,6 @@ use PHPUnit\Framework\TestCase;
 
 class OrderTest extends TestCase
 {
-//    private $em;
-//    private $doctrine;
 
     public function testId(){
         $order = new Order();

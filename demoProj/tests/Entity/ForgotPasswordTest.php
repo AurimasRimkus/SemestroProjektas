@@ -5,7 +5,7 @@ namespace App\Tests\Entity;
 use App\Entity\ForgotPassword;
 use Symfony\Bundle\FrameworkBundle\Tests\TestCase;
 
-class UserTest extends TestCase
+class ForgotPasswordTest extends TestCase
 {
 	public function testEmail() {
 		$forgotPassword = new ForgotPassword();

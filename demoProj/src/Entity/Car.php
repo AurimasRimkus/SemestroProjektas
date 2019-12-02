@@ -87,7 +87,7 @@ class Car
         return $this->model;
     }
 
-    public function setModel(string $model): self
+    public function setModel($model): self
     {
         $this->model = $model;
 
@@ -99,7 +99,7 @@ class Car
         return $this->engineType;
     }
 
-    public function setEngineType(string $engineType): self
+    public function setEngineType($engineType): self
     {
         $this->engineType = $engineType;
 
@@ -123,7 +123,7 @@ class Car
         return $this->power;
     }
 
-    public function setPower(?int $power): self
+    public function setPower($power): self
     {
         $this->power = $power;
 
