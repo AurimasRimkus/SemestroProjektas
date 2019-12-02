@@ -58,6 +58,13 @@ class Service
         return $this->id;
     }
 
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     public function getName()
     {
         return $this->name;
