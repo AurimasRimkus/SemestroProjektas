@@ -16,7 +16,7 @@ use PHPUnit\Framework\TestCase;
 
 class ProfileControllerTest extends TestCase
 {
-    public function testUpdadteUserProfile(){
+    public function testUpdateUserProfile(){
         $controller = new ProfileController();
         $profile = new Profile();
         $newProfile = new Profile();
