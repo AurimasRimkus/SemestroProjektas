@@ -103,7 +103,7 @@ class ProfileController extends Controller
     }
 
     public function isSendAllowed(User $user, Profile $newProfile, $mail) {
-        $user->getEmail() != $newProfile->getEmail() && $mail == null;
+        return ($user->getEmail() != $newProfile->getEmail() && $mail == null);
     }
 
     public function isEmailInUse(User $user, Profile $newProfile) {

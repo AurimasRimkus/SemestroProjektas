@@ -18,6 +18,7 @@ class ServiceRegistrationController extends Controller
 {
     /**
      * @Route("/serviceRegistration", name="serviceRegistration")
+     * @codeCoverageIgnore
      */
     public function serviceRegistration(Request $request, AuthorizationCheckerInterface $authorizationChecker)
     {
@@ -112,6 +113,7 @@ class ServiceRegistrationController extends Controller
      * @param $ids - array of parsed service ids (pass in array variable)
      * @param $checkedBoxes - array of strings ("id;cost;duration")
      * @return int
+     * @codeCoverageIgnore
      */
     public function parseOrderDuration(& $ids, $checkedBoxes) {
         //order's duration in time
@@ -137,6 +139,7 @@ class ServiceRegistrationController extends Controller
 
     /**
      * @Route("/availableServiceTimes", name="availableServiceTimes")
+     * @codeCoverageIgnore
      */
     public function ajaxAction(Request $request, AuthorizationCheckerInterface $authChecker)
     {
@@ -153,7 +156,7 @@ class ServiceRegistrationController extends Controller
             $time = array (8, 9, 10, 11, 12, 13, 14, 15, 16);
             $orders = $this->getDoctrine()->getRepository(Order::class)->findByDate($date);
 
-            $this->removeTakeTimes($time, $orders);
+            $time = $this->removeTakeTimes($time, $orders);
 
             $time = $this->findAvailableHours($duration, array_values($time));
 
@@ -163,6 +166,7 @@ class ServiceRegistrationController extends Controller
 
         return $this->redirectToRoute('index');
     }
+
 
     public function removeTakeTimes(& $time, $orders) {
         // iterate through orders
@@ -178,6 +182,7 @@ class ServiceRegistrationController extends Controller
                 unset($time[$key]);
             }
         }
+        return $time;
     }
 
     public function findAvailableHours($duration, $hours)
