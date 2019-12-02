@@ -9,6 +9,12 @@ use PHPUnit\Framework\TestCase;
 
 class RepairTest extends TestCase
 {
+    public function testId(){
+        $repair = new Repair();
+        $repair->setId("1");
+        $this->assertEquals("1", $repair->getId());
+    }
+
     public function testName(){
         $repair = new Repair();
         $repair->setName("Varyklio valymas");
@@ -38,7 +44,7 @@ class RepairTest extends TestCase
     public function testOrder() {
         $repair = new Repair();
         $order = new Order();
-        $repair->setCost($order);
+        $repair->setOrder($order);
         $this->assertEquals($order, $repair->getOrder());
     }
 }

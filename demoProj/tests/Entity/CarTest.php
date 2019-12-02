@@ -12,13 +12,6 @@ use PHPUnit\Framework\TestCase;
 
 class CarTest extends TestCase
 {
-
-    public function testId(){
-        $car = new Car();
-        $car->setId("1");
-        $this->assertEquals("1", $car->getId());
-    }
-
     public function testNumberPlate() {
         $car = new Car();
         $car->setNumberPlate('WANT3D');
@@ -39,7 +32,7 @@ class CarTest extends TestCase
 
     public function testTransmission() {
         $car = new Car();
-        $car->setEngineType('Manual');
+        $car->setTransmission('Manual');
         $this->assertEquals('Manual', $car->getTransmission());
     }
 
@@ -52,7 +45,7 @@ class CarTest extends TestCase
     public function testProfile() {
         $car = new Car();
         $profile = new Profile();
-        $car->setPower($profile);
+        $car->setProfile($profile);
         $this->assertEquals($profile, $car->getProfile());
     }
 

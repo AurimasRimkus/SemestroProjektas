@@ -47,7 +47,7 @@ class ProfileTest extends TestCase
 	
 	public function testBirthDate(){
         $profile = new Profile();
-        $profile->setBirthDate(new \DateTime('2011-10-10');
+        $profile->setBirthDate(new \DateTime('2011-10-10'));
         $this->assertEquals(new \DateTime('2011-10-10'), $profile->getBirthDate());
     }
 	
